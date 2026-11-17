@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Triadic GDN, Triadic KDA and n-way states are all structured KDA | Chen Cheng</title>
+    <meta name="description"
+        content="GDN to Triadic GDN to Triadic KDA to n-way states, and why each one is KDA with a Kronecker-structured key, query and gate.">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha512-MoRNloxbStBcD8z3M/2BmnT+rg4IsMxPkXaGh2zD6LGNNFE80W3onsAhRcMAMrSoyWL9xD7Ert0men7vR8LUZg=="
+        crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>">
+    <style>
+        body { font-family: Roboto, sans-serif; font-weight: 300; color: #222; background: #fff; }
+        .post { max-width: 820px; margin: 0 auto; padding: 96px 16px 64px; }
+        .post h1 { font-weight: 500; font-size: 2rem; line-height: 1.3; }
+        .post h2 { font-weight: 500; font-size: 1.4rem; margin-top: 2.2rem; }
+        .post p, .post li { font-size: 1.05rem; line-height: 1.75; }
+        .meta { color: #777; margin-bottom: 2rem; }
+        .navbar-brand { font-weight: 500; }
+        table { margin: 1rem 0 1.5rem; }
+        td, th { padding: .45rem .8rem !important; vertical-align: middle !important; }
+        .note { color: #555; font-size: .95rem; }
+        mjx-container[display="true"] { overflow-x: auto; overflow-y: hidden; }
+        @media (prefers-color-scheme: dark) {
+            body { background: #1c1c1e; color: #ddd; }
+            .navbar { background: #1c1c1e !important; }
+            .navbar a { color: #ddd !important; }
+            .table { color: #ddd; }
+            .meta, .note { color: #aaa; }
+            a { color: #6cb4ff; }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-light navbar-expand-sm fixed-top bg-white border-bottom">
+        <div class="container">
+            <a class="navbar-brand" href="/">Chen Cheng</a>
+            <ul class="navbar-nav ml-auto flex-row">
+                <li class="nav-item mx-2"><a class="nav-link" href="/">about</a></li>
+                <li class="nav-item mx-2"><a class="nav-link" href="/blog/">blog</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="post">
+        <h1>Triadic GDN, Triadic KDA and n-way states are all structured KDA</h1>
+        <p class="meta">November 17, 2026</p>
+
+        <p>
+            <a href="https://arxiv.org/abs/2609.36529">Triadic Linear Attention</a> (Sieberling et al., 2026) gives
+            each Gated DeltaNet head a third-order state. Since then the idea has been pushed in two directions:
+            a decay per key channel (Triadic KDA) and more key factors (an n-way state). This post walks through
+            GDN &rarr; Triadic GDN &rarr; Triadic KDA &rarr; n-way, and shows that every step is still KDA, with a
+            Kronecker-structured key, query and gate. The same structure is why the kernels stay cheap.
+        </p>
+
+        <h2>The common form</h2>
+        <p>
+            A delta-rule layer with a diagonal decay keeps a state \(S \in \mathbb{R}^{d_k \times d_v}\) per head.
+            Each step decays the state, does one delta update with a unit-norm key, then reads it with the query:
+        </p>
+        \[
+        \begin{aligned}
+        \bar S &= \mathrm{Diag}(\alpha_t)\, S_{t-1}, \\
+        S_t &= \bar S + \beta_t\, k_t \big(v_t - \bar S^\top k_t\big)^\top, \\
+        o_t &= S_t^\top q_t .
+        \end{aligned}
+        \]
+        <p>
+            Here \(\beta_t \in (0, 1)\) is the write strength and \(\alpha_t \in (0, 1]^{d_k}\) is the decay.
+            <a href="https://arxiv.org/abs/2412.06464">Gated DeltaNet</a> (GDN) uses one scalar per head,
+            \(\alpha_t = a_t \mathbf{1}\). Kimi Delta Attention (KDA) gives every key channel its own decay, so
+            \(\alpha_t\) is a free vector. Everything below is this update with some structure on \(k\), \(q\) and
+            \(\alpha\).
+        </p>
+
+        <h2>GDN to Triadic GDN</h2>
+        <p>
+            Triadic GDN adds a small second key \(k^{(2)}_t \in \mathbb{R}^{E}\) and a second query
+            \(q^{(2)}_t\). Each head now keeps \(E\) slices \(S_e \in \mathbb{R}^{K \times V}\), and slice \(e\)
+            decays by its own scalar \(e^{g_{t,e}}\). Writes use the joint key
+            \(\kappa_t = k^{(2)}_t \otimes k_t \in \mathbb{R}^{EK}\) and reads use
+            \(\rho_t = q^{(2)}_t \otimes q_t\):
+        </p>
+        \[
+        \begin{aligned}
+        \bar S_e &= e^{g_{t,e}} S_e, \\
+        \delta_t &= \beta_t \Big(v_t - \sum_e k^{(2)}_{t,e}\, \bar S_e^\top k_t\Big), \\
+        S_e &= \bar S_e + k^{(2)}_{t,e}\, k_t\, \delta_t^\top, \\
+        o_t &= \sum_e q^{(2)}_{t,e}\, S_e^\top q_t .
+        \end{aligned}
+        \]
+        <p>
+            Stack the slices into one \([EK, V]\) matrix. The residual becomes \(v_t - \bar S^\top \kappa_t\), the
+            write becomes \(\kappa_t \delta_t^\top\), and the readout is \(S^\top \rho_t\). That is exactly the
+            update above with key \(\kappa_t\), query \(\rho_t\) and decay
+            \(\alpha_t = e^{g_t} \otimes \mathbf{1}_K\). So Triadic GDN is KDA on an \(EK\)-dim key whose decay is
+            constant within each slice. With \(E = 1\) and \(k^{(2)} = q^{(2)} = 1\) it is plain GDN.
+        </p>
+        <p>
+            The paper reports better recall and long-context language modeling than GDN at 400M and 1.3B, for about
+            15% (\(E = 4\)) to 30% (\(E = 8\)) more training time. I added it to
+            <a href="https://github.com/fla-org/flash-linear-attention">flash-linear-attention</a> (FLA) as
+            <code>fla/ops/triadic_gdn</code>: references in
+            <a href="https://github.com/fla-org/flash-linear-attention/pull/1406">#1406</a> and Triton chunk
+            kernels in <a href="https://github.com/fla-org/flash-linear-attention/pull/1625">#1625</a>.
+        </p>
+
+        <h2>Triadic GDN to Triadic KDA</h2>
+        <p>
+            Going from GDN to KDA means giving every key channel its own decay. Doing the same thing on top of
+            Triadic GDN gives Triadic KDA: slice \(e\), channel \(c\) decays by \(e^{g^{(2)}_{t,e} + g^{k}_{t,c}}\), so
+        </p>
+        \[
+        \alpha_t = e^{g^{(2)}_t} \otimes e^{g^{k}_t} .
+        \]
+        <p>
+            GouBuliya proposed it in
+            <a href="https://github.com/fla-org/flash-linear-attention/issues/1730">FLA #1730</a>, with the
+            derivation in <a href="https://goubuliya.github.io/blog/triadic-linear-attention%E5%86%8D%E6%8E%A8%E5%B9%BF/">his post</a>.
+            Setting \(g^{k} = 0\) gives back Triadic GDN, and \(E = 1\), \(k^{(2)} = q^{(2)} = 1\), \(g^{(2)} = 0\)
+            gives back KDA. In a 100M comparison at \(E = 4\) he reported Triadic KDA ahead of Triadic GDN
+            (validation NLL 2.9990 vs 3.0059, LAMBADA 18.3% vs 15.5%). The references are merged in FLA
+            (<a href="https://github.com/fla-org/flash-linear-attention/pull/1746">#1746</a>) and the chunk kernels
+            are in review (<a href="https://github.com/fla-org/flash-linear-attention/pull/1751">#1751</a>).
+        </p>
+
+        <h2>More key factors: the n-way state</h2>
+        <p>
+            Section 1 of the paper notes that the same lift gives an n-way tensor state, but only builds the
+            third-order one. With \(m\) second keys \(k_1, \dots, k_m\) of sizes \(E_1, \dots, E_m\), the joint key
+            is \(\kappa_t = k_{1,t} \otimes \cdots \otimes k_{m,t} \otimes k_t\), the state per head is
+            \([E_1, \dots, E_m, K, V]\), and each factor axis has its own log decay:
+        </p>
+        \[
+        \alpha_t = e^{g_{1,t}} \otimes \cdots \otimes e^{g_{m,t}} \otimes e^{g^{k}_t} .
+        \]
+        <p>
+            Dropping the last factor (\(g^k = 0\)) gives the n-way version of Triadic GDN. This needs no new kernel.
+            \(k^{(2)} = \mathrm{vec}(k_1 \otimes \cdots \otimes k_m)\) is a valid second key with
+            \(E = E_1 \cdots E_m\), the query is built the same way, and the slice decay is the sum of the per-axis
+            decays over the grid. So the existing triadic kernels run it as is, and the final state is a view of
+            the usual \([N, H, E, K, V]\) tensor. The proposal for both ops is
+            <a href="https://github.com/fla-org/flash-linear-attention/issues/1761">FLA #1761</a>.
+        </p>
+
+        <h2>So they are all KDA</h2>
+        <p>Every model in the chain is the same update. Only the key size and the structure differ:</p>
+        <div class="table-responsive">
+            <table class="table table-sm">
+                <thead>
+                    <tr><th>model</th><th>key dim</th><th>key \(k\)</th><th>decay \(\alpha\)</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>GDN</td><td>\(K\)</td><td>\(k\)</td><td>\(a\,\mathbf{1}_K\)</td></tr>
+                    <tr><td>KDA</td><td>\(K\)</td><td>\(k\)</td><td>free \(\alpha\)</td></tr>
+                    <tr><td>Triadic GDN</td><td>\(EK\)</td><td>\(k^{(2)} \otimes k\)</td><td>\(e^{g} \otimes \mathbf{1}_K\)</td></tr>
+                    <tr><td>Triadic KDA</td><td>\(EK\)</td><td>\(k^{(2)} \otimes k\)</td><td>\(e^{g^{(2)}} \otimes e^{g^k}\)</td></tr>
+                    <tr><td>n-way GDN</td><td>\(E_1 \cdots E_m K\)</td><td>\(k_1 \otimes \cdots \otimes k_m \otimes k\)</td><td>\(e^{g_1} \otimes \cdots \otimes e^{g_m} \otimes \mathbf{1}_K\)</td></tr>
+                    <tr><td>n-way KDA</td><td>\(E_1 \cdots E_m K\)</td><td>\(k_1 \otimes \cdots \otimes k_m \otimes k\)</td><td>\(e^{g_1} \otimes \cdots \otimes e^{g_m} \otimes e^{g^k}\)</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <p>
+            The query has the same structure as the key in each row. Each factor is unit norm, so the joint key is
+            too. FLA's tests use this directly: the Triadic GDN references are checked against a KDA recurrence over
+            the joint key.
+        </p>
+        <p>Three things this view does and doesn't say.</p>
+        <ul>
+            <li>
+                It is about the recurrence, not the layer. A KDA layer makes its key with a linear map from the
+                hidden state, and at key dim \(EK\) that map costs \(EK \cdot d\) per head. A linear map plus an L2
+                norm also can't force the key to be a Kronecker product. The triadic layer gets an \(EK\)-dim key from
+                projections of size \(K + E\). That structure is what makes a large state cheap.
+            </li>
+            <li>
+                A KDA kernel can run Triadic GDN on the flattened key, which is how the references are checked. It
+                is not the fast path: FLA's chunk KDA kernel stops at key dim 256 (\(EK = 512\) already at
+                \(E = 4\), \(K = 128\)), and its intra-chunk work grows with the key dim.
+            </li>
+            <li>
+                The structure also restricts the model. At the same state size, an n-way key is a product of
+                factors and so a special case of the triadic key, and its decay is separable. What it changes is the
+                cost: the second key, query and gate projections grow with \(E_1 + \dots + E_m\) instead of
+                \(E_1 \cdots E_m\). Whether that trade helps is an empirical question.
+            </li>
+        </ul>
+
+        <h2>Why the kernels stay cheap</h2>
+        <p>
+            Within a chunk, with cumulative log decays \(G\), the decayed product of two joint keys at positions
+            \(j \le i\) splits over the axes, because both the key and the decay do:
+        </p>
+        \[
+        \begin{aligned}
+        &\sum_{e,c} \kappa_{i,ec}\, \kappa_{j,ec}\, e^{G_{i,ec} - G_{j,ec}} \\
+        &\quad = \Big(\sum_c k_{i,c}\, k_{j,c}\, e^{G^{k}_{i,c} - G^{k}_{j,c}}\Big)
+        \Big(\sum_e k^{(2)}_{i,e}\, k^{(2)}_{j,e}\, e^{G^{(2)}_{i,e} - G^{(2)}_{j,e}}\Big).
+        \end{aligned}
+        \]
+        <p>
+            So the \(EK\)-dim decayed Gram matrix is the elementwise product of a \(K\)-dim one and an \(E\)-dim one.
+            All slices share one triangular solve, and only the state update loops over slices. With \(m\) factors
+            it is a product of \(m + 1\) small Gram matrices. In the FLA Triadic GDN kernels on H100 at \(E = 8\),
+            the two sequential state kernels already take 56% of the forward + backward time, so a dedicated n-way
+            intra-chunk kernel is not worth writing yet.
+        </p>
+
+        <h2>Status</h2>
+        <ul>
+            <li>
+                An explicit n-way recurrence on the full tensor state matches the triadic references after fusing
+                the factors, for factors (2, 2), (2, 3), (2, 2, 2) and (3, 2, 4), in FP64 (within 4e-7 relative).
+            </li>
+            <li>
+                On H100, the bf16 chunk kernels fed the fused factors match that recurrence within 1e-2 relative for
+                the output and every gradient, for both the GDN and the KDA version.
+            </li>
+            <li>
+                In progress: MQAR recall and 100M language-model runs at the same state size for GDN, Triadic GDN
+                \((4)\), 4-way GDN \((2, 2)\), Triadic KDA \((4)\) and 4-way KDA \((2, 2)\). I'll post the numbers in
+                <a href="https://github.com/fla-org/flash-linear-attention/issues/1761">#1761</a> and here.
+            </li>
+        </ul>
+        <p class="note">
+            Code: <code>fla/ops/triadic_gdn</code> and <code>fla/ops/triadic_kda</code> in
+            <a href="https://github.com/fla-org/flash-linear-attention">FLA</a>.
+        </p>
+    </div>
+
+    <script>
+        window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] } };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js"></script>
+</body>
+
+</html>
