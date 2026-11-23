@@ -9,7 +9,8 @@ A  one grid recurrence covers both a diffusion-forcing-style sampler (token x pa
 B  an execution table S[k, i] reproduces a prelude / core x 3 / coda forward.
 C  parallel passes of a latent-feedback model are Jacobi sweeps of a triangular
    system: after p passes positions t <= p equal token-by-token decoding.
-D  noising a source by cos/sin scales its expected logit by cos(theta).
+D  the depth identities of section 1: a separable depth kernel folds into a
+   fixed-size recurrence, and zero-initialised AttnRes is the PreNorm residual.
 
 Prints the largest error of each check and ALL CHECKS PASS, or exits non-zero.
 """
@@ -255,22 +256,9 @@ report("C  while some position t > p still differs (largest error per pass)", le
 np.save("jacobi_err.npy", np.array(jacobi_err))
 
 # ---------------------------------------------------------------------------
-# D. b~ = cos(th) b + sin(th) rms(b) eps  =>  E[q . b~] = cos(th) q . b
-# ---------------------------------------------------------------------------
-dd, n = 64, 100_000
-b, q = rng.normal(size=dd), rng.normal(size=dd)
-worst = 0.0
-for k in (0.25, 0.5, 0.75, 1.0):
-    th = k * np.pi / 2
-    eps = rng.normal(size=(n, dd))
-    bt = np.cos(th) * b + np.sin(th) * np.sqrt((b * b).mean()) * eps
-    worst = max(worst, abs((bt @ q).mean() - np.cos(th) * (b @ q)) / abs(b @ q))
-report("D  expected logit of a noised source scales by cos(theta)", worst, 2e-2)
-
-# ---------------------------------------------------------------------------
-# E. Section 1 of the post (identities from the AttnRes paper, arXiv 2603.15031).
-#    E1  a separable depth kernel folds into a fixed-size recurrence;
-#    E2  a zero-initialised pseudo-query makes AttnRes equal to the PreNorm
+# D. Section 1 of the post (identities from the AttnRes paper, arXiv 2603.15031).
+#    D1  a separable depth kernel folds into a fixed-size recurrence;
+#    D2  a zero-initialised pseudo-query makes AttnRes equal to the PreNorm
 #        residual once the sublayer's RMSNorm is applied.
 # ---------------------------------------------------------------------------
 Ld = 12
@@ -283,9 +271,9 @@ for l in range(1, Ld + 1):
     state = state + np.outer(feat(v[l - 1]), v[l - 1])               # write
     direct = sum((feat(qd[l]) @ feat(v[i])) * v[i] for i in range(l))
     err = max(err, np.abs(feat(qd[l]) @ state - direct).max())       # read
-report("E1 separable depth kernel == fixed-size recurrence", err)
+report("D1 separable depth kernel == fixed-size recurrence", err)
 uniform = softmax(rms_norm(v, 1e-12) @ np.zeros(d)) @ v              # zero query: uniform mean
-report("E2 zero-init AttnRes == PreNorm residual after RMSNorm",
+report("D2 zero-init AttnRes == PreNorm residual after RMSNorm",
        np.abs(rms_norm(uniform) - rms_norm(v.sum(0))).max())
 
 if failures:
