@@ -130,6 +130,31 @@
         </table>
         </div>
         <p>序列建模当年用注意力换掉了 RNN。AttnRes 在深度轴上做了同一步。论文把这叫 time–depth duality。</p>
+        <p>对偶也可以反着走。AttnRes 把注意力从时间搬到深度；把残差流从深度搬到时间，就是最近的 Temporal Residual。它给模型加第二条残差流，每个子层都读写，这条流在一个 token 结束时的值，归一化后成为下一个 token 的初值。论文自己的说法是，这是一条既跨层也跨 token 的残差连接。</p>
+        <p>这样四个格子就齐了：</p>
+        <div class="table-responsive">
+        <table class="table table-sm">
+        <thead>
+        <tr>
+        <th></th>
+        <th>递推：固定大小的状态</th>
+        <th>注意力：留着随用随取</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td>深度</td>
+        <td>残差流</td>
+        <td>AttnRes</td>
+        </tr>
+        <tr>
+        <td>时间</td>
+        <td>RNN，Temporal Residual</td>
+        <td>自注意力</td>
+        </tr>
+        </tbody>
+        </table>
+        </div>
         <p>有两处不严格。时间轴上的 query 由内容算出，深度轴上的 \(w_l\) 和输入无关。深度轴的"序列"是网络自己一层层生成的，\(v_l\) 要等前面的层算完才有。</p>
         <p>这个对偶只动了一根轴。被对偶的对象是一个序列模型，它本身只有时间这一根轴。如果被对偶的对象有两根轴呢？</p>
         <h2>2. 一个有两根轴的对象：diffusion forcing</h2>
@@ -278,6 +303,11 @@
         <td>latent feedback</td>
         </tr>
         <tr>
+        <td>一条独立的残差流，每个子层都读写</td>
+        <td>带到下一个 token</td>
+        <td>Temporal Residual</td>
+        </tr>
+        <tr>
         <td>一个连续状态，不产生 token</td>
         <td>同一个位置重算</td>
         <td>普通的 loop</td>
@@ -291,27 +321,39 @@
         </table>
         </div>
         <figure>
-        <img src="fig2_ladder.png" alt="图 2：五种做法的差别只在两处，遍与遍之间传多少（线的粗细和条数），以及传到哪。">
-        <figcaption class="note">图 2：五种做法的差别只在两处，遍与遍之间传多少（线的粗细和条数），以及传到哪。</figcaption>
+        <img src="fig2_ladder.png" alt="图 2：六种做法的差别只在两处，遍与遍之间传多少（线的粗细和条数），以及传到哪。">
+        <figcaption class="note">图 2：六种做法的差别只在两处，遍与遍之间传多少（线的粗细和条数），以及传到哪。</figcaption>
         </figure>
+        <p>沿着梯子往下，遍与遍之间传得越多，需要写出来的就越少。有两组数字：</p>
+        <ul>
+        <li><strong>Loop 的遍数。</strong> Thinking Machines 放出了一个遍数可调的研究模型。在 GPQA 上它每种遍数都答对的那些题，1 遍时平均写 3703 个推理 token，3 遍 1731 个，5 遍 1661 个，句子长度和用词没有变化。</li>
+        <li><strong>Latent feedback。</strong> Temporal Residual 改装后的模型，解题写的 token 少 9% 到 16%。把一部分推理换成填充 token 再训练，它在不写任何推理的情况下，GSM8K 的准确率从 21% 升到 40%；把带过去的状态清零，增益就没了。不带这条流的模型同样训练，填充 token 没有用。</li>
+        </ul>
+        <p>所以离散的回路和连续的回路可以互相替代。这也是它对监控重要的原因：推理可以不出现在文字里。</p>
         <h3>Loop 和 latent feedback 是同一个递推的两种跑法</h3>
         <p>Latent feedback 把上一个位置的顶层状态送回下一个位置的输入：</p>
         \[
         h_t = f\big(e_t,\; h_{t-1}\big)
         \]
         <p>这里 \(e_t\) 是第 \(t\) 个 token 的 embedding，\(f\) 是整叠层，它还会通过注意力读前面位置的状态。这样每来一个新 token，隐藏状态就被再细化一遍，解码时不用多跑。</p>
+        <p>上面是最简单的形式。Temporal Residual 把这条回路做成一条独立的残差流 \(B\)，和原来的残差流 \(A\) 并排：</p>
+        \[
+        u = r_A A + r_B B, \qquad y = f(u), \qquad A \leftarrow A + y, \qquad B \leftarrow B + s_B\, y
+        \]
+        <p>每个子层有自己的读权重 \(r_B\) 和写强度 \(s_B\)，\(B\) 在最后一层的值归一化后带到下一个 token。\(r_B\) 的初值是 0，所以改装后的模型一开始就是原模型。从哪一层取、送到哪一层，不用设计，由训练决定。解码是精确的逐 token 递推，每个序列只多存一个向量。</p>
         <p>Loop 是在同一个位置上反复算。Latent feedback 是把同一条回路摊到 token 轴上。噪声级在 loop transformer 里是 loop 的次数，在带 latent feedback 的 transformer 里就是序列位置。对不带反馈的普通 transformer，这句话不成立：新 token 带来的是新信息，不是对同一个状态的细化。</p>
         <h3>"遍"是什么：一个三角方程组的 Jacobi 迭代</h3>
         <p>逐 token 解码是前向代入，结果是精确的。训练时不能逐 token 跑，于是并行跑几遍，每一遍用上一遍的值：</p>
         \[
         h_t^{(p)} = f\big(e_t,\; h_{t-1}^{(p-1)}\big), \qquad h^{(0)} = 0
         \]
-        <p>这是对一个下三角方程组做 Jacobi 迭代。对 \(p\) 归纳就能看出它收敛得多快：位置 1 没有前驱，第 1 遍后就是精确的；位置 \(t\) 只依赖位置 \(t-1\) 及更早的位置在上一遍的状态，所以 \(t \le p\) 的位置在第 \(p\) 遍后都是精确的。</p>
+        <p>这是对一个下三角方程组做 Jacobi 迭代，精确的递推是它的不动点。Temporal Residual 的论文就是这样表述的。对 \(p\) 归纳就能看出它收敛得多快：位置 1 没有前驱，第 1 遍后就是精确的；位置 \(t\) 只依赖位置 \(t-1\) 及更早的位置在上一遍的状态，所以 \(t \le p\) 的位置在第 \(p\) 遍后都是精确的。</p>
         <figure>
         <img src="fig3_jacobi.png" alt="图 3：并行跑 遍后，哪些位置已经等于逐 token 解码的结果。这是一个随机权重的小网络，8 个位置，数值来自核对脚本。精确的区域每遍向右推进一格。">
         <figcaption class="note">图 3：并行跑 \(p\) 遍后，哪些位置已经等于逐 token 解码的结果。这是一个随机权重的小网络，8 个位置，数值来自核对脚本。精确的区域每遍向右推进一格。</figcaption>
         </figure>
         <p>实际远不用跑满。Full-bandwidth Transformer 报告 3 到 4 遍后 KV 的相对误差约 1%。IFM 的 latent feedback transformer（代码库叫 LoRM）直接用 4 遍当作逐 token 解码。但这不是白来的：前者发现只用一遍和两遍的 batch 训练时，递推滚过训练深度就会发散，混入 3% 的三遍 batch 才稳定下来。</p>
+        <p>少跑几遍够不够，取决于怎么训。Temporal Residual 比了八种训法。只用两遍训的模型，两遍时 loss 最低，八遍时最差，逐 token 解码的准确率和不带反馈的模型一样。跑六遍、只对最后两遍反传，loss 在三遍到八遍之间只差 0.0001。作者的解释是，截断反传让每一遍学的是：不管拿到什么状态，都把它变好一点。按我的读法，这正是一个去噪器该有的性质，在任何噪声级上都能往前走一步。</p>
         <p>训练用整序列并行的遍，解码用自回归。这正是 diffusion forcing 的"训练一次，采样时换 schedule"，已经有人在用了。</p>
         <h3>对偶在这里多给了什么</h3>
         <ul>
@@ -331,7 +373,7 @@
         <li>告诉读取方这是第几遍。Diffusion forcing 是把噪声级作为输入的。</li>
         </ol>
         <p>过去几个月里有三个模型做了前两样，其中一个做了第三样。</p>
-        <p><strong>Inkling 2 Mini</strong>（Thinking Machines，11 月 20 日）有 24 层，分成 4 个块，每块 6 层。第 1 块跑一遍，第 2、3 块 loop 三遍，第 4 块跑一遍。块内用 AttnRes。从第二遍起，每个子层对上一遍的第 2、3 块做一次深度注意力，得到一个 message，再经过一个低秩的门混进自己的输入。</p>
+        <p><strong>Inkling 2 Mini</strong>（Thinking Machines，11 月 20 日）有 24 层，分成 4 个块，每块 6 层。第 1 块跑一遍，第 2、3 块 loop 三遍，第 4 块跑一遍。块内用 AttnRes。从第二遍起，每个子层对上一遍的第 2、3 块做一次深度注意力，得到一个 message，再经过一个低秩的门混进自己的输入。门一开始把 message 完全挡住，所以训练是从不循环的模型出发的。</p>
         <p><strong>LoopRes</strong>（NUS）在预训练模型上微调出 loop。循环的那一段用 AttnRes，每个子层的源包括：不循环的前段的输出，上一 loop 的所有块，本 loop 里前面的块。它另外加了两样：每个块在每个 loop 有一个可训练的 key，以及只看上一个 loop 的窗口。</p>
         <p><strong>LoRM 的 AttnRes 加 latent feedback</strong>（IFM，只有代码）是 134M 的模型，12 层 6 个块。它把上一个位置的 6 个块作为额外的源，放进每一次深度读取。</p>
         <div class="table-responsive">
@@ -384,7 +426,7 @@
         <tr>
         <td>每个 token 独立的噪声级</td>
         <td>每层自己的 loop 次数</td>
-        <td>没有，固定 3 遍</td>
+        <td>没有。固定 3 遍，研究版整段一起变</td>
         <td>没有，固定</td>
         <td>没有</td>
         </tr>
@@ -392,7 +434,7 @@
         </table>
         </div>
         <p>有三点值得看。</p>
-        <p><strong>读法和对偶说的一样。</strong> Goodfire 分解了 Inkling 2 Mini 每一层的输入，发现第 3 块在后面的 loop 里几乎总是读自己上一 loop 的输出。这就是"读自己上一遍的值"。LoopRes 的分析类似：循环段的第一个块主要在更新自己上一 loop 的输出，第二个块主要依赖本 loop 的第一个块。LoRM 的第二遍读的是第一遍的第 5 到 10 层，不是顶层，而且只在自己的前 8 层读。</p>
+        <p><strong>读法和对偶说的一样。</strong> Goodfire 分解了 Inkling 2 Mini 每一层的输入，发现第 3 块在后面的 loop 里几乎总是读自己上一 loop 的输出。这就是"读自己上一遍的值"。LoopRes 的分析类似：循环段的第一个块主要在更新自己上一 loop 的输出，第二个块主要依赖本 loop 的第一个块。LoRM 的第二遍读的是第一遍的第 5 到 10 层，不是顶层，而且只在自己的前 8 层读。Temporal Residual 让每个子层自己学读写的权重，学出来也集中在中间：32 层里读的权重在第 15 层最高，写的强度从第 20 层往上不到 0.1，最上面三分之一的层几乎不写。</p>
         <p><strong>增益主要来自跨遍的深度读取。</strong> LoopRes 在 Qwen3-1.7B、两倍算力下，7 项评测的平均分是：Huginn 式的 loop 49.0，加上朴素的 AttnRes 53.9，LoopRes 55.8。LoRM 在相同训练算力下的验证 loss：</p>
         <div class="table-responsive">
         <table class="table table-sm">
@@ -422,7 +464,7 @@
         </tbody>
         </table>
         </div>
-        <p>只送回顶层不如不送，送回一整列才有收益。这一档的差距只有 0.004，数据多四倍的那一档是 0.017（2.3390 对 2.3556）。这是假设 1 目前仅有的直接证据，而且是他们报告的数字。</p>
+        <p>只送回顶层不如不送，送回一整列才有收益。这一档的差距只有 0.004，数据多四倍的那一档是 0.017（2.3390 对 2.3556）。Temporal Residual 在改装预训练模型的设置里有一个同方向的结果：把上一个 token 的顶层状态直接送进输入，只拿到它五分之一的增益。这两条是假设 1 目前的证据，都是他们报告的数字。后一条没有用深度注意力，只说明只送顶层不够。</p>
         <p><strong>读取方要被告知级别。</strong> LoopRes 发现靠内容分不开同一个块的各次迭代，直接优化的、按 loop 分的 key 才分得开。去掉它，四倍算力下的平均分从 57.8 掉到 55.8。</p>
         <p>Inkling 2 Mini 没有按遍分的参数，但 Goodfire 发现模型自己长出了一个：坐标 \(d_{2027}\) 在前两遍的末尾被写成很大的正值，RMS 归一化后平均 +32.4，一个坐标占了平方范数的 46%；到最后一遍又被清掉。它是下一遍决定"读第 3 块还是第 2 块"时贡献最大的几个坐标之一。Goodfire 的推测是最后一遍之后不再需要跨 loop 通信，所以模型把它抹掉。按我的读法，没人给它级别信号，它就自己腾出一个坐标来记。</p>
         <blockquote class="callout">
@@ -437,6 +479,7 @@
         <p>两边都是先读一个还没细化完的值，之后再修。这也正是 diffusion forcing 本来就允许的事：读还没去噪完的历史。</p>
         <h2>6. 还空着的一格：每层自己的 loop 次数</h2>
         <p>上一节的表里，最后一行三个模型都是"没有"。而这一行正是 diffusion forcing 名字的来历：训练时每个 token 有独立的噪声级。对偶过来，是每一层有自己的更新次数。</p>
+        <p>最接近的是 Thinking Machines 和 Inkling 2 Mini 一起放出的研究模型 TML-d24-varloop-research。它的中间 12 层在训练时跑 1 到 5 遍，按 1:2:6:2:1 采样，推理时遍数可以自己选。这相当于训练时随机取噪声级，但所有 token 取同一个。Huginn 更早做过同样的事。还空着的是每一层取各自的次数。</p>
         <h3>执行表</h3>
         <p>用第 3 节的记号，再加一张表 \(S_{k,i} \in \{0,1\}\)，表示第 \(k\) 遍里第 \(i\) 个格子是否更新。Diffusion forcing 的 schedule 矩阵和"哪一遍跑哪些层"是同一个对象。现有的架构各是一张填好的表：</p>
         <figure>
@@ -446,7 +489,7 @@
         <p>我核对过带执行表的式子：按 Inkling 2 Mini 那张表去跑，结果和直接写"前段一遍、中段三遍、后段一遍"的前向完全相同。</p>
         <h3>一个反对意见</h3>
         <p>每层跑几次，模型设计的时候就定了。想让某一段多算，就把它放进循环的那一段，或者干脆多堆几层。Inkling 2 Mini 的"1、3、3、1"本身就是一张逐块的次数表。</p>
-        <p>这张表怎么填是有差别的。LoopRes 论文的对比里，两种填法都用普通残差：四倍算力下，每个块连续重复再进下一块是 47.9 分，整段一起 loop 是 51.8 分。两倍算力下两者几乎一样，49.2 和 49.0。</p>
+        <p>这张表怎么填是有差别的。Thinking Machines 报告，循环中间 12 层比循环最后 12 层在 28 项评测里 27 项更好。折算成算力，不循环的模型要多花 1.51 到 1.91 倍才追得上前者，追上后者只要 1.24 到 1.36 倍。</p>
         <p>反过来问：既然一张固定的表有效，不同的表又有差别，这张表为什么要人来填？能不能做成可学习的参数或者结构？</p>
         <h3>已经有人在学这张表，但只学了一半</h3>
         <div class="table-responsive">
@@ -514,7 +557,7 @@
         <ul>
         <li><strong>没有加噪公式。</strong> Diffusion forcing 能用封闭公式直接造出任意噪声级的 token。"少更新两次的层输出"只能真的少算两次。</li>
         <li><strong>没有逐格的目标。</strong> Diffusion forcing 的每一格都有去噪损失，loop 模型只有最后的 next-token loss。目前没有定理说多 loop 一次等于去噪一步。"噪声级对应更新次数"是类比。</li>
-        <li><strong>一座可能的桥。</strong> 把 loop 看成不动点迭代，用到不动点的距离当噪声级。它是单调的，但不是一个分布，也没人证明训练出来的 loop 一定收缩。第 4 节里那个会发散的例子说明不保证。</li>
+        <li><strong>一座可能的桥。</strong> 把 loop 看成不动点迭代，用到不动点的距离当噪声级。它是单调的，但不是一个分布。训练出来的递推收不收缩要看训法：varloop 模型最多训到 5 遍，跑 10 遍没有明显变差；Temporal Residual 用截断反传训出来的模型，loss 在 3 到 8 遍之间几乎不变；第 4 节里只用一两遍训的例子则会发散。</li>
         <li><strong>权重不沿深度共享。</strong> Diffusion forcing 的所有 token 用同一个网络，这边每层的权重不同。</li>
         <li><strong>遍数差一个量级。</strong> 扩散有几十到上百个噪声级，现在的 loop 只有几遍。</li>
         <li><strong>网络还有第三根轴。</strong> 真实的 token 带来新信息。把 loop 和 token 都算作时间，只在带 latent feedback 时才严格。</li>
@@ -525,7 +568,7 @@
         <p><strong>观察 2.</strong> 现有的 loop 模型已经是 diffusion forcing 网格的转置。块内的 AttnRes 是它的时间轴，遍与遍之间那一列连续 token 是它的噪声轴。只是训练时只用了一张执行表。</p>
         <p><strong>假设 5.</strong> Diffusion forcing 从"所有 token 同一个噪声级"走到"每个 token 独立"，得到的是采样时任选 schedule 的自由。Loop 模型下一步会走同一段路：从一张设计时填好的执行表，走到在随机的表下训练、事后再选表。</p>
         </blockquote>
-        <p>Inkling 2 Mini 是从头训练的产品模型，LoopRes 是在预训练模型上微调，LoRM 是在研究 latent feedback。三家的出发点不同，却造出了几乎同一个结构。我愿意把这当作这个对偶不只是巧合的一点证据。</p>
+        <p>Inkling 2 Mini 是 Thinking Machines 自己训练的产品模型，LoopRes 是在预训练模型上微调，LoRM 是在研究 latent feedback。三家的出发点不同，却造出了几乎同一个结构。我愿意把这当作这个对偶不只是巧合的一点证据。</p>
         <hr />
         <h2>附录 A：记号</h2>
         <div class="table-responsive">
@@ -625,7 +668,8 @@
         <ul>
         <li>Attention Residuals：<a href="https://arxiv.org/abs/2603.15031">arXiv 2603.15031</a></li>
         <li>Diffusion Forcing：<a href="https://arxiv.org/abs/2407.01392">arXiv 2407.01392</a></li>
-        <li>Inkling 2 Mini 的解释工作：<a href="https://www.goodfire.com/research/interpreting-inkling-2-mini/">Goodfire, Interpreting Inkling 2 Mini</a></li>
+        <li>Inkling 2 Mini：<a href="https://thinkingmachines.ai/news/inkling-2-mini/">发布文</a>，<a href="https://thinkingmachines.ai/model-card/tml-d24-varloop-research/">TML-d24-varloop-research 模型卡</a>，<a href="https://www.goodfire.com/research/interpreting-inkling-2-mini/">Goodfire 的解释工作</a></li>
+        <li>Temporal Residual：<a href="https://jackcai.me/writing/temporal-residual/">介绍页</a>，<a href="https://jackcai.me/writing/temporal-residual.pdf">论文</a></li>
         <li>LoopRes：<a href="https://oahzxl.github.io/LoopRes/">项目页</a>，<a href="https://github.com/NUS-HPC-AI-Lab/LoopRes/blob/main/docs/paper.pdf">论文</a></li>
         <li>LoRM：<a href="https://github.com/ifm-ai/LoRM">代码仓库</a>，<a href="https://github.com/ifm-ai/LoRM/blob/main/works/attnres_feedback/README.md">AttnRes 加 latent feedback</a>，<a href="https://x.com/huskydogewoof/status/2123875819089023319">Feedback Shortcut 的推文</a></li>
         <li>Full-bandwidth Transformer：<a href="https://arxiv.org/abs/2608.08888">arXiv 2608.08888</a></li>
