@@ -66,7 +66,8 @@
         <p>最近有两条线，看起来没什么关系。</p>
         <p>一条在改残差连接。Attention Residuals（下面叫 AttnRes）把层与层之间的相加，换成了对之前各层输出的 softmax 注意力。另一条在做 loop transformer：Huginn、Ouro、Inkling 2 Mini、LoopRes，让同一组层反复跑几遍。</p>
         <p>这篇文章想说服你一件事：<strong>这两条线是同一个对偶的两半，对偶的另一边是 diffusion forcing。</strong> Diffusion forcing 有两根轴，时间和噪声。把时间轴对偶到网络深度上，得到 AttnRes。把噪声轴对偶过来，得到 loop transformer。</p>
-        <p>先说清楚这篇文章是什么。它是一个观察加几条推论，不是一篇论文。其中三处我能写成严格的式子，并且用一个小脚本核对过（附录 B）。其余是类比，出现的地方我会标明。文中加框的"假设"是我自己的判断，没有验证过。</p>
+        <p>先说清楚这篇文章是什么。它是一个观察加几条推论，不是一篇论文。其中能写成严格式子的几处，我用一个小脚本核对过（附录 B）。其余是类比，出现的地方我会标明。文中加框的"假设"是我自己的判断，没有验证过。</p>
+        <p>图有两种粒度，图注开头会标明。粗图里一格是一个块（或一个 token）在一遍里的全部计算。细图里一行是一层。两种图用同一套编号：① 读同一遍里前面的格子，② 读上一遍的值，③ 条件。</p>
         <p>内容按这个顺序走：</p>
         <ol>
         <li>AttnRes 已经做了一步对偶，但只动了一根轴。</li>
@@ -130,6 +131,14 @@
         </table>
         </div>
         <p>序列建模当年用注意力换掉了 RNN。AttnRes 在深度轴上做了同一步。论文把这叫 time–depth duality。</p>
+        <p>实际的模型用的是按块的版本。层被分成几块，块内各层的输出累加成一个和 \(v_i\)。每个子层的输入是一次 softmax，源有三种：embedding，已经算完的各块，本块目前的累加和。Inkling 2 Mini 的参考实现里，被混合的也是归一化后的值：</p>
+        \[
+        x = \sum_j \alpha_j\, \hat v_j, \qquad \alpha_j = \mathrm{softmax}_j\big(q^\top \hat v_j / \sqrt{d}\big), \qquad \hat v = v / \mathrm{RMS}(v)
+        \]
+        <figure>
+        <a href="fig1_block.png" title="点开看大图"><img src="fig1_block.png" alt="图 1（细）：左边是残差流，每层读写同一条流。中间是块 AttnRes，画的是 Inkling 2 Mini 的前三块算到第 16 层的时刻：它的输入是对 embedding、块 1、块 2 和块 3 目前的累加和做的一次 softmax。右边是同一件事的粗图。后面的粗图里，一格就是这样一个块，格子的值是它的累加和。"></a>
+        <figcaption class="note">图 1（细）：左边是残差流，每层读写同一条流。中间是块 AttnRes，画的是 Inkling 2 Mini 的前三块算到第 16 层的时刻：它的输入是对 embedding、块 1、块 2 和块 3 目前的累加和做的一次 softmax。右边是同一件事的粗图。后面的粗图里，一格就是这样一个块，格子的值是它的累加和。</figcaption>
+        </figure>
         <p>对偶也可以反着走。AttnRes 把注意力从时间搬到深度；把残差流从深度搬到时间，就是最近的 Temporal Residual。它给模型加第二条残差流，每个子层都读写，这条流在一个 token 结束时的值，归一化后成为下一个 token 的初值。论文自己的说法是，这是一条既跨层也跨 token 的残差连接。</p>
         <p>这样四个格子就齐了：</p>
         <div class="table-responsive">
@@ -163,16 +172,18 @@
         <li>所有 token 的噪声级相同，是整序列扩散。</li>
         <li>前面的 token 全干净，当前 token 全是噪声，是 next-token prediction。</li>
         </ul>
-        <p>采样时它是一张二维网格，横轴是 token，纵轴是去噪的遍。原论文用 RNN 实现，网格里的一格做的是：</p>
+        <p>采样时它是一张二维网格，横轴是 token，纵轴是去噪的遍。原论文用 RNN 实现。按它的 Algorithm 2，token \(t\) 在某一遍里的那一格做两步：</p>
         \[
-        z_t^{(m)} = f\big(z_{t-1}^{(m)},\; x_t^{(m-1)},\; k_{m,t}\big), \qquad x_t^{(m)} = g\big(z_t^{(m)}\big)
+        z_t \leftarrow p_\theta\big(z_{t-1},\; x_t,\; k\big), \qquad x_t \leftarrow \mathrm{step}\big(x_t,\; \epsilon_\theta(z_t, x_t, k),\; k\big)
         \]
-        <p>也就是每一格读三样东西：</p>
+        <p>\(\mathrm{step}\) 是一步去噪更新。右边的 \(z_{t-1}\) 是这一遍刚算出来的，\(x_t\) 是上一遍留下的。每一格读三样东西，存两样：</p>
         <ol>
-        <li>同一遍里前面的 token，经由 \(z_{t-1}^{(m)}\)。</li>
-        <li>自己上一遍的值 \(x_t^{(m-1)}\)。</li>
-        <li>自己的噪声级 \(k_{m,t}\)。</li>
+        <li>① 同一遍里前面的 token，经由 \(z_{t-1}\)。它是一个固定大小的状态，所以这一步是递推，不是注意力。</li>
+        <li>② 自己上一遍的值 \(x_t\)。上一遍的 \(z_t\) 不读，直接被覆盖。</li>
+        <li>③ 自己的噪声级 \(k\)，由 schedule 矩阵给出。严格说，转移用的是这一格当前的级别，去噪用的是要降到的级别。</li>
+        <li>存下来的是 \(z_t\) 和 \(x_t\)。\(z_t\) 给同一遍里的下一个 token，\(x_t\) 给下一遍的自己。</li>
         </ol>
+        <p>论文的附录提到，换成因果 transformer 可能更好。那样第 1 条就从递推变成注意力，第 3 节会用到这个区别。</p>
         <p>哪一遍更新哪些 token，由一张 schedule 矩阵决定。典型的走法有三种：</p>
         <ul>
         <li><strong>整序列扩散</strong>：每一遍所有 token 一起降一级。</li>
@@ -200,7 +211,7 @@
         <tr>
         <td>\(i\)</td>
         <td>token</td>
-        <td>层或块</td>
+        <td>块</td>
         </tr>
         <tr>
         <td>\(k\)</td>
@@ -208,39 +219,131 @@
         <td>loop</td>
         </tr>
         <tr>
-        <td>\(A^{\mathrm{same}}\)</td>
-        <td>读同一遍里前面的 token</td>
-        <td>AttnRes</td>
+        <td>\(u\)，格子存下来的值</td>
+        <td>\(z_t\) 和 \(x_t\)</td>
+        <td>块的累加和 \(v_i\)</td>
         </tr>
         <tr>
-        <td>\(A^{\mathrm{prev}}\)</td>
-        <td>只读自己上一遍的值</td>
-        <td>读上一 loop 的一列输出</td>
+        <td>① \(A^{\mathrm{same}}\)</td>
+        <td>读前一个 token 的 \(z\)</td>
+        <td>块 AttnRes</td>
         </tr>
         <tr>
-        <td>\(c\)</td>
+        <td>② \(A^{\mathrm{prev}}\)</td>
+        <td>只读自己上一遍的 \(x\)</td>
+        <td>读上一 loop 的一列累加和</td>
+        </tr>
+        <tr>
+        <td>③ \(c\)</td>
         <td>噪声级</td>
         <td>loop 的序号</td>
         </tr>
         <tr>
         <td>\(F\)</td>
         <td>所有 token 共享</td>
-        <td>每层各有权重</td>
+        <td>每个块各有权重</td>
         </tr>
         </tbody>
         </table>
         </div>
+        <p>两个求和分开写是最简单的情形。LoopRes 和 LoRM 把两类源放进同一个 softmax（第 5 节），那时两个求和共用一个归一化，式子的形状不变。</p>
         <figure>
-        <img src="fig1_grids.png" alt="图 1：同一张网格，转了 90 度。左边高亮的格子读同一遍里前面的 token（实线）和自己上一遍的值（虚线）。右边高亮的格子读同一 loop 里前面的块（实线）和上一 loop 的一列块（虚线）。颜色越深表示细化得越多。这张图对的是连线，不是概率含义：左边每一格都有加噪公式和去噪目标，右边没有。">
-        <figcaption class="note">图 1：同一张网格，转了 90 度。左边高亮的格子读同一遍里前面的 token（实线）和自己上一遍的值（虚线）。右边高亮的格子读同一 loop 里前面的块（实线）和上一 loop 的一列块（虚线）。颜色越深表示细化得越多。这张图对的是连线，不是概率含义：左边每一格都有加噪公式和去噪目标，右边没有。</figcaption>
+        <a href="fig2_grids.png" title="点开看大图"><img src="fig2_grids.png" alt="图 2（粗）：同一张网格，转了 90 度。左边高亮的格子读同一遍里前面的 token（①）和自己上一遍的值（②）。右边高亮的格子读同一 loop 里前面的块（①）和上一 loop 的一列块（②）。颜色越深表示细化得越多。右边是模板，真实的模型只填其中一部分格子（图 7）。高亮的两格在图 3 里打开。这张图对的是连线，不是概率含义：左边每一格都有加噪公式和去噪目标，右边没有。"></a>
+        <figcaption class="note">图 2（粗）：同一张网格，转了 90 度。左边高亮的格子读同一遍里前面的 token（①）和自己上一遍的值（②）。右边高亮的格子读同一 loop 里前面的块（①）和上一 loop 的一列块（②）。颜色越深表示细化得越多。右边是模板，真实的模型只填其中一部分格子（图 7）。高亮的两格在图 3 里打开。这张图对的是连线，不是概率含义：左边每一格都有加噪公式和去噪目标，右边没有。</figcaption>
         </figure>
-        <p>把每个格子当黑盒，两张图逐边对应。我用一段通用代码实现了上面的式子，换一组读函数，它分别复现了一个 diffusion forcing 式的采样器和一个 loop 加 AttnRes 的网络，数值完全相同。再把三处差别抹掉，两边就是同一个函数：</p>
+        <p>把每个格子当黑盒，两张图逐边对应。我用一段通用代码实现了上面的式子，换一组读函数，它分别复现了 diffusion forcing 的采样（按论文的 Algorithm 2 写）和一个 loop 加 AttnRes 的网络，数值完全相同。再把三处差别抹掉，两边就是同一个函数：</p>
         <ol>
         <li>\(F\) 沿 \(i\) 共享。Diffusion forcing 的所有 token 用同一个去噪网络，网络里每层的权重不同。</li>
-        <li>同一遍里怎么读。一边是内容相关的读取，一边是静态 query 的 softmax。</li>
-        <li>上一遍读什么。一边只读自己，一边读一整列。</li>
+        <li>同一遍里怎么读。原论文的 RNN 是递推，这边是静态 query 的 softmax。</li>
+        <li>上一遍读什么。一边只读自己，一边读一整列。一整列里有比自己靠后的块。放到 token 一侧，这相当于读后面 token 的上一稿：整序列扩散会这样读，因果的 diffusion forcing 不会。</li>
         </ol>
         <p>所以这个对偶离"恒等"差的东西是数得出来的：上面三条，再加训练目标（第 7 节）。</p>
+        <p>第 2 条可以说得更准。第 1 节的四格表说，读前面的格子有递推和注意力两种做法。两边各有这两种实现，对偶是成对的：</p>
+        <div class="table-responsive">
+        <table class="table table-sm">
+        <thead>
+        <tr>
+        <th>Diffusion forcing 的实现</th>
+        <th>同一遍里怎么读</th>
+        <th>对偶过来</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td>RNN，原论文</td>
+        <td>递推，一个固定大小的 \(z\)</td>
+        <td>残差流上的 loop，比如 Huginn</td>
+        </tr>
+        <tr>
+        <td>因果 transformer，论文附录提到</td>
+        <td>注意力，前面的 token 留着随用随取</td>
+        <td>AttnRes 上的 loop，比如 Inkling 2 Mini、LoopRes</td>
+        </tr>
+        </tbody>
+        </table>
+        </div>
+        <h3>把格子打开</h3>
+        <p>上面把每一格当黑盒。打开以后，两边的格子长得并不一样，但 ①②③ 三样东西都找得到。</p>
+        <figure>
+        <a href="fig3_cells.png" title="点开看大图"><img src="fig3_cells.png" alt="图 3（细）：图 2 里高亮的两格。左边按 diffusion forcing 论文的 Algorithm 2 画。右边按 Inkling 2 Mini 的参考实现画，是第 16 层的一个子层在第 2 遍里的输入。编号和图 2 相同。粗边框是这一格存下来、留给别的格子读的值。"></a>
+        <figcaption class="note">图 3（细）：图 2 里高亮的两格。左边按 diffusion forcing 论文的 Algorithm 2 画。右边按 Inkling 2 Mini 的参考实现画，是第 16 层的一个子层在第 2 遍里的输入。编号和图 2 相同。粗边框是这一格存下来、留给别的格子读的值。</figcaption>
+        </figure>
+        <p>粗图里的每个记号，在细图里各是什么：</p>
+        <div class="table-responsive">
+        <table class="table table-sm">
+        <thead>
+        <tr>
+        <th>粗图里的记号</th>
+        <th>Diffusion forcing</th>
+        <th>Inkling 2 Mini</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td>一格</td>
+        <td>一次 RNN 单元的调用</td>
+        <td>一个块的 6 层，12 个子层</td>
+        </tr>
+        <tr>
+        <td>格子的值 \(u\)</td>
+        <td>\(z_t\) 和 \(x_t\)</td>
+        <td>6 层输出的和 \(v_i\)</td>
+        </tr>
+        <tr>
+        <td>一条 ① 的箭头</td>
+        <td>一次读，读 \(z_{t-1}\)</td>
+        <td>每个子层输入各读一次。一个循环的块里有 14 个这样的读取器，每个对所有的源做一次 softmax</td>
+        </tr>
+        <tr>
+        <td>一条 ② 的箭头</td>
+        <td>一次读，读 \(x_t\)，没有权重</td>
+        <td>每层 4 个 message，分别给 Q、K、V 和 MoE 的输入。一个块 24 个，每个对上一遍的两个块做一次 softmax</td>
+        </tr>
+        <tr>
+        <td>① 和 ② 怎么合</td>
+        <td>一起送进单元</td>
+        <td>低秩的门，\(x' = \kappa \odot x + \gamma \odot m\)，每个 message 一个</td>
+        </tr>
+        <tr>
+        <td>③</td>
+        <td>噪声级，算子的输入</td>
+        <td>没有输入。第 1 遍没有 message，第 2、3 遍用同一组参数</td>
+        </tr>
+        <tr>
+        <td>格子里藏着的轴</td>
+        <td>深度：两个算子各是一个网络</td>
+        <td>token：每层里还有对序列的注意力，每一遍各存一份 KV</td>
+        </tr>
+        </tbody>
+        </table>
+        </div>
+        <p>所以粗图里的一条箭头，在细图里是一束读，它们读的是同一个源。Goodfire 数过整个模型：深度方向 56 个读取器，跨遍 48 个。</p>
+        <p>这一束读可以写成一个式子。子层 \(i\) 的输入展开后，是对更早的子层输出 \(o_j\) 的加权和，同一个块里的子层共用一个权重（embedding 算作第 0 个源）：</p>
+        \[
+        x_i = \sum_{j&lt;i} \frac{\alpha_{b(j)}}{\mathrm{RMS}\big(v_{b(j)}\big)}\; o_j
+        \]
+        <p>这里 \(b(j)\) 是子层 \(j\) 所在的块。这就是把格子取成子层时的 \(A^{\mathrm{same}}\)，\(A^{\mathrm{prev}}\) 同理。Goodfire 用这个展开追踪信息流。我用一个小网络核对过：按参考实现的写法去算（块的累加和，每遍从块 1 的状态重新出发，message 经门并入），结果和把格子取成子层的网格递推完全相同（附录 B 的 E1）。</p>
+        <p>所以两级的关系是：网格递推在子层这一级是精确的。块这一级的图把一个块的子层画成一格，一条箭头代表一束共用权重的读。</p>
         <blockquote class="callout">
         <p><strong>观察 1.</strong> AttnRes 乘以 loop，就是 diffusion forcing 的网格转了 90 度。块内的深度注意力是它的时间轴，loop 之间的连接是它的噪声轴。</p>
         </blockquote>
@@ -321,8 +424,8 @@
         </table>
         </div>
         <figure>
-        <img src="fig2_ladder.png" alt="图 2：六种做法的差别只在两处，遍与遍之间传多少（线的粗细和条数），以及传到哪。">
-        <figcaption class="note">图 2：六种做法的差别只在两处，遍与遍之间传多少（线的粗细和条数），以及传到哪。</figcaption>
+        <a href="fig4_ladder.png" title="点开看大图"><img src="fig4_ladder.png" alt="图 4（粗）：六种做法的差别只在两处，遍与遍之间传多少（线的粗细和条数），以及传到哪。每一列的四个方框代表一摞层，不是四层。最后一行的细图是图 3 和图 6。"></a>
+        <figcaption class="note">图 4（粗）：六种做法的差别只在两处，遍与遍之间传多少（线的粗细和条数），以及传到哪。每一列的四个方框代表一摞层，不是四层。最后一行的细图是图 3 和图 6。</figcaption>
         </figure>
         <p>沿着梯子往下，遍与遍之间传得越多，需要写出来的就越少。有两组数字：</p>
         <ul>
@@ -349,8 +452,8 @@
         \]
         <p>这是对一个下三角方程组做 Jacobi 迭代，精确的递推是它的不动点。Temporal Residual 的论文就是这样表述的。对 \(p\) 归纳就能看出它收敛得多快：位置 1 没有前驱，第 1 遍后就是精确的；位置 \(t\) 只依赖位置 \(t-1\) 及更早的位置在上一遍的状态，所以 \(t \le p\) 的位置在第 \(p\) 遍后都是精确的。</p>
         <figure>
-        <img src="fig3_jacobi.png" alt="图 3：并行跑 遍后，哪些位置已经等于逐 token 解码的结果。这是一个随机权重的小网络，8 个位置，数值来自核对脚本。精确的区域每遍向右推进一格。">
-        <figcaption class="note">图 3：并行跑 \(p\) 遍后，哪些位置已经等于逐 token 解码的结果。这是一个随机权重的小网络，8 个位置，数值来自核对脚本。精确的区域每遍向右推进一格。</figcaption>
+        <a href="fig5_jacobi.png" title="点开看大图"><img src="fig5_jacobi.png" alt="图 5：并行跑 遍后，哪些位置已经等于逐 token 解码的结果。这是一个随机权重的小网络，8 个位置，数值来自核对脚本。精确的区域每遍向右推进一格。"></a>
+        <figcaption class="note">图 5：并行跑 \(p\) 遍后，哪些位置已经等于逐 token 解码的结果。这是一个随机权重的小网络，8 个位置，数值来自核对脚本。精确的区域每遍向右推进一格。</figcaption>
         </figure>
         <p>实际远不用跑满。Full-bandwidth Transformer 报告 3 到 4 遍后 KV 的相对误差约 1%。IFM 的 latent feedback transformer（代码库叫 LoRM）直接用 4 遍当作逐 token 解码。但这不是白来的：前者发现只用一遍和两遍的 batch 训练时，递推滚过训练深度就会发散，混入 3% 的三遍 batch 才稳定下来。</p>
         <p>少跑几遍够不够，取决于怎么训。Temporal Residual 比了八种训法。只用两遍训的模型，两遍时 loss 最低，八遍时最差，逐 token 解码的准确率和不带反馈的模型一样。跑六遍、只对最后两遍反传，loss 在三遍到八遍之间只差 0.0001。作者的解释是，截断反传让每一遍学的是：不管拿到什么状态，都把它变好一点。按我的读法，这正是一个去噪器该有的性质，在任何噪声级上都能往前走一步。</p>
@@ -373,9 +476,13 @@
         <li>告诉读取方这是第几遍。Diffusion forcing 是把噪声级作为输入的。</li>
         </ol>
         <p>过去几个月里有三个模型做了前两样，其中一个做了第三样。</p>
-        <p><strong>Inkling 2 Mini</strong>（Thinking Machines，11 月 20 日）有 24 层，分成 4 个块，每块 6 层。第 1 块跑一遍，第 2、3 块 loop 三遍，第 4 块跑一遍。块内用 AttnRes。从第二遍起，每个子层对上一遍的第 2、3 块做一次深度注意力，得到一个 message，再经过一个低秩的门混进自己的输入。门一开始把 message 完全挡住，所以训练是从不循环的模型出发的。</p>
-        <p><strong>LoopRes</strong>（NUS）在预训练模型上微调出 loop。循环的那一段用 AttnRes，每个子层的源包括：不循环的前段的输出，上一 loop 的所有块，本 loop 里前面的块。它另外加了两样：每个块在每个 loop 有一个可训练的 key，以及只看上一个 loop 的窗口。</p>
-        <p><strong>LoRM 的 AttnRes 加 latent feedback</strong>（IFM，只有代码）是 134M 的模型，12 层 6 个块。它把上一个位置的 6 个块作为额外的源，放进每一次深度读取。</p>
+        <p><strong>Inkling 2 Mini</strong>（Thinking Machines，11 月 20 日）有 24 层，分成 4 个块，每块 6 层。第 1 块跑一遍，第 2、3 块 loop 三遍，第 4 块跑一遍。块内用 AttnRes。每一遍都从第 1 块算完的状态重新出发，上一遍的结果只从一条路进来：每个子层输入对上一遍的第 2、3 块做一次深度注意力，得到一个 message，再经过一个低秩的门混进去。门一开始把 message 完全挡住，所以训练是从不循环的模型出发的。</p>
+        <p><strong>LoopRes</strong>（NUS）在预训练的 Qwen3-1.7B 上微调出 loop。按公开的配置，前 7 层照常跑一遍，中间 14 层分成 2 个块循环 3 遍，之后的层再跑一遍。循环段的每个子层读一次 softmax，源是：前段的输出，上一遍的 2 个块，本遍算完的块，本块目前的累加和。同一遍的源和上一遍的源在同一个 softmax 里，没有门。打分有两项，一项看内容，一项不看：每个源带一个训练出来的 key，按遍、按块分；每个子层的 query 也按遍分。</p>
+        <p><strong>LoRM 的 AttnRes 加 latent feedback</strong>（IFM，只有代码）是 134M 的模型，12 层，每 2 层一块。它的遍落在 token 轴上：上一个位置的 6 个块，归一化后过同一个线性层，作为额外的源放进每一次深度读取，和本遍的源在同一个 softmax 里。各遍的参数相同。</p>
+        <figure>
+        <a href="fig6_reads.png" title="点开看大图"><img src="fig6_reads.png" alt="图 6（细）：一个子层在第 2 遍以后怎么读，四种设计并排。Diffusion forcing 的 ② 只有一个源，不用打分。Inkling 2 Mini 把 ① 和 ② 分成两次 softmax，再用门合起来。LoopRes 和 LoRM 把两类源放进同一个 softmax。四家里只有 diffusion forcing 和 LoopRes 把&quot;第几遍&quot;交给了读取方。Inkling 2 Mini、LoopRes 和 LoRM 都按各自的代码画。"></a>
+        <figcaption class="note">图 6（细）：一个子层在第 2 遍以后怎么读，四种设计并排。Diffusion forcing 的 ② 只有一个源，不用打分。Inkling 2 Mini 把 ① 和 ② 分成两次 softmax，再用门合起来。LoopRes 和 LoRM 把两类源放进同一个 softmax。四家里只有 diffusion forcing 和 LoopRes 把"第几遍"交给了读取方。Inkling 2 Mini、LoopRes 和 LoRM 都按各自的代码画。</figcaption>
+        </figure>
         <div class="table-responsive">
         <table class="table table-sm">
         <thead>
@@ -389,18 +496,18 @@
         </thead>
         <tbody>
         <tr>
-        <td>同一遍里读前面的 token</td>
+        <td>① 同一遍里读前面的 token</td>
         <td>同一遍里读前面的层</td>
         <td>块 AttnRes</td>
         <td>块 AttnRes</td>
         <td>块 AttnRes</td>
         </tr>
         <tr>
-        <td>读自己上一遍的值</td>
+        <td>② 读自己上一遍的值</td>
         <td>读上一遍的一列输出</td>
-        <td>对上一遍的两个块做深度注意力，经门并入输入</td>
-        <td>上一 loop 的块进同一个 softmax</td>
-        <td>上一个位置的 6 个块进每个深度 softmax</td>
+        <td>上一遍的 2 个块，单独一次 softmax，经门并入</td>
+        <td>上一遍的 2 个块，和 ① 进同一个 softmax</td>
+        <td>上一个位置的 6 个块，过线性层后和 ① 进同一个 softmax</td>
         </tr>
         <tr>
         <td>遍落在哪</td>
@@ -417,11 +524,11 @@
         <td>是</td>
         </tr>
         <tr>
-        <td>噪声级作为输入</td>
+        <td>③ 噪声级作为输入</td>
         <td>告诉读取方这是第几遍</td>
-        <td>没有按遍分的参数</td>
-        <td>有，每块每 loop 一个 key</td>
-        <td>说明里没提到</td>
+        <td>没有，第 2、3 遍参数相同</td>
+        <td>有，key 按遍按块分，query 按遍分</td>
+        <td>没有，各遍参数相同</td>
         </tr>
         <tr>
         <td>每个 token 独立的噪声级</td>
@@ -433,8 +540,10 @@
         </tbody>
         </table>
         </div>
+        <p>三家还有一处相同：都没有保留普通 loop 那条"拿上一遍的顶层状态接着算"的线。每一遍从前段的输出重新出发，上一遍只通过深度读进来。</p>
+        <p>LoopRes 和 LoRM 把两类源放进一个 softmax，网格递推里的两个求和就共用一个归一化。LoopRes 的打分还依赖遍号，所以 ③ 进到了读的里面。这两点我也核对过（附录 B 的 E2）。</p>
         <p>有三点值得看。</p>
-        <p><strong>读法和对偶说的一样。</strong> Goodfire 分解了 Inkling 2 Mini 每一层的输入，发现第 3 块在后面的 loop 里几乎总是读自己上一 loop 的输出。这就是"读自己上一遍的值"。LoopRes 的分析类似：循环段的第一个块主要在更新自己上一 loop 的输出，第二个块主要依赖本 loop 的第一个块。LoRM 的第二遍读的是第一遍的第 5 到 10 层，不是顶层，而且只在自己的前 8 层读。Temporal Residual 让每个子层自己学读写的权重，学出来也集中在中间：32 层里读的权重在第 15 层最高，写的强度从第 20 层往上不到 0.1，最上面三分之一的层几乎不写。</p>
+        <p><strong>读法和对偶说的一样。</strong> Goodfire 分解了 Inkling 2 Mini 每一层的输入，发现后面的 loop 读上一遍时，读第 3 块多于第 2 块。第 3 块几乎总是读自己上一 loop 的输出，这就是"读自己上一遍的值"。第 2 块开头的层读的也主要是上一遍的第 3 块，也就是上一遍的顶部。按我的读法，这是普通 loop 本来的那条线，被模型用注意力学了回来。LoopRes 的分析类似：循环段的第一个块主要在更新自己上一 loop 的输出，第二个块主要依赖本 loop 的第一个块。LoRM 的第二遍读的是第一遍的第 5 到 10 层，不是顶层，而且只在自己的前 8 层读。Temporal Residual 让每个子层自己学读写的权重，学出来也集中在中间：32 层里读的权重在第 15 层最高，写的强度从第 20 层往上不到 0.1，最上面三分之一的层几乎不写。</p>
         <p><strong>增益主要来自跨遍的深度读取。</strong> LoopRes 在 Qwen3-1.7B、两倍算力下，7 项评测的平均分是：Huginn 式的 loop 49.0，加上朴素的 AttnRes 53.9，LoopRes 55.8。LoRM 在相同训练算力下的验证 loss：</p>
         <div class="table-responsive">
         <table class="table table-sm">
@@ -483,8 +592,8 @@
         <h3>执行表</h3>
         <p>用第 3 节的记号，再加一张表 \(S_{k,i} \in \{0,1\}\)，表示第 \(k\) 遍里第 \(i\) 个格子是否更新。Diffusion forcing 的 schedule 矩阵和"哪一遍跑哪些层"是同一个对象。现有的架构各是一张填好的表：</p>
         <figure>
-        <img src="fig4_execution_table.png" alt="图 4：四张执行表，行是遍，列是块。前三张是设计时定死的，第四张是把每一格换成一个可学习的概率。">
-        <figcaption class="note">图 4：四张执行表，行是遍，列是块。前三张是设计时定死的，第四张是把每一格换成一个可学习的概率。</figcaption>
+        <a href="fig7_execution_table.png" title="点开看大图"><img src="fig7_execution_table.png" alt="图 7（粗）：四张执行表，行是遍，列是块，格子和图 2 的格子是同一种。前三张是设计时定死的，第四张是把每一格换成一个可学习的概率。细到层的话，Inkling 2 Mini 的表是 3 行 24 列，同一块的 6 列取值相同，一共 48 次层访问。"></a>
+        <figcaption class="note">图 7（粗）：四张执行表，行是遍，列是块，格子和图 2 的格子是同一种。前三张是设计时定死的，第四张是把每一格换成一个可学习的概率。细到层的话，Inkling 2 Mini 的表是 3 行 24 列，同一块的 6 列取值相同，一共 48 次层访问。</figcaption>
         </figure>
         <p>我核对过带执行表的式子：按 Inkling 2 Mini 那张表去跑，结果和直接写"前段一遍、中段三遍、后段一遍"的前向完全相同。</p>
         <h3>一个反对意见</h3>
@@ -555,12 +664,13 @@
         <p>这个实验我还没跑。即使结果是正面的，几千万参数的小模型也只能说明机制，说明不了大模型上的收益。</p>
         <h2>7. 对不上的地方</h2>
         <ul>
+        <li><strong>一格的内部对不上。</strong> Diffusion forcing 的一格是一次单元调用，loop 的一格是 6 层、12 个子层、几十次读（图 3）。对偶说的是格子之间的连线和格子存下来的值，格子里面两边各是各的。</li>
         <li><strong>没有加噪公式。</strong> Diffusion forcing 能用封闭公式直接造出任意噪声级的 token。"少更新两次的层输出"只能真的少算两次。</li>
         <li><strong>没有逐格的目标。</strong> Diffusion forcing 的每一格都有去噪损失，loop 模型只有最后的 next-token loss。目前没有定理说多 loop 一次等于去噪一步。"噪声级对应更新次数"是类比。</li>
         <li><strong>一座可能的桥。</strong> 把 loop 看成不动点迭代，用到不动点的距离当噪声级。它是单调的，但不是一个分布。训练出来的递推收不收缩要看训法：varloop 模型最多训到 5 遍，跑 10 遍没有明显变差；Temporal Residual 用截断反传训出来的模型，loss 在 3 到 8 遍之间几乎不变；第 4 节里只用一两遍训的例子则会发散。</li>
         <li><strong>权重不沿深度共享。</strong> Diffusion forcing 的所有 token 用同一个网络，这边每层的权重不同。</li>
         <li><strong>遍数差一个量级。</strong> 扩散有几十到上百个噪声级，现在的 loop 只有几遍。</li>
-        <li><strong>网络还有第三根轴。</strong> 真实的 token 带来新信息。把 loop 和 token 都算作时间，只在带 latent feedback 时才严格。</li>
+        <li><strong>两张格点图各藏了一根轴。</strong> Diffusion forcing 的图藏了深度。Loop 的图藏了 token：每层里还有对序列的注意力，真实的 token 带来新信息。把 loop 和 token 都算作时间，只在带 latent feedback 时才严格。</li>
         </ul>
         <h2>8. 结尾</h2>
         <p>回到开头的问题：这两条线有没有关系。</p>
@@ -582,7 +692,27 @@
         <tbody>
         <tr>
         <td>\(v_i\)</td>
-        <td>第 \(i\) 层（或块）的输出，\(v_0\) 是 embedding</td>
+        <td>第 \(i\) 层（或块）的输出，\(v_0\) 是 embedding。按块时是块内各层输出的和，\(v_i^{(k)}\) 是第 \(k\) 遍的值</td>
+        </tr>
+        <tr>
+        <td>\(\hat v\)</td>
+        <td>\(v / \mathrm{RMS}(v)\)</td>
+        </tr>
+        <tr>
+        <td>\(o_j\)</td>
+        <td>子层 \(j\) 的输出</td>
+        </tr>
+        <tr>
+        <td>\(\alpha\)、\(\beta\)</td>
+        <td>深度读和跨遍读的 softmax 权重</td>
+        </tr>
+        <tr>
+        <td>\(\kappa\)、\(\gamma\)</td>
+        <td>把 message 并进输入的门</td>
+        </tr>
+        <tr>
+        <td>①②③</td>
+        <td>读同一遍、读上一遍、条件。粗图和细图共用</td>
         </tr>
         <tr>
         <td>\(M_{i\to l}\)</td>
@@ -627,7 +757,7 @@
         <tbody>
         <tr>
         <td>A1</td>
-        <td>通用的网格递推复现 diffusion forcing 式的采样器</td>
+        <td>通用的网格递推复现 diffusion forcing 的采样，按论文的 Algorithm 2，金字塔 schedule</td>
         <td>0</td>
         </tr>
         <tr>
@@ -648,17 +778,27 @@
         <tr>
         <td>C</td>
         <td>并行 \(p\) 遍后，位置 \(t \le p\) 等于逐 token 解码</td>
-        <td>6e-14</td>
+        <td>3e-14</td>
         </tr>
         <tr>
         <td>D1</td>
         <td>可分的深度核等于固定大小状态的递推</td>
-        <td>2e-14</td>
+        <td>7e-15</td>
         </tr>
         <tr>
         <td>D2</td>
         <td>零初始化时 AttnRes 过了 RMSNorm 等于 PreNorm 残差</td>
         <td>2e-12</td>
+        </tr>
+        <tr>
+        <td>E1</td>
+        <td>按 Inkling 2 Mini 参考实现的写法（子层、块的累加和、每遍重新出发、message 经门并入），等于把格子取成子层的网格递推</td>
+        <td>4e-15</td>
+        </tr>
+        <tr>
+        <td>E2</td>
+        <td>LoopRes 式的读（两类源进同一个 softmax，打分依赖遍号），等于两个求和共用一个归一化的网格递推</td>
+        <td>2e-15</td>
         </tr>
         </tbody>
         </table>
@@ -668,10 +808,10 @@
         <ul>
         <li>Attention Residuals：<a href="https://arxiv.org/abs/2603.15031">arXiv 2603.15031</a></li>
         <li>Diffusion Forcing：<a href="https://arxiv.org/abs/2407.01392">arXiv 2407.01392</a></li>
-        <li>Inkling 2 Mini：<a href="https://thinkingmachines.ai/news/inkling-2-mini/">发布文</a>，<a href="https://thinkingmachines.ai/model-card/tml-d24-varloop-research/">TML-d24-varloop-research 模型卡</a>，<a href="https://www.goodfire.com/research/interpreting-inkling-2-mini/">Goodfire 的解释工作</a></li>
+        <li>Inkling 2 Mini：<a href="https://thinkingmachines.ai/news/inkling-2-mini/">发布文</a>，<a href="https://thinkingmachines.ai/model-card/tml-d24-varloop-research/">TML-d24-varloop-research 模型卡</a>，<a href="https://www.goodfire.com/research/interpreting-inkling-2-mini/">Goodfire 的解释工作</a>，<a href="https://github.com/huggingface/transformers/pull/51050">参考实现</a></li>
         <li>Temporal Residual：<a href="https://jackcai.me/writing/temporal-residual/">介绍页</a>，<a href="https://jackcai.me/writing/temporal-residual.pdf">论文</a></li>
-        <li>LoopRes：<a href="https://oahzxl.github.io/LoopRes/">项目页</a>，<a href="https://github.com/NUS-HPC-AI-Lab/LoopRes/blob/main/docs/paper.pdf">论文</a></li>
-        <li>LoRM：<a href="https://github.com/ifm-ai/LoRM">代码仓库</a>，<a href="https://github.com/ifm-ai/LoRM/blob/main/works/attnres_feedback/README.md">AttnRes 加 latent feedback</a>，<a href="https://x.com/huskydogewoof/status/2123875819089023319">Feedback Shortcut 的推文</a></li>
+        <li>LoopRes：<a href="https://oahzxl.github.io/LoopRes/">项目页</a>，<a href="https://github.com/NUS-HPC-AI-Lab/LoopRes/blob/main/docs/paper.pdf">论文</a>，<a href="https://github.com/NUS-HPC-AI-Lab/LoopRes/blob/main/loopres/model.py">代码</a></li>
+        <li>LoRM：<a href="https://github.com/ifm-ai/LoRM">代码仓库</a>，<a href="https://github.com/ifm-ai/LoRM/blob/main/works/attnres_feedback/README.md">AttnRes 加 latent feedback</a>（<a href="https://github.com/ifm-ai/LoRM/blob/main/works/attnres_feedback/model.py">模型代码</a>），<a href="https://x.com/huskydogewoof/status/2123875819089023319">Feedback Shortcut 的推文</a></li>
         <li>Full-bandwidth Transformer：<a href="https://arxiv.org/abs/2608.08888">arXiv 2608.08888</a></li>
         <li>Huginn：<a href="https://arxiv.org/abs/2502.05171">arXiv 2502.05171</a></li>
         <li>Loop 模型的并行采样器：<a href="https://arxiv.org/abs/2510.14961">arXiv 2510.14961</a></li>
