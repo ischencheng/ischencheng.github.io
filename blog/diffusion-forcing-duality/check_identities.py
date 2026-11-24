@@ -6,6 +6,8 @@ A  one grid recurrence covers both diffusion forcing sampling (token x pass,
    written as Algorithm 2 of arXiv 2407.01392) and a looped AttnRes network
    (layer x loop); with tied cell weights, a predecessor-only same-pass read and
    a self-only previous-pass read, the two are the same function.
+   The same recurrence also covers the two transformer implementations: chunk
+   by chunk with a KV cache (CausVid) and full sequence without a mask (DFoT).
 B  an execution table S[k, i] reproduces a prelude / core x 3 / coda forward.
 C  parallel passes of a latent-feedback model are Jacobi sweeps of a triangular
    system: after p passes positions t <= p equal token-by-token decoding.
@@ -183,6 +185,106 @@ def loop_net_reduced():
 
 
 report("A3 reduced looped network == diffusion forcing sampler", np.abs(loop_net_reduced() - df_sampler()).max())
+
+# ---------------------------------------------------------------------------
+# A4. A causal transformer with a KV cache, sampled chunk by chunk as in
+#     CausVid's Algorithm 2 (arXiv 2412.07772), with toy functions:
+#       for chunk i:   x <- noise
+#           for j = Q .. 1:   x_hat = G(x, t_j, cache);   x <- re-noise x_hat to level j - 1
+#           cache <- cache + kv(x)            # computed once, from the clean chunk
+#     As the grid recurrence: the execution table is a staircase (chunk i is
+#     updated in passes i*Q .. i*Q + Q - 1), read 1 is attention over the cached
+#     states of the chunks already final, read 2 is the chunk's own value.
+# ---------------------------------------------------------------------------
+TC, QC = 4, 3
+Wc, Vc, Kc = (rng.normal(size=(d, d)) / np.sqrt(d) for _ in range(3))
+bc = rng.normal(size=d)
+alpha_c = np.array([1.0, 0.8, 0.5, 0.2])        # level 0 is clean
+sigma_c = np.array([0.0, 0.3, 0.6, 0.9])
+x_noise = rng.normal(size=(TC, d))
+eps_c = rng.normal(size=(TC, QC + 1, d))
+
+
+def attend(query, cached):
+    if not cached:
+        return np.zeros(d)
+    keys = np.stack(cached)
+    return softmax(keys @ query / np.sqrt(d)) @ keys
+
+
+def generator(x, level, cached):
+    return np.tanh(Wc @ x + Vc @ attend(x, cached) + bc * level)
+
+
+def kv_of(x_clean):
+    return np.tanh(Kc @ x_clean)
+
+
+def causal_cached_sampler():
+    cache, out = [], []
+    for i in range(TC):
+        x = x_noise[i]
+        for j in range(QC, 0, -1):
+            x_hat = generator(x, j, cache)
+            x = alpha_c[j - 1] * x_hat + sigma_c[j - 1] * eps_c[i, j]
+        cache.append(kv_of(x))
+        out.append(x)
+    return np.array(out)
+
+
+def cell_cached(i, same, prev, j):
+    x = alpha_c[j - 1] * generator(prev, j, same) + sigma_c[j - 1] * eps_c[i, j]
+    return (x, kv_of(x) if j == 1 else None)
+
+
+tmpl = run_grid(
+    TC, TC * QC, F=cell_cached,
+    read_same=lambda i, cur: [cur[j][1] for j in range(i)],          # the cached states of the final chunks
+    read_prev=lambda i, prev: prev[i][0],                            # the chunk's own value
+    cond=lambda i, k: QC - (k % QC),
+    S=[[1 if k // QC == i else 0 for i in range(TC)] for k in range(TC * QC)],
+    u0=[(x_noise[i], None) for i in range(TC)])
+report("A4 template == chunk-by-chunk sampling with a KV cache (staircase table)",
+       np.abs(np.array([u[0] for u in tmpl[-1]]) - causal_cached_sampler()).max())
+
+# ---------------------------------------------------------------------------
+# A5. A full-sequence transformer without a causal mask, as in DFoT (arXiv
+#     2502.06764): every pass updates all tokens together, each from the whole
+#     sequence as it stood after the previous pass; the tokens of the history
+#     sit at level 0 and are never updated.  As the grid recurrence: no read
+#     within the pass, read 2 is attention over the whole previous row.
+# ---------------------------------------------------------------------------
+TF, MF = 5, 4
+HIST = (0, 1)                                    # history tokens, clean
+Wf, Vf = (rng.normal(size=(d, d)) / np.sqrt(d) for _ in range(2))
+bf = rng.normal(size=d)
+x_start = rng.normal(size=(TF, d))
+
+
+def full_sequence_sampler():
+    x = x_start.copy()
+    for m in range(MF, 0, -1):
+        new = x.copy()
+        for t in range(TF):
+            if t not in HIST:
+                ctx = softmax(x @ x[t] / np.sqrt(d)) @ x
+                new[t] = x[t] + 0.3 * np.tanh(Wf @ x[t] + Vf @ ctx + bf * m)
+        x = new
+    return x
+
+
+def row_attention(i, prev):
+    row = np.stack(prev)
+    return (prev[i], softmax(row @ prev[i] / np.sqrt(d)) @ row)
+
+
+tmpl = run_grid(
+    TF, MF,
+    F=lambda i, same, prev, m: prev[0] + 0.3 * np.tanh(Wf @ prev[0] + Vf @ prev[1] + bf * m),
+    read_same=lambda i, cur: None, read_prev=row_attention, cond=lambda i, k: MF - k,
+    S=[[0 if i in HIST else 1 for i in range(TF)]] * MF, u0=list(x_start))
+report("A5 template == full-sequence sampling without a causal mask (whole-row read)",
+       np.abs(np.array(tmpl[-1]) - full_sequence_sampler()).max())
 
 # ---------------------------------------------------------------------------
 # B. Execution table.  4 blocks: prelude (once), two core blocks (3 loops),
