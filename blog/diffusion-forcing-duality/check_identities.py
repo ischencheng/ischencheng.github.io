@@ -16,6 +16,9 @@ E  coarse to fine.  A looped block-AttnRes network written at the granularity of
    messages through a keep/gain gate, or one softmax over both passes' sources)
    is the same grid recurrence with one cell per sublayer; one arrow of the
    coarse picture is one weight shared by every sublayer of the source block.
+F  which cells of the previous pass a cell may read decides how deep the looped
+   stack is: own value or the cells below give L + K - 1, the top cell feeding
+   the bottom one (or the whole column) gives L * K.
 
 Prints the largest error of each check and ALL CHECKS PASS, or exits non-zero.
 """
@@ -473,6 +476,32 @@ tmpl = run_grid(
     cond=lambda i, k: k, S=[[1] * LL] * RR, u0=[None] * LL, cond_in_reads=True)
 report("E2 one softmax over both passes' sources == grid recurrence with a shared normaliser",
        np.abs(np.array(tmpl) - loopres_direct()).max())
+
+# ---------------------------------------------------------------------------
+# F. Serial depth: the longest dependency chain that ends at the last cell of
+#    the last pass.  Same-pass reads are always the cells below (j < i); the
+#    rule says which cells j of the previous pass cell i may read.
+# ---------------------------------------------------------------------------
+def serial_depth(n_cells, n_pass, may_read_prev):
+    depth = [[0] * n_cells for _ in range(n_pass)]
+    for k in range(n_pass):
+        for i in range(n_cells):
+            best = max([depth[k][j] for j in range(i)], default=0)
+            if k:
+                best = max([best] + [depth[k - 1][j] for j in range(n_cells) if may_read_prev(j, i, n_cells)])
+            depth[k][i] = best + 1
+    return depth[-1][-1]
+
+
+read_rules = {
+    "own value": (lambda j, i, n: j == i, lambda n, k: n + k - 1),
+    "own value and the cells below": (lambda j, i, n: j <= i, lambda n, k: n + k - 1),
+    "the top cell feeds the bottom one": (lambda j, i, n: j == n - 1 and i == 0, lambda n, k: n * k),
+    "the whole column": (lambda j, i, n: True, lambda n, k: n * k),
+}
+for rule_name, (rule, expected) in read_rules.items():
+    worst = max(abs(serial_depth(n, k, rule) - expected(n, k)) for n in range(1, 9) for k in range(1, 7))
+    report(f"F  serial depth, previous pass read = {rule_name}", float(worst), tol=0.5)
 
 if failures:
     print("FAILED:", failures)
