@@ -83,7 +83,7 @@
         <li>两边是同样的三段。</li>
         <li>把两边对起来：一个式子，一张字典，一个条件。</li>
         <li>遍与遍之间传什么，走哪里。</li>
-        <li>对偶预言的结构，已经有三个模型造出来了。</li>
+        <li>对偶预言的结构，已经有四个模型造出来了。</li>
         <li>对偶里还空着的一格：每层自己的 loop 次数。</li>
         <li>对不上的地方。</li>
         </ol>
@@ -303,10 +303,11 @@
         </tbody>
         </table>
         </div>
-        <p>两边的递推都只过中间那一段，编码和解码在外面。Loop 这一侧有两条旁证：</p>
+        <p>两边的递推都只过中间那一段，编码和解码在外面。网络这一侧有三条旁证：</p>
         <ul>
         <li><strong>解码器对每一遍都能用。</strong> Goodfire 把最后一块用在中间各遍的状态上，能解出接近最终输出的预测。只用输出层做不到。</li>
         <li><strong>解码器放在递推外面更好。</strong> Thinking Machines 报告，循环中间 12 层比循环最后 12 层在 28 项评测里 27 项更好。</li>
+        <li><strong>最上面的层不值得往回送。</strong> ALF 让每个子层读上一个位置的各层输出。拿掉别的只留最上面四分之一的块，只保住 21% 的贡献；只留中间一个块，保住 40%。作者的解释是顶层专门服务输出头。</li>
         </ul>
         <p><strong>块就是转移方程。</strong> 从一个状态到下一个状态，两边都是调用一整段网络。细到子层也成立：一个子层读 ① 和 ②，算出输出，加进累加和，这就是一次转移（第 4 节）。一个块是 12 个子层的转移接起来，和 RNN 走 12 步可以看成走一大步是一回事。</p>
         <figure>
@@ -481,7 +482,7 @@
         <tr>
         <th>上一遍读谁</th>
         <th>Diffusion forcing 一侧</th>
-        <th>第 2 遍的第 1 层是什么</th>
+        <th>网络这一侧</th>
         <th>最后一格是第几层</th>
         </tr>
         </thead>
@@ -489,42 +490,44 @@
         <tr>
         <td>只读自己</td>
         <td>原论文的 RNN</td>
-        <td>还是第 1 层，再细化一次</td>
+        <td>LoopRes 学出来的接近这种</td>
         <td>\(L + K - 1\)</td>
         </tr>
         <tr>
-        <td>读自己和下面的层</td>
+        <td>自己和下面的层</td>
         <td>带因果掩码的 transformer</td>
-        <td>同上</td>
+        <td>没有意义，见下</td>
         <td>\(L + K - 1\)</td>
         </tr>
         <tr>
-        <td>读整列</td>
-        <td>DFoT，整序列扩散</td>
-        <td>第 \(L+1\) 层</td>
-        <td>\(L \times K\)</td>
+        <td>自己和上面 \(w\) 层</td>
+        <td>不带掩码，读后面 token 的上一稿，DFoT</td>
+        <td>ALF，Inkling 2 Mini 学出来的读法</td>
+        <td>\(L + (K-1)(w+1)\)</td>
         </tr>
         <tr>
         <td>顶层接底层</td>
         <td>没有对应</td>
-        <td>第 \(L+1\) 层</td>
+        <td>Huginn</td>
         <td>\(L \times K\)</td>
         </tr>
         </tbody>
         </table>
         </div>
-        <p>"第几层"指最长依赖链上的层数，\(L\) 是层数，\(K\) 是遍数。按 Inkling 2 Mini 的结构算，前两种是 36 层，后两种是 48 层。</p>
+        <p>"第几层"指最长依赖链上的层数，\(L\) 是层数，\(K\) 是遍数。\(w\) 取 0 是只读自己，\(w\) 取满就是 \(L \times K\)。按 Inkling 2 Mini 的结构算，只读自己是 36 层，读整列是 48 层。</p>
         <figure>
-        <a href="fig5_causal.png" title="点开看大图"><img src="fig5_causal.png" alt="图 5（粗）：上一遍读谁，决定了每一格实际上是第几层。格子里的数是最长依赖链的长度，数值来自核对脚本。前两种读法里，同一条斜线上的格子数字相同。第三种读法里，数字一行接一行往下数。"></a>
-        <figcaption class="note">图 5（粗）：上一遍读谁，决定了每一格实际上是第几层。格子里的数是最长依赖链的长度，数值来自核对脚本。前两种读法里，同一条斜线上的格子数字相同。第三种读法里，数字一行接一行往下数。</figcaption>
+        <a href="fig5_causal.png" title="点开看大图"><img src="fig5_causal.png" alt="图 5（粗）：上一遍读谁，决定了每一格实际上是第几层。格子里的数是最长依赖链的长度，数值来自核对脚本。只读自己时，同一条斜线上的格子数字相同。顶层接底层时，数字一行接一行往下数。读自己和上面一层时在两者之间。"></a>
+        <figcaption class="note">图 5（粗）：上一遍读谁，决定了每一格实际上是第几层。格子里的数是最长依赖链的长度，数值来自核对脚本。只读自己时，同一条斜线上的格子数字相同。顶层接底层时，数字一行接一行往下数。读自己和上面一层时在两者之间。</figcaption>
         </figure>
-        <p>这张图回答的是 loop 算不算一根独立的轴。</p>
+        <p>第二行在网络这一侧没有意义，这一点是 ALF 的论文讲清楚的。下面的层在这一遍里已经算过，再读它们上一遍的值是读旧版本。所以它的规则是：比自己浅的层读这一遍的，自己和比自己深的层读上一遍的，合起来每个深度读到的都是最新的版本。Diffusion forcing 那边的因果掩码有意义，是因为 transformer 的一遍是所有 token 并行算的，没有"这一遍前面的值"可读。</p>
+        <p>这张表回答的是 loop 算不算一根独立的轴。</p>
         <p>如果第 2 遍的第 1 层接的是第 1 遍的最后一层，整个网络可以读成一根更长的深度轴，折成几行写。这时只需要 AttnRes 那半个对偶，权重沿深度周期重复而已，噪声轴没有东西可对。Huginn 就是这种接法。只有当每一层读的是自己上一遍的值，"同一层被细化了几次"才有意义，噪声轴才落得下来。</p>
-        <p>因果也不必是一张掩码。第 2 节说过，DFoT 不带掩码，靠噪声级控制因果。对过来是：下面的层能从上面的层的上一遍读到多少，可以由一个门来控制。Inkling 2 Mini 的门一开始完全关着，模型从纯因果出发，再自己学放开多少。这是我的读法。</p>
-        <p>Diffusion forcing 要因果的理由搬不过来。Token 是先后到来的不同东西，后面的还不存在。层是对同一个 token 的逐级加工，顶层的结论对底层确实有用，没有"不许看"的理由。搬得过来的是因果的好处和代价，第 7 节用得上：</p>
+        <p>学出来的读法靠近"只读自己"那一头。ALF 允许每个子层读上一个位置里自己和所有更深的子层，学出来的权重却集中在一条窄带上：自己这一深度和往上三个子层。把注意力换成固定读最近的四个，还保住 89% 到 94% 的增益。这相当于 \(w = 3\)。</p>
+        <p>因果也不必是一张掩码。第 2 节说过，DFoT 不带掩码，靠噪声级控制因果。对过来是：下面的层能从上面的层的上一遍读到多少，可以由一个门来控制。Inkling 2 Mini 的门一开始完全关着，ALF 的混合比例从 0.01 起步，模型都是从不读上一遍出发，再自己学放开多少。这是我的读法。</p>
+        <p>Diffusion forcing 要因果的理由搬不过来。Token 是先后到来的不同东西，后面的还不存在。层是对同一个 token 的逐级加工，上面的层的结论对下面的层确实有用，没有"不许看"的理由。搬得过来的是因果的好处和代价，第 7 节用得上：</p>
         <ul>
         <li><strong>好处</strong>：低层的输入一旦稳定，它就不用再算，跳过是精确的。CausVid 缓存 KV 用的就是这一点。</li>
-        <li><strong>代价</strong>：每多一遍只多一步串行深度，不因果时多一整段。</li>
+        <li><strong>代价</strong>：每多一遍只多一步串行深度，窗口每宽一层就再多一步。</li>
         </ul>
         <h3>两种读各有原型</h3>
         <p>Loop 加 AttnRes 的网络有两种读。把上面两小节合起来，它们在 diffusion forcing 的 transformer 实现里各有一个原型：</p>
@@ -542,7 +545,7 @@
         <td>CausVid：读前面片段缓存的 KV</td>
         </tr>
         <tr>
-        <td>② 读上一遍的一整列，用深度注意力</td>
+        <td>② 读上一遍的一列，用深度注意力</td>
         <td>DFoT：对整条序列上一遍的值做注意力</td>
         </tr>
         <tr>
@@ -705,7 +708,7 @@
         <figcaption class="note">图 7：并行跑 \(p\) 遍后，哪些位置已经等于逐 token 解码的结果。这是一个随机权重的小网络，8 个位置，数值来自核对脚本。精确的区域每遍向右推进一格。</figcaption>
         </figure>
         <p>实际远不用跑满。Full-bandwidth Transformer 报告 3 到 4 遍后 KV 的相对误差约 1%。IFM 的 latent feedback transformer（代码库叫 LoRM）直接用 4 遍当作逐 token 解码。但这不是白来的：前者发现只用一遍和两遍的 batch 训练时，递推滚过训练深度就会发散，混入 3% 的三遍 batch 才稳定下来。</p>
-        <p>少跑几遍够不够，取决于怎么训。Temporal Residual 比了八种训法。只用两遍训的模型，两遍时 loss 最低，八遍时最差，逐 token 解码的准确率和不带反馈的模型一样。跑六遍、只对最后两遍反传，loss 在三遍到八遍之间只差 0.0001。作者的解释是，截断反传让每一遍学的是：不管拿到什么状态，都把它变好一点。按我的读法，这正是一个去噪器该有的性质，在任何噪声级上都能往前走一步。</p>
+        <p>少跑几遍够不够，取决于怎么训，也取决于送回去的是什么。ALF 报告，多评几遍时它的 loss 继续降，只送顶层状态的 FBT 在第二遍之后回升。Temporal Residual 比了八种训法。只用两遍训的模型，两遍时 loss 最低，八遍时最差，逐 token 解码的准确率和不带反馈的模型一样。跑六遍、只对最后两遍反传，loss 在三遍到八遍之间只差 0.0001。作者的解释是，截断反传让每一遍学的是：不管拿到什么状态，都把它变好一点。按我的读法，这正是一个去噪器该有的性质，在任何噪声级上都能往前走一步。</p>
         <p>训练用整序列并行的遍，解码用自回归。这正是 diffusion forcing 的"训练一次，采样时换 schedule"，已经有人在用了。</p>
         <h3>对偶在这里多给了什么</h3>
         <ul>
@@ -724,13 +727,14 @@
         <li>遍与遍之间有一条连接，读上一遍的一列输出。</li>
         <li>告诉读取方这是第几遍。Diffusion forcing 是把噪声级作为输入的。</li>
         </ol>
-        <p>过去几个月里有三个模型做了前三样，其中一个做了第四样。</p>
+        <p>过去几个月里有四个模型做了前三样，其中一个做了第四样。</p>
         <p><strong>Inkling 2 Mini</strong>（Thinking Machines，11 月 20 日）有 24 层，分成 4 个块，每块 6 层。第 1 块跑一遍，第 2、3 块 loop 三遍，第 4 块跑一遍。块内用 AttnRes。每一遍都从第 1 块算完的状态重新出发，上一遍的结果只从一条路进来：每个子层输入对上一遍的第 2、3 块做一次深度注意力，得到一个 message，再经过一个低秩的门混进去。门一开始把 message 完全挡住，所以训练是从不循环的模型出发的。</p>
         <p><strong>LoopRes</strong>（NUS）在预训练的 Qwen3-1.7B 上微调出 loop。按公开的配置，前 7 层照常跑一遍，中间 14 层分成 2 个块循环 3 遍，之后的层再跑一遍。循环段的每个子层读一次 softmax，源是：前段的输出，上一遍的 2 个块，本遍算完的块，本块目前的累加和。同一遍的源和上一遍的源在同一个 softmax 里，没有门。打分有两项，一项看内容，一项不看：每个源带一个训练出来的 key，按遍、按块分；每个子层的 query 也按遍分。</p>
         <p><strong>LoRM 的 AttnRes 加 latent feedback</strong>（IFM，只有代码）是 134M 的模型，12 层，每 2 层一块。它的遍落在 token 轴上：上一个位置的 6 个块，归一化后过同一个线性层，作为额外的源放进每一次深度读取，和本遍的源在同一个 softmax 里。各遍的参数相同。</p>
+        <p><strong>ALF</strong>（港大等）也把遍放在 token 轴上，在 1.6B 到 4.0B 的 MoE 模型上做。每个子层对上一个位置里自己和更深的子层做一次深度注意力，每个源先过一个低秩的映射，结果按一个可学的比例混进输入。它在标准残差和 AttnRes 两种骨架上都试了。训练时并行跑两遍，每一遍都算 loss；解码一遍，读缓存。</p>
         <figure>
-        <a href="fig8_reads.png" title="点开看大图"><img src="fig8_reads.png" alt="图 8（细）：一个子层在第 2 遍以后怎么读，四种设计并排。Diffusion forcing 的 ② 只有一个源，不用打分。Inkling 2 Mini 把 ① 和 ② 分成两次 softmax，再用门合起来。LoopRes 和 LoRM 把两类源放进同一个 softmax。四家里只有 diffusion forcing 和 LoopRes 把&quot;第几遍&quot;交给了读取方。Inkling 2 Mini、LoopRes 和 LoRM 都按各自的代码画。"></a>
-        <figcaption class="note">图 8（细）：一个子层在第 2 遍以后怎么读，四种设计并排。Diffusion forcing 的 ② 只有一个源，不用打分。Inkling 2 Mini 把 ① 和 ② 分成两次 softmax，再用门合起来。LoopRes 和 LoRM 把两类源放进同一个 softmax。四家里只有 diffusion forcing 和 LoopRes 把"第几遍"交给了读取方。Inkling 2 Mini、LoopRes 和 LoRM 都按各自的代码画。</figcaption>
+        <a href="fig8_reads.png" title="点开看大图"><img src="fig8_reads.png" alt="图 8（细）：一个子层在第 2 遍以后怎么读，四种设计并排。Diffusion forcing 的 ② 只有一个源，不用打分。Inkling 2 Mini 把 ① 和 ② 分成两次 softmax，再用门合起来。LoopRes 和 LoRM 把两类源放进同一个 softmax。图里的四家，只有 diffusion forcing 和 LoopRes 把&quot;第几遍&quot;交给了读取方。Inkling 2 Mini、LoopRes 和 LoRM 都按各自的代码画。ALF 没有画：它像 Inkling 2 Mini，② 单独做一次 softmax，再和 ① 混合。"></a>
+        <figcaption class="note">图 8（细）：一个子层在第 2 遍以后怎么读，四种设计并排。Diffusion forcing 的 ② 只有一个源，不用打分。Inkling 2 Mini 把 ① 和 ② 分成两次 softmax，再用门合起来。LoopRes 和 LoRM 把两类源放进同一个 softmax。图里的四家，只有 diffusion forcing 和 LoopRes 把"第几遍"交给了读取方。Inkling 2 Mini、LoopRes 和 LoRM 都按各自的代码画。ALF 没有画：它像 Inkling 2 Mini，② 单独做一次 softmax，再和 ① 混合。</figcaption>
         </figure>
         <div class="table-responsive">
         <table class="table table-sm">
@@ -741,6 +745,7 @@
         <th>Inkling 2 Mini</th>
         <th>LoopRes</th>
         <th>LoRM</th>
+        <th>ALF</th>
         </tr>
         </thead>
         <tbody>
@@ -750,6 +755,7 @@
         <td>是</td>
         <td>是</td>
         <td>是，遍在 token 轴上</td>
+        <td>没有分段，所有层都读；学出来最上面的层很少被读</td>
         </tr>
         <tr>
         <td>① 读已经定下来的 token</td>
@@ -757,6 +763,7 @@
         <td>块 AttnRes</td>
         <td>块 AttnRes</td>
         <td>块 AttnRes</td>
+        <td>残差流或 AttnRes</td>
         </tr>
         <tr>
         <td>② 读上一遍的值</td>
@@ -764,19 +771,22 @@
         <td>上一遍的 2 个块，单独一次 softmax，经门并入</td>
         <td>上一遍的 2 个块，和 ① 进同一个 softmax</td>
         <td>上一个位置的 6 个块，过线性层后和 ① 进同一个 softmax</td>
+        <td>上一个位置里自己和更深的子层，单独一次 softmax，按比例混入</td>
         </tr>
         <tr>
-        <td>只读自己、读前面的或读整条序列，看实现</td>
+        <td>上一遍读谁，看实现</td>
         <td>上一遍读谁，学出来的</td>
         <td>块 3 读自己，块 2 读上一遍的块 3</td>
         <td>第一个块读自己，第二个块读本遍的第一个块</td>
         <td>前 8 层读上一遍的第 5 到 10 层</td>
+        <td>自己和往上三个子层</td>
         </tr>
         <tr>
         <td>遍落在哪</td>
         <td></td>
         <td>同一个位置，3 遍</td>
         <td>同一个位置</td>
+        <td>token 轴，解码不加遍</td>
         <td>token 轴，解码不加遍</td>
         </tr>
         <tr>
@@ -785,6 +795,7 @@
         <td>是</td>
         <td>是，窗口为 1 时最好</td>
         <td>是</td>
+        <td>是</td>
         </tr>
         <tr>
         <td>③ 噪声级作为输入</td>
@@ -792,6 +803,7 @@
         <td>没有，第 2、3 遍参数相同</td>
         <td>有，key 按遍按块分，query 按遍分</td>
         <td>没有，各遍参数相同</td>
+        <td>没有</td>
         </tr>
         <tr>
         <td>每个 token 独立的噪声级</td>
@@ -799,14 +811,22 @@
         <td>没有。固定 3 遍，研究版整段一起变</td>
         <td>没有，固定</td>
         <td>没有</td>
+        <td>没有</td>
         </tr>
         </tbody>
         </table>
         </div>
-        <p>三家都没有保留普通 loop 那条"拿上一遍的顶层状态接着算"的线。每一遍从前段的输出重新出发，上一遍只通过深度读进来。所以骨架是因果的，上面的层怎么影响下面的层，全看这条读学成什么样。</p>
+        <p>前三家都没有保留普通 loop 那条"拿上一遍的顶层状态接着算"的线。每一遍从前段的输出重新出发，上一遍只通过深度读进来。所以骨架是因果的，上面的层怎么影响下面的层，全看这条读学成什么样。ALF 两条都留着：顶层状态照旧并进下一个 token 的输入，另外再加逐子层的读。</p>
         <p>LoopRes 和 LoRM 把两类源放进一个 softmax，网格递推里的两个求和就共用一个归一化。LoopRes 的打分还依赖遍号，所以 ③ 进到了读的里面。这两点我也核对过（附录 B 的 E2）。</p>
         <p>有三点值得看。</p>
-        <p><strong>上一遍读谁，各家学出来的不一样。</strong> Goodfire 分解了 Inkling 2 Mini 每一层的输入，发现后面的 loop 读上一遍时，读第 3 块多于第 2 块。第 3 块几乎总是读自己上一 loop 的输出，这是"读自己上一遍的值"。第 2 块开头的层读的也主要是上一遍的第 3 块，也就是上一遍的顶部，这是"更深一层"的读法。LoopRes 的分析相反：循环段的第一个块主要在更新自己上一 loop 的输出，第二个块主要依赖本 loop 的第一个块，两个都是因果的读法。LoRM 的第二遍读的是第一遍的第 5 到 10 层，不是顶层，而且只在自己的前 8 层读。Temporal Residual 让每个子层自己学读写的权重，学出来也集中在中间：32 层里读的权重在第 15 层最高，写的强度从第 20 层往上不到 0.1，最上面三分之一的层几乎不写。所以没有一家是纯因果的，也没有一家是纯"顶层接底层"的。</p>
+        <p><strong>上一遍读谁，学出来的都是自己和稍微上面一点。</strong> 第 4 节说过，下面的层读这一遍的就够了，要从上一遍读的是自己和上面的层。四家学出来的读法都符合这条：</p>
+        <ul>
+        <li><strong>Inkling 2 Mini</strong>：Goodfire 分解了每一层的输入。第 3 块几乎总是读自己上一 loop 的输出。第 2 块开头的层读的主要是上一遍的第 3 块，也就是它上面的块。Goodfire 自己的解释也是第 3 块已经能从本遍读到第 2 块。</li>
+        <li><strong>LoopRes</strong>：循环段的第一个块主要在更新自己上一 loop 的输出，第二个块主要依赖本 loop 的第一个块。</li>
+        <li><strong>LoRM</strong>：第二遍读的是第一遍的第 5 到 10 层，不是顶层，而且只在自己的前 8 层读。</li>
+        <li><strong>ALF</strong>：权重集中在自己这一深度和往上三个子层。下半部分的子层拿走了 73% 的混合比例，也就是说主要是浅层在读。</li>
+        </ul>
+        <p>Temporal Residual 让每个子层自己学读写的权重，学出来也集中在中间：32 层里读的权重在第 15 层最高，写的强度从第 20 层往上不到 0.1，最上面三分之一的层几乎不写。所以没有一家是纯"只读自己"的，也没有一家是"顶层接底层"的。</p>
         <p><strong>增益主要来自跨遍的深度读取。</strong> LoopRes 在 Qwen3-1.7B、两倍算力下，7 项评测的平均分是：Huginn 式的 loop 49.0，加上朴素的 AttnRes 53.9，LoopRes 55.8。LoRM 在相同训练算力下的验证 loss：</p>
         <div class="table-responsive">
         <table class="table table-sm">
@@ -836,7 +856,7 @@
         </tbody>
         </table>
         </div>
-        <p>只送回顶层不如不送，送回一整列才有收益。这一档的差距只有 0.004，数据多四倍的那一档是 0.017（2.3390 对 2.3556）。Temporal Residual 在改装预训练模型的设置里有一个同方向的结果：把上一个 token 的顶层状态直接送进输入，只拿到它五分之一的增益。这两条是假设 1 目前的证据，都是他们报告的数字。后一条没有用深度注意力，只说明只送顶层不够。</p>
+        <p>只送回顶层不如不送，送回一整列才有收益。这一档的差距只有 0.004，数据多四倍的那一档是 0.017（2.3390 对 2.3556）。Temporal Residual 在改装预训练模型的设置里有一个同方向的结果：把上一个 token 的顶层状态直接送进输入，只拿到它五分之一的增益。ALF 是规模最大的一组：在三个规模、两种骨架上都好过只送顶层状态的 FBT；重新训练的对照里，把反馈限制成只读顶层状态，loss 高 0.0061 nats；MoE-4.0B 上 17 项下游任务的平均准确率从 45.1% 升到 47.0%，解码多花约 1.1% 的 FLOP。这三条是假设 1 目前的证据，都是他们报告的数字。Temporal Residual 那条没有用深度注意力，只说明只送顶层不够。</p>
         <p><strong>读取方要被告知级别。</strong> LoopRes 发现靠内容分不开同一个块的各次迭代，直接优化的、按 loop 分的 key 才分得开。去掉它，四倍算力下的平均分从 57.8 掉到 55.8。</p>
         <p>Inkling 2 Mini 没有按遍分的参数，但 Goodfire 发现模型自己长出了一个：坐标 \(d_{2027}\) 在前两遍的末尾被写成很大的正值，RMS 归一化后平均 +32.4，一个坐标占了平方范数的 46%；到最后一遍又被清掉。它是下一遍决定"读第 3 块还是第 2 块"时贡献最大的几个坐标之一。Goodfire 的推测是最后一遍之后不再需要跨 loop 通信，所以模型把它抹掉。按我的读法，没人给它级别信号，它就自己腾出一个坐标来记。</p>
         <blockquote class="callout">
@@ -850,7 +870,7 @@
         </ul>
         <p>两边都是先读一个还没细化完的值，之后再修。这也正是 diffusion forcing 本来就允许的事：读还没去噪完的历史。</p>
         <h2>7. 还空着的一格：每层自己的 loop 次数</h2>
-        <p>上一节的表里，最后一行三个模型都是"没有"。而这一行正是 diffusion forcing 名字的来历：训练时每个 token 有独立的噪声级。对偶过来，是每一层有自己的更新次数。</p>
+        <p>上一节的表里，最后一行四个模型都是"没有"。而这一行正是 diffusion forcing 名字的来历：训练时每个 token 有独立的噪声级。对偶过来，是每一层有自己的更新次数。</p>
         <p>最接近的是 Thinking Machines 和 Inkling 2 Mini 一起放出的研究模型 TML-d24-varloop-research。它的中间 12 层在训练时跑 1 到 5 遍，按 1:2:6:2:1 采样，推理时遍数可以自己选。这相当于训练时随机取噪声级，但所有 token 取同一个。Huginn 更早做过同样的事。还空着的是每一层取各自的次数。</p>
         <h3>执行表</h3>
         <p>用第 4 节的记号，再加一张表 \(S_{k,i} \in \{0,1\}\)，表示第 \(k\) 遍里第 \(i\) 个格子是否更新。Diffusion forcing 的 schedule 矩阵和"哪一遍跑哪些层"是同一个对象。现有的架构各是一张填好的表：</p>
@@ -914,7 +934,7 @@
         <li><strong>加噪公式的替代是真的少跑几遍。</strong> "少更新两次的层输出"造不出来，只能按随机的表去执行。</li>
         <li><strong>逐格目标的替代是 coda。</strong> 每种表下最后的状态都过一次 coda，算一次 loss。</li>
         </ul>
-        <p>因果性在这里也有份（第 4 节）。跳过一层只有在它的输入不再变化时才是精确的。下面的层如果读上面的层的上一遍，它的输入每一遍都在变，跳过任何一层都改了函数。只读自己和下面的层时，低层的输入会先稳定下来，表就有一个自然的形状：低层先停，高层多跑。这对应 diffusion forcing 里近处先定、远处后定的走法。CausVid 的逐片段生成就是这样一张阶梯形的表，定下来的片段只算一次。</p>
+        <p>因果性在这里也有份（第 4 节）。跳过一层只有在它的输入不再变化时才是精确的。下面的层如果读上面的层的上一遍，它的输入每一遍都在变，跳过任何一层都改了函数。只读自己时，低层的输入会先稳定下来，表就有一个自然的形状：低层先停，高层多跑。往上读的窗口越宽，这条性质越弱。这对应 diffusion forcing 里近处先定、远处后定的走法。CausVid 的逐片段生成就是这样一张阶梯形的表，定下来的片段只算一次。</p>
         <blockquote class="callout">
         <p><strong>假设 3.</strong> 执行表要可学习，权重得先在随机的表下训过。先训权重，再学表。随机的表对因果的那部分读是安全的；自上而下的那部分读要单独用门控住。</p>
         </blockquote>
@@ -947,7 +967,7 @@
         <p><strong>观察 2.</strong> 现有的 loop 模型，在连线上已经是 diffusion forcing 网格的转置。三段结构相同，块内的 AttnRes 是它的时间轴，遍与遍之间那一列连续状态是它的噪声轴。它们带的东西没有加噪过程，所以没有加噪公式和逐格目标。训练时也只用了一张执行表。</p>
         <p><strong>假设 5.</strong> Diffusion forcing 从"所有 token 同一个噪声级"走到"每个 token 独立"，得到的是采样时任选 schedule 的自由。Loop 模型下一步会走同一段路：从一张设计时填好的执行表，走到在随机的表下训练、事后再选表。</p>
         </blockquote>
-        <p>Inkling 2 Mini 是 Thinking Machines 自己训练的产品模型，LoopRes 是在预训练模型上微调，LoRM 是在研究 latent feedback。三家的出发点不同，却造出了几乎同一个结构。我愿意把这当作这个对偶不只是巧合的一点证据。</p>
+        <p>Inkling 2 Mini 是 Thinking Machines 自己训练的产品模型，LoopRes 是在预训练模型上微调，LoRM 和 ALF 是在研究 latent feedback。四家的出发点不同，却造出了几乎同一个结构。我愿意把这当作这个对偶不只是巧合的一点证据。</p>
         <hr />
         <h2>附录 A：记号</h2>
         <div class="table-responsive">
@@ -1089,7 +1109,7 @@
         </tr>
         <tr>
         <td>F</td>
-        <td>上一遍只读自己或下面的层时，最长依赖链是 \(L+K-1\)；顶层接底层或读整列时是 \(L \times K\)。枚举到 8 层 6 遍</td>
+        <td>上一遍只读自己或下面的层时，最长依赖链是 \(L+K-1\)；读自己和上面 \(w\) 层时是 \(L+(K-1)(w+1)\)；顶层接底层或读整列时是 \(L \times K\)。枚举到 8 层 6 遍</td>
         <td>0</td>
         </tr>
         </tbody>
@@ -1104,6 +1124,7 @@
         <li>Temporal Residual：<a href="https://jackcai.me/writing/temporal-residual/">介绍页</a>，<a href="https://jackcai.me/writing/temporal-residual.pdf">论文</a></li>
         <li>LoopRes：<a href="https://oahzxl.github.io/LoopRes/">项目页</a>，<a href="https://github.com/NUS-HPC-AI-Lab/LoopRes/blob/main/docs/paper.pdf">论文</a>，<a href="https://github.com/NUS-HPC-AI-Lab/LoopRes/blob/main/loopres/model.py">代码</a></li>
         <li>LoRM：<a href="https://github.com/ifm-ai/LoRM">代码仓库</a>，<a href="https://github.com/ifm-ai/LoRM/blob/main/works/attnres_feedback/README.md">AttnRes 加 latent feedback</a>（<a href="https://github.com/ifm-ai/LoRM/blob/main/works/attnres_feedback/model.py">模型代码</a>），<a href="https://x.com/huskydogewoof/status/2123875819089023319">Feedback Shortcut 的推文</a></li>
+        <li>Attention Latent Feedback（ALF）：<a href="https://arxiv.org/abs/2611.31154">arXiv 2611.31154</a></li>
         <li>Full-bandwidth Transformer：<a href="https://arxiv.org/abs/2608.08888">arXiv 2608.08888</a></li>
         <li>Huginn：<a href="https://arxiv.org/abs/2502.05171">arXiv 2502.05171</a></li>
         <li>Loop 模型的并行采样器：<a href="https://arxiv.org/abs/2510.14961">arXiv 2510.14961</a></li>

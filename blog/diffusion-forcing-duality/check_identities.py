@@ -19,8 +19,9 @@ E  coarse to fine.  A looped block-AttnRes network written at the granularity of
    is the same grid recurrence with one cell per sublayer; one arrow of the
    coarse picture is one weight shared by every sublayer of the source block.
 F  which cells of the previous pass a cell may read decides how deep the looped
-   stack is: own value or the cells below give L + K - 1, the top cell feeding
-   the bottom one (or the whole column) gives L * K.
+   stack is: own value or the cells below give L + K - 1, own depth and w cells
+   above give L + (K - 1)(w + 1), the top cell feeding the bottom one (or the
+   whole column) gives L * K.
 
 Prints the largest error of each check and ALL CHECKS PASS, or exits non-zero.
 """
@@ -604,6 +605,10 @@ read_rules = {
 for rule_name, (rule, expected) in read_rules.items():
     worst = max(abs(serial_depth(n, k, rule) - expected(n, k)) for n in range(1, 9) for k in range(1, 7))
     report(f"F  serial depth, previous pass read = {rule_name}", float(worst), tol=0.5)
+# own depth and the next w deeper cells, the rule of Attention Latent Feedback (arXiv 2611.31154) with a window
+worst = max(abs(serial_depth(n, k, lambda j, i, n_, w=w: i <= j <= i + w) - (n + (k - 1) * (w + 1)))
+            for n in range(1, 9) for k in range(1, 7) for w in range(n))
+report("F  serial depth, previous pass read = own depth and w cells above: L + (K-1)(w+1)", float(worst), tol=0.5)
 
 if failures:
     print("FAILED:", failures)
