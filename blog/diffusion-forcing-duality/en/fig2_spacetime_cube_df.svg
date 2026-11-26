@@ -1,0 +1,162 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1140 596" width="1140" height="596" role="img" aria-label="3D computational lattice (Token t x Depth l x Pass r) and the exact boundaries of Diffusion Forcing duality">
+<defs>
+  <marker id="arr-dark" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+    <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#18181B"/>
+  </marker>
+  <marker id="arr-muted" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+    <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#71717A"/>
+  </marker>
+  <marker id="arr-blue" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+    <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#2563EB"/>
+  </marker>
+  <marker id="arr-orange" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+    <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#EA580C"/>
+  </marker>
+  <marker id="arr-teal" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+    <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#0D9488"/>
+  </marker>
+  <marker id="arr-purple" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+    <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#7C3AED"/>
+  </marker>
+  <marker id="arr-red" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+    <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#DC2626"/>
+  </marker>
+</defs>
+<rect x="0.5" y="0.5" width="1139" height="595" rx="12" fill="#FAFAF7" stroke="#E2E2DC" stroke-width="1"/>
+<text x="28" y="36" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="16.5" font-weight="700" fill="#18181B" text-anchor="start">The 3D Compute Lattice (Token t × Depth l × Pass r) and Where Diffusion Forcing Duality Breaks</text>
+<text x="28" y="57" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="11.4" font-weight="400" fill="#52525B" text-anchor="start">Every recent architecture occupies one edge family in a single 3D tensor; Diffusion Forcing spans two orthogonal slices, snapping at the missing exogenous kernel q.</text>
+<rect x="24" y="76" width="536" height="496" rx="10" fill="#FFFFFF" stroke="#E2E2DC" stroke-width="1.2"/>
+<text x="40" y="102" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="12.0" font-weight="700" fill="#18181B" text-anchor="start">Left: Unified 3D Compute Cube (node = token t, layer l, pass r)</text>
+<line x1="234" y1="336" x2="234" y2="150" stroke="#E7E7E2" stroke-width="0.9"/>
+<line x1="340" y1="358" x2="340" y2="172" stroke="#E7E7E2" stroke-width="0.9"/>
+<line x1="446" y1="380" x2="446" y2="194" stroke="#E7E7E2" stroke-width="0.9"/>
+<line x1="234" y1="336" x2="446" y2="380" stroke="#E7E7E2" stroke-width="0.9"/>
+<line x1="234" y1="274" x2="446" y2="318" stroke="#E7E7E2" stroke-width="0.9"/>
+<line x1="234" y1="212" x2="446" y2="256" stroke="#E7E7E2" stroke-width="0.9"/>
+<line x1="234" y1="150" x2="446" y2="194" stroke="#E7E7E2" stroke-width="0.9"/>
+<line x1="176" y1="364" x2="176" y2="178" stroke="#E7E7E2" stroke-width="0.9"/>
+<line x1="282" y1="386" x2="282" y2="200" stroke="#E7E7E2" stroke-width="0.9"/>
+<line x1="388" y1="408" x2="388" y2="222" stroke="#E7E7E2" stroke-width="0.9"/>
+<line x1="176" y1="364" x2="388" y2="408" stroke="#E7E7E2" stroke-width="0.9"/>
+<line x1="176" y1="302" x2="388" y2="346" stroke="#E7E7E2" stroke-width="0.9"/>
+<line x1="176" y1="240" x2="388" y2="284" stroke="#E7E7E2" stroke-width="0.9"/>
+<line x1="176" y1="178" x2="388" y2="222" stroke="#E7E7E2" stroke-width="0.9"/>
+<line x1="118" y1="392" x2="118" y2="206" stroke="#D4D4CC" stroke-width="0.9"/>
+<line x1="224" y1="414" x2="224" y2="228" stroke="#D4D4CC" stroke-width="0.9"/>
+<line x1="330" y1="436" x2="330" y2="250" stroke="#D4D4CC" stroke-width="0.9"/>
+<line x1="118" y1="392" x2="330" y2="436" stroke="#D4D4CC" stroke-width="0.9"/>
+<line x1="118" y1="330" x2="330" y2="374" stroke="#D4D4CC" stroke-width="0.9"/>
+<line x1="118" y1="268" x2="330" y2="312" stroke="#D4D4CC" stroke-width="0.9"/>
+<line x1="118" y1="206" x2="330" y2="250" stroke="#D4D4CC" stroke-width="0.9"/>
+<line x1="118" y1="392" x2="234" y2="336" stroke="#D8D8D0" stroke-width="0.9" stroke-dasharray="3,3"/>
+<line x1="118" y1="206" x2="234" y2="150" stroke="#D8D8D0" stroke-width="0.9" stroke-dasharray="3,3"/>
+<line x1="330" y1="436" x2="446" y2="380" stroke="#D8D8D0" stroke-width="0.9" stroke-dasharray="3,3"/>
+<line x1="330" y1="250" x2="446" y2="194" stroke="#D8D8D0" stroke-width="0.9" stroke-dasharray="3,3"/>
+<circle cx="234" cy="336" r="3.6" fill="#F4F4F0" stroke="#A1A1AA" stroke-width="1.2"/>
+<circle cx="234" cy="274" r="3.6" fill="#F4F4F0" stroke="#A1A1AA" stroke-width="1.2"/>
+<circle cx="234" cy="212" r="3.6" fill="#F4F4F0" stroke="#A1A1AA" stroke-width="1.2"/>
+<circle cx="234" cy="150" r="3.6" fill="#F4F4F0" stroke="#A1A1AA" stroke-width="1.2"/>
+<circle cx="340" cy="358" r="3.6" fill="#F4F4F0" stroke="#A1A1AA" stroke-width="1.2"/>
+<circle cx="340" cy="296" r="3.6" fill="#F4F4F0" stroke="#A1A1AA" stroke-width="1.2"/>
+<circle cx="340" cy="234" r="3.6" fill="#F4F4F0" stroke="#A1A1AA" stroke-width="1.2"/>
+<circle cx="340" cy="172" r="3.6" fill="#F4F4F0" stroke="#A1A1AA" stroke-width="1.2"/>
+<circle cx="446" cy="380" r="3.6" fill="#F4F4F0" stroke="#A1A1AA" stroke-width="1.2"/>
+<circle cx="446" cy="318" r="3.6" fill="#F4F4F0" stroke="#A1A1AA" stroke-width="1.2"/>
+<circle cx="446" cy="256" r="3.6" fill="#F4F4F0" stroke="#A1A1AA" stroke-width="1.2"/>
+<circle cx="446" cy="194" r="3.6" fill="#F4F4F0" stroke="#A1A1AA" stroke-width="1.2"/>
+<circle cx="176" cy="364" r="4.4" fill="#F4F4F0" stroke="#A1A1AA" stroke-width="1.2"/>
+<circle cx="176" cy="302" r="4.4" fill="#F4F4F0" stroke="#A1A1AA" stroke-width="1.2"/>
+<circle cx="176" cy="240" r="4.4" fill="#F4F4F0" stroke="#A1A1AA" stroke-width="1.2"/>
+<circle cx="176" cy="178" r="4.4" fill="#F4F4F0" stroke="#A1A1AA" stroke-width="1.2"/>
+<circle cx="282" cy="386" r="4.4" fill="#F4F4F0" stroke="#A1A1AA" stroke-width="1.2"/>
+<circle cx="282" cy="324" r="4.4" fill="#F4F4F0" stroke="#A1A1AA" stroke-width="1.2"/>
+<circle cx="282" cy="262" r="4.4" fill="#F4F4F0" stroke="#A1A1AA" stroke-width="1.2"/>
+<circle cx="282" cy="200" r="4.4" fill="#F4F4F0" stroke="#A1A1AA" stroke-width="1.2"/>
+<circle cx="388" cy="408" r="4.4" fill="#F4F4F0" stroke="#A1A1AA" stroke-width="1.2"/>
+<circle cx="388" cy="346" r="4.4" fill="#F4F4F0" stroke="#A1A1AA" stroke-width="1.2"/>
+<circle cx="388" cy="284" r="4.4" fill="#F4F4F0" stroke="#A1A1AA" stroke-width="1.2"/>
+<circle cx="388" cy="222" r="4.4" fill="#F4F4F0" stroke="#A1A1AA" stroke-width="1.2"/>
+<circle cx="118" cy="392" r="5.2" fill="#FFFFFF" stroke="#71717A" stroke-width="1.2"/>
+<circle cx="118" cy="330" r="5.2" fill="#FFFFFF" stroke="#71717A" stroke-width="1.2"/>
+<circle cx="118" cy="268" r="5.2" fill="#FFFFFF" stroke="#71717A" stroke-width="1.2"/>
+<circle cx="118" cy="206" r="5.2" fill="#FFFFFF" stroke="#71717A" stroke-width="1.2"/>
+<circle cx="224" cy="414" r="5.2" fill="#FFFFFF" stroke="#71717A" stroke-width="1.2"/>
+<circle cx="224" cy="352" r="5.2" fill="#FFFFFF" stroke="#71717A" stroke-width="1.2"/>
+<circle cx="224" cy="290" r="5.2" fill="#FFFFFF" stroke="#71717A" stroke-width="1.2"/>
+<circle cx="224" cy="228" r="5.2" fill="#FFFFFF" stroke="#71717A" stroke-width="1.2"/>
+<circle cx="330" cy="436" r="5.2" fill="#FFFFFF" stroke="#71717A" stroke-width="1.2"/>
+<circle cx="330" cy="374" r="5.2" fill="#FFFFFF" stroke="#71717A" stroke-width="1.2"/>
+<circle cx="330" cy="312" r="5.2" fill="#FFFFFF" stroke="#71717A" stroke-width="1.2"/>
+<circle cx="330" cy="250" r="5.2" fill="#FFFFFF" stroke="#71717A" stroke-width="1.2"/>
+<line x1="118" y1="385" x2="118" y2="214" stroke="#2563EB" stroke-width="3.2" marker-end="url(#arr-blue)"/>
+<path d="M 108 388 C 84 334, 84 264, 108 210" fill="none" stroke="#2563EB" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arr-blue)" stroke-dasharray="4,2"/>
+<line x1="125" y1="270" x2="216" y2="288" stroke="#0D9488" stroke-width="3.2" marker-end="url(#arr-teal)"/>
+<line x1="231" y1="292" x2="322" y2="310" stroke="#0D9488" stroke-width="3.2" marker-end="url(#arr-teal)"/>
+<path d="M 230 234 C 274 254, 298 332, 323 367" fill="none" stroke="#EA580C" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arr-orange)"/>
+<path d="M 230 295 C 266 318, 288 358, 322 370" fill="none" stroke="#EA580C" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arr-orange)" stroke-dasharray="4,2"/>
+<line x1="124" y1="265" x2="169" y2="243" stroke="#7C3AED" stroke-width="3.0" marker-end="url(#arr-purple)"/>
+<line x1="182" y1="237" x2="227" y2="215" stroke="#7C3AED" stroke-width="3.0" marker-end="url(#arr-purple)"/>
+<path d="M 124 210 C 152 230, 154 272, 170 296" fill="none" stroke="#7C3AED" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arr-purple)" stroke-dasharray="4,2"/>
+<line x1="118" y1="410" x2="342" y2="454" stroke="#18181B" stroke-width="1.4" marker-end="url(#arr-dark)"/>
+<text x="350" y="458" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="11.0" font-weight="700" fill="#18181B" text-anchor="start">Token axis t (time)</text>
+<text x="70" y="210" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="11.0" font-weight="700" fill="#18181B" text-anchor="middle">Depth l</text>
+<text x="70" y="224" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.4" font-weight="400" fill="#52525B" text-anchor="middle">(untied layers)</text>
+<line x1="130" y1="192" x2="250" y2="136" stroke="#18181B" stroke-width="1.4" marker-end="url(#arr-dark)"/>
+<text x="256" y="140" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="11.0" font-weight="700" fill="#18181B" text-anchor="start">Loop pass r</text>
+<rect x="38" y="472" width="508" height="86" rx="8" fill="#F8F8F5" stroke="#E2E2DC" stroke-width="1"/>
+<line x1="50" y1="490" x2="68" y2="490" stroke="#2563EB" stroke-width="3.0"/>
+<text x="74" y="494" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.9" font-weight="400" fill="#18181B" text-anchor="start">Vertical depth read (along l): AttnRes / SimpleHC / Loom matrix M</text>
+<line x1="50" y1="510" x2="68" y2="510" stroke="#0D9488" stroke-width="3.0"/>
+<text x="74" y="514" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.9" font-weight="400" fill="#18181B" text-anchor="start">Same-depth horizontal (t−1, l)→(t, l): LLLM affine scan / MSAR / MShift (1× FLOPs)</text>
+<line x1="50" y1="530" x2="68" y2="530" stroke="#EA580C" stroke-width="3.0"/>
+<text x="74" y="534" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.9" font-weight="400" fill="#18181B" text-anchor="start">Cross-depth shift=1 (t−1, l&#x27;≥l)→(t, l): FBT / TR / LoRM / ALF (1-pass dec, Jacobi train)</text>
+<line x1="50" y1="548" x2="68" y2="548" stroke="#7C3AED" stroke-width="3.0"/>
+<text x="74" y="552" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.9" font-weight="400" fill="#18181B" text-anchor="start">In-place loop shift=0 (t, l&#x27;, r−1)→(t, l, r): Huginn / Ouro / Inkling / LoopRes (K-pass)</text>
+<rect x="578" y="76" width="538" height="496" rx="10" fill="#FFFFFF" stroke="#E2E2DC" stroke-width="1.2"/>
+<text x="594" y="102" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="12.0" font-weight="700" fill="#18181B" text-anchor="start">Right: Two Diffusion Forcing Slices &amp; Where the Duality Snaps</text>
+<rect x="594" y="116" width="246" height="104" rx="8" fill="#F0FDFA" stroke="#5EEAD4" stroke-width="1.1"/>
+<text x="604" y="136" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="11.2" font-weight="700" fill="#0D9488" text-anchor="start">Slice 1: Direct Slice (t × r)</text>
+<text x="604" y="154" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.1" font-weight="600" fill="#18181B" text-anchor="start">Geiping Parallel Sampler (2510.14961)</text>
+<text x="604" y="172" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.8" font-weight="400" fill="#52525B" text-anchor="start">Explicitly named Diffusion Forcing Sampler:</text>
+<text x="604" y="188" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.8" font-weight="400" fill="#52525B" text-anchor="start">diagonal wavefront refines t &amp; drafts jointly</text>
+<text x="604" y="206" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.3" font-weight="400" fill="#71717A" text-anchor="start">(Limits: BS=1, needs injection, non-contractive)</text>
+<rect x="854" y="116" width="246" height="104" rx="8" fill="#F5F3FF" stroke="#C4B5FD" stroke-width="1.1"/>
+<text x="864" y="136" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="11.2" font-weight="700" fill="#7C3AED" text-anchor="start">Slice 2: Transposed Slice (l × r)</text>
+<text x="864" y="154" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.1" font-weight="600" fill="#18181B" text-anchor="start">Our starting hunch: t → depth, k → pass</text>
+<text x="864" y="172" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.8" font-weight="400" fill="#52525B" text-anchor="start">Time → depth = AttnRes / depth reads</text>
+<text x="864" y="188" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.8" font-weight="400" fill="#52525B" text-anchor="start">Noise → pass = cross-pass column reads</text>
+<text x="864" y="206" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.3" font-weight="400" fill="#71717A" text-anchor="start">(Literally the transpose of Slice 1 in the cube)</text>
+<text x="594" y="248" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="11.3" font-weight="700" fill="#DC2626" text-anchor="start">Zooming in on Slice 2: Why Graph Isomorphism ≠ Strict Mathematical Duality</text>
+<rect x="594" y="260" width="242" height="296" rx="8" fill="#F8FAFC" stroke="#93C5FD" stroke-width="1.2"/>
+<text x="604" y="281" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="11.3" font-weight="700" fill="#2563EB" text-anchor="start">Diffusion Forcing Side</text>
+<text x="604" y="304" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.3" font-weight="700" fill="#18181B" text-anchor="start">■ Exogenous kernel q(xᵏ | x⁰)</text>
+<text x="612" y="320" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.7" font-weight="400" fill="#52525B" text-anchor="start">O(1) closed-form sampling of any kₜ;</text>
+<text x="612" y="334.5" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.7" font-weight="400" fill="#52525B" text-anchor="start">model-free per-cell target;</text>
+<text x="612" y="349.0" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.7" font-weight="400" fill="#52525B" text-anchor="start">frequency filter (DFoT HG-f Prop. A.7)</text>
+<text x="604" y="372.5" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.3" font-weight="700" fill="#18181B" text-anchor="start">■ Within-pass update</text>
+<text x="612" y="388.5" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.7" font-weight="400" fill="#52525B" text-anchor="start">DFoT updates all T tokens in parallel</text>
+<text x="612" y="403.0" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.7" font-weight="400" fill="#52525B" text-anchor="start">(Aˢᵃᵐᵉ = 0) → serial depth is K,</text>
+<text x="612" y="417.5" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.7" font-weight="400" fill="#52525B" text-anchor="start">never L×K!</text>
+<text x="604" y="441.0" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.3" font-weight="700" fill="#18181B" text-anchor="start">■ Real engineering limits</text>
+<text x="612" y="457.0" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.7" font-weight="400" fill="#52525B" text-anchor="start">DF Thm A.3: fixed schedule ≠ strict</text>
+<text x="612" y="471.5" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.7" font-weight="400" fill="#52525B" text-anchor="start">ELBO; T=50 indep. noise degrades;</text>
+<text x="612" y="486.0" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.7" font-weight="400" fill="#52525B" text-anchor="start">CausVid pure causal DF fails (needs</text>
+<text x="612" y="500.5" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.7" font-weight="400" fill="#52525B" text-anchor="start">bidir DMD distill + 5th pass for KV)</text>
+<rect x="858" y="260" width="242" height="296" rx="8" fill="#FFFBF7" stroke="#FDBA74" stroke-width="1.2"/>
+<text x="868" y="281" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="11.3" font-weight="700" fill="#EA580C" text-anchor="start">Loop + AttnRes / Feedback Side</text>
+<text x="868" y="304" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.3" font-weight="700" fill="#18181B" text-anchor="start">■ Endogenous latents (no q)</text>
+<text x="876" y="320" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.7" font-weight="400" fill="#52525B" text-anchor="start">Vocab sampling ≤ log₂|V| bits blocks</text>
+<text x="876" y="334.5" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.7" font-weight="400" fill="#52525B" text-anchor="start">mid-loop decode; no closed noising;</text>
+<text x="876" y="349.0" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.7" font-weight="400" fill="#52525B" text-anchor="start">Huginn shows cycles &amp; linear sliders</text>
+<text x="868" y="372.5" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.3" font-weight="700" fill="#18181B" text-anchor="start">■ Within-pass serial stack</text>
+<text x="876" y="388.5" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.7" font-weight="400" fill="#52525B" text-anchor="start">Layers 1→L execute serially (Aˢᵃᵐᵉ≠0)</text>
+<text x="876" y="403.0" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.7" font-weight="400" fill="#52525B" text-anchor="start">with untied weights; read window w</text>
+<text x="876" y="417.5" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.7" font-weight="400" fill="#52525B" text-anchor="start">sets depth from L+K−1 up to L×K</text>
+<text x="868" y="441.0" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.3" font-weight="700" fill="#18181B" text-anchor="start">■ What the duality still yields</text>
+<text x="876" y="457.0" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.7" font-weight="400" fill="#52525B" text-anchor="start">1) Mid-deep column beats top-only</text>
+<text x="876" y="471.5" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.7" font-weight="400" fill="#52525B" text-anchor="start">2) Train/test mismatch needs rand.</text>
+<text x="876" y="486.0" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.7" font-weight="400" fill="#52525B" text-anchor="start">3) Same-depth LLLM skips Jacobi</text>
+<line x1="847" y1="260" x2="847" y2="556" stroke="#DC2626" stroke-width="2.0" stroke-dasharray="5,4"/>
+<rect x="825" y="398" width="44" height="22" rx="11.0" fill="#FEF2F2" stroke="#DC2626" stroke-width="1.1"/>
+<text x="847.0" y="412.22" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.2" font-weight="700" fill="#DC2626" text-anchor="middle">SNAP</text>
+</svg>

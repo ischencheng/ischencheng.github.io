@@ -1,0 +1,162 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1140 596" width="1140" height="596" role="img" aria-label="三维计算立方体 (Token t × 深度 l × 遍数 r) 以及 Diffusion Forcing 两种切片与真实断裂边界">
+<defs>
+  <marker id="arr-dark" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+    <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#18181B"/>
+  </marker>
+  <marker id="arr-muted" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+    <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#71717A"/>
+  </marker>
+  <marker id="arr-blue" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+    <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#2563EB"/>
+  </marker>
+  <marker id="arr-orange" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+    <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#EA580C"/>
+  </marker>
+  <marker id="arr-teal" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+    <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#0D9488"/>
+  </marker>
+  <marker id="arr-purple" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+    <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#7C3AED"/>
+  </marker>
+  <marker id="arr-red" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+    <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#DC2626"/>
+  </marker>
+</defs>
+<rect x="0.5" y="0.5" width="1139" height="595" rx="12" fill="#FAFAF7" stroke="#E2E2DC" stroke-width="1"/>
+<text x="28" y="36" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="17" font-weight="700" fill="#18181B" text-anchor="start">三维计算时空 (Token t × 深度 l × 遍数 r) 与 Diffusion Forcing 对偶的真实边界</text>
+<text x="28" y="57" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="11.8" font-weight="400" fill="#52525B" text-anchor="start">把所有新架构放进同一个三维张量后，四类连接各占一根轴；Diffusion Forcing 对应它的两张正交切片，而真正的断裂只有一处：外生加噪核 q</text>
+<rect x="24" y="76" width="536" height="496" rx="10" fill="#FFFFFF" stroke="#E2E2DC" stroke-width="1.2"/>
+<text x="42" y="102" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="12.4" font-weight="700" fill="#18181B" text-anchor="start">左：统一的三维计算立方体（每格为 token t 在第 r 遍、第 l 层的计算）</text>
+<line x1="234" y1="336" x2="234" y2="150" stroke="#E7E7E2" stroke-width="0.9"/>
+<line x1="340" y1="358" x2="340" y2="172" stroke="#E7E7E2" stroke-width="0.9"/>
+<line x1="446" y1="380" x2="446" y2="194" stroke="#E7E7E2" stroke-width="0.9"/>
+<line x1="234" y1="336" x2="446" y2="380" stroke="#E7E7E2" stroke-width="0.9"/>
+<line x1="234" y1="274" x2="446" y2="318" stroke="#E7E7E2" stroke-width="0.9"/>
+<line x1="234" y1="212" x2="446" y2="256" stroke="#E7E7E2" stroke-width="0.9"/>
+<line x1="234" y1="150" x2="446" y2="194" stroke="#E7E7E2" stroke-width="0.9"/>
+<line x1="176" y1="364" x2="176" y2="178" stroke="#E7E7E2" stroke-width="0.9"/>
+<line x1="282" y1="386" x2="282" y2="200" stroke="#E7E7E2" stroke-width="0.9"/>
+<line x1="388" y1="408" x2="388" y2="222" stroke="#E7E7E2" stroke-width="0.9"/>
+<line x1="176" y1="364" x2="388" y2="408" stroke="#E7E7E2" stroke-width="0.9"/>
+<line x1="176" y1="302" x2="388" y2="346" stroke="#E7E7E2" stroke-width="0.9"/>
+<line x1="176" y1="240" x2="388" y2="284" stroke="#E7E7E2" stroke-width="0.9"/>
+<line x1="176" y1="178" x2="388" y2="222" stroke="#E7E7E2" stroke-width="0.9"/>
+<line x1="118" y1="392" x2="118" y2="206" stroke="#D4D4CC" stroke-width="0.9"/>
+<line x1="224" y1="414" x2="224" y2="228" stroke="#D4D4CC" stroke-width="0.9"/>
+<line x1="330" y1="436" x2="330" y2="250" stroke="#D4D4CC" stroke-width="0.9"/>
+<line x1="118" y1="392" x2="330" y2="436" stroke="#D4D4CC" stroke-width="0.9"/>
+<line x1="118" y1="330" x2="330" y2="374" stroke="#D4D4CC" stroke-width="0.9"/>
+<line x1="118" y1="268" x2="330" y2="312" stroke="#D4D4CC" stroke-width="0.9"/>
+<line x1="118" y1="206" x2="330" y2="250" stroke="#D4D4CC" stroke-width="0.9"/>
+<line x1="118" y1="392" x2="234" y2="336" stroke="#D8D8D0" stroke-width="0.9" stroke-dasharray="3,3"/>
+<line x1="118" y1="206" x2="234" y2="150" stroke="#D8D8D0" stroke-width="0.9" stroke-dasharray="3,3"/>
+<line x1="330" y1="436" x2="446" y2="380" stroke="#D8D8D0" stroke-width="0.9" stroke-dasharray="3,3"/>
+<line x1="330" y1="250" x2="446" y2="194" stroke="#D8D8D0" stroke-width="0.9" stroke-dasharray="3,3"/>
+<circle cx="234" cy="336" r="3.6" fill="#F4F4F0" stroke="#A1A1AA" stroke-width="1.2"/>
+<circle cx="234" cy="274" r="3.6" fill="#F4F4F0" stroke="#A1A1AA" stroke-width="1.2"/>
+<circle cx="234" cy="212" r="3.6" fill="#F4F4F0" stroke="#A1A1AA" stroke-width="1.2"/>
+<circle cx="234" cy="150" r="3.6" fill="#F4F4F0" stroke="#A1A1AA" stroke-width="1.2"/>
+<circle cx="340" cy="358" r="3.6" fill="#F4F4F0" stroke="#A1A1AA" stroke-width="1.2"/>
+<circle cx="340" cy="296" r="3.6" fill="#F4F4F0" stroke="#A1A1AA" stroke-width="1.2"/>
+<circle cx="340" cy="234" r="3.6" fill="#F4F4F0" stroke="#A1A1AA" stroke-width="1.2"/>
+<circle cx="340" cy="172" r="3.6" fill="#F4F4F0" stroke="#A1A1AA" stroke-width="1.2"/>
+<circle cx="446" cy="380" r="3.6" fill="#F4F4F0" stroke="#A1A1AA" stroke-width="1.2"/>
+<circle cx="446" cy="318" r="3.6" fill="#F4F4F0" stroke="#A1A1AA" stroke-width="1.2"/>
+<circle cx="446" cy="256" r="3.6" fill="#F4F4F0" stroke="#A1A1AA" stroke-width="1.2"/>
+<circle cx="446" cy="194" r="3.6" fill="#F4F4F0" stroke="#A1A1AA" stroke-width="1.2"/>
+<circle cx="176" cy="364" r="4.4" fill="#F4F4F0" stroke="#A1A1AA" stroke-width="1.2"/>
+<circle cx="176" cy="302" r="4.4" fill="#F4F4F0" stroke="#A1A1AA" stroke-width="1.2"/>
+<circle cx="176" cy="240" r="4.4" fill="#F4F4F0" stroke="#A1A1AA" stroke-width="1.2"/>
+<circle cx="176" cy="178" r="4.4" fill="#F4F4F0" stroke="#A1A1AA" stroke-width="1.2"/>
+<circle cx="282" cy="386" r="4.4" fill="#F4F4F0" stroke="#A1A1AA" stroke-width="1.2"/>
+<circle cx="282" cy="324" r="4.4" fill="#F4F4F0" stroke="#A1A1AA" stroke-width="1.2"/>
+<circle cx="282" cy="262" r="4.4" fill="#F4F4F0" stroke="#A1A1AA" stroke-width="1.2"/>
+<circle cx="282" cy="200" r="4.4" fill="#F4F4F0" stroke="#A1A1AA" stroke-width="1.2"/>
+<circle cx="388" cy="408" r="4.4" fill="#F4F4F0" stroke="#A1A1AA" stroke-width="1.2"/>
+<circle cx="388" cy="346" r="4.4" fill="#F4F4F0" stroke="#A1A1AA" stroke-width="1.2"/>
+<circle cx="388" cy="284" r="4.4" fill="#F4F4F0" stroke="#A1A1AA" stroke-width="1.2"/>
+<circle cx="388" cy="222" r="4.4" fill="#F4F4F0" stroke="#A1A1AA" stroke-width="1.2"/>
+<circle cx="118" cy="392" r="5.2" fill="#FFFFFF" stroke="#71717A" stroke-width="1.2"/>
+<circle cx="118" cy="330" r="5.2" fill="#FFFFFF" stroke="#71717A" stroke-width="1.2"/>
+<circle cx="118" cy="268" r="5.2" fill="#FFFFFF" stroke="#71717A" stroke-width="1.2"/>
+<circle cx="118" cy="206" r="5.2" fill="#FFFFFF" stroke="#71717A" stroke-width="1.2"/>
+<circle cx="224" cy="414" r="5.2" fill="#FFFFFF" stroke="#71717A" stroke-width="1.2"/>
+<circle cx="224" cy="352" r="5.2" fill="#FFFFFF" stroke="#71717A" stroke-width="1.2"/>
+<circle cx="224" cy="290" r="5.2" fill="#FFFFFF" stroke="#71717A" stroke-width="1.2"/>
+<circle cx="224" cy="228" r="5.2" fill="#FFFFFF" stroke="#71717A" stroke-width="1.2"/>
+<circle cx="330" cy="436" r="5.2" fill="#FFFFFF" stroke="#71717A" stroke-width="1.2"/>
+<circle cx="330" cy="374" r="5.2" fill="#FFFFFF" stroke="#71717A" stroke-width="1.2"/>
+<circle cx="330" cy="312" r="5.2" fill="#FFFFFF" stroke="#71717A" stroke-width="1.2"/>
+<circle cx="330" cy="250" r="5.2" fill="#FFFFFF" stroke="#71717A" stroke-width="1.2"/>
+<line x1="118" y1="385" x2="118" y2="214" stroke="#2563EB" stroke-width="3.2" marker-end="url(#arr-blue)"/>
+<path d="M 108 388 C 84 334, 84 264, 108 210" fill="none" stroke="#2563EB" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arr-blue)" stroke-dasharray="4,2"/>
+<line x1="125" y1="270" x2="216" y2="288" stroke="#0D9488" stroke-width="3.2" marker-end="url(#arr-teal)"/>
+<line x1="231" y1="292" x2="322" y2="310" stroke="#0D9488" stroke-width="3.2" marker-end="url(#arr-teal)"/>
+<path d="M 230 234 C 274 254, 298 332, 323 367" fill="none" stroke="#EA580C" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arr-orange)"/>
+<path d="M 230 295 C 266 318, 288 358, 322 370" fill="none" stroke="#EA580C" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arr-orange)" stroke-dasharray="4,2"/>
+<line x1="124" y1="265" x2="169" y2="243" stroke="#7C3AED" stroke-width="3.0" marker-end="url(#arr-purple)"/>
+<line x1="182" y1="237" x2="227" y2="215" stroke="#7C3AED" stroke-width="3.0" marker-end="url(#arr-purple)"/>
+<path d="M 124 210 C 152 230, 154 272, 170 296" fill="none" stroke="#7C3AED" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arr-purple)" stroke-dasharray="4,2"/>
+<line x1="118" y1="410" x2="342" y2="454" stroke="#18181B" stroke-width="1.4" marker-end="url(#arr-dark)"/>
+<text x="350" y="458" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="11.2" font-weight="700" fill="#18181B" text-anchor="start">Token 轴 t（时间）</text>
+<text x="74" y="210" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="11.2" font-weight="700" fill="#18181B" text-anchor="middle">深度轴 l</text>
+<text x="74" y="224" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="9.6" font-weight="400" fill="#52525B" text-anchor="middle">(异权重层)</text>
+<line x1="130" y1="192" x2="250" y2="136" stroke="#18181B" stroke-width="1.4" marker-end="url(#arr-dark)"/>
+<text x="258" y="140" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="11.2" font-weight="700" fill="#18181B" text-anchor="start">循环遍轴 r</text>
+<rect x="38" y="472" width="508" height="86" rx="8" fill="#F8F8F5" stroke="#E2E2DC" stroke-width="1"/>
+<line x1="52" y1="490" x2="72" y2="490" stroke="#2563EB" stroke-width="3.0"/>
+<text x="80" y="494" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.5" font-weight="400" fill="#18181B" text-anchor="start">垂直深度读 (沿 l)：AttnRes / SimpleHC / Loom 矩阵 M</text>
+<line x1="52" y1="510" x2="72" y2="510" stroke="#0D9488" stroke-width="3.0"/>
+<text x="80" y="514" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.5" font-weight="400" fill="#18181B" text-anchor="start">同层水平状态 (t−1, l)→(t, l)：LLLM 仿射扫描 / MSAR / MShift（1× FLOPs, 零 Jacobi）</text>
+<line x1="52" y1="530" x2="72" y2="530" stroke="#EA580C" stroke-width="3.0"/>
+<text x="80" y="534" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.5" font-weight="400" fill="#18181B" text-anchor="start">跨层反馈 shift=1 (t−1, l&#x27;≥l)→(t, l)：FBT / TR / LoRM / ALF（解码1遍, 训练需 Jacobi）</text>
+<line x1="52" y1="548" x2="72" y2="548" stroke="#7C3AED" stroke-width="3.0"/>
+<text x="80" y="552" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.5" font-weight="400" fill="#18181B" text-anchor="start">同位循环 shift=0 (t, l&#x27;, r−1)→(t, l, r)：Huginn / Ouro / Inkling / LoopRes（解码 K 遍）</text>
+<rect x="578" y="76" width="538" height="496" rx="10" fill="#FFFFFF" stroke="#E2E2DC" stroke-width="1.2"/>
+<text x="596" y="102" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="12.4" font-weight="700" fill="#18181B" text-anchor="start">右：Diffusion Forcing 的两张切片，以及对偶究竟断在哪里</text>
+<rect x="594" y="116" width="246" height="104" rx="8" fill="#F0FDFA" stroke="#5EEAD4" stroke-width="1.1"/>
+<text x="606" y="136" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="11.4" font-weight="700" fill="#0D9488" text-anchor="start">切片 1：直接切片 (t × r)</text>
+<text x="606" y="154" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.5" font-weight="600" fill="#18181B" text-anchor="start">Geiping 并行采样器 (2510.14961)</text>
+<text x="606" y="172" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.2" font-weight="400" fill="#52525B" text-anchor="start">已直接命名为 Diffusion Forcing Sampler：</text>
+<text x="606" y="188" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.2" font-weight="400" fill="#52525B" text-anchor="start">前序未收敛 token 与后续草稿同批精修</text>
+<text x="606" y="206" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="9.6" font-weight="400" fill="#71717A" text-anchor="start">（限制：BS=1，需输入注入，非收缩会卡滞）</text>
+<rect x="854" y="116" width="246" height="104" rx="8" fill="#F5F3FF" stroke="#C4B5FD" stroke-width="1.1"/>
+<text x="866" y="136" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="11.4" font-weight="700" fill="#7C3AED" text-anchor="start">切片 2：时空转置切片 (l × r)</text>
+<text x="866" y="154" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.5" font-weight="600" fill="#18181B" text-anchor="start">本文原初灵感：t → 深度，k → 循环</text>
+<text x="866" y="172" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.2" font-weight="400" fill="#52525B" text-anchor="start">时间轴转深度 = AttnRes / 深度读</text>
+<text x="866" y="188" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.2" font-weight="400" fill="#52525B" text-anchor="start">噪声轴转循环 = 跨遍读上一列状态</text>
+<text x="866" y="206" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="9.6" font-weight="400" fill="#71717A" text-anchor="start">（与切片 1 恰是三维张量中转置的两面）</text>
+<text x="596" y="248" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="11.8" font-weight="700" fill="#DC2626" text-anchor="start">把转置切片拉近核对：为什么“连线同构”不等于“严格数学对偶”？</text>
+<rect x="594" y="260" width="244" height="296" rx="8" fill="#F8FAFC" stroke="#93C5FD" stroke-width="1.2"/>
+<text x="606" y="281" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="11.5" font-weight="700" fill="#2563EB" text-anchor="start">Diffusion Forcing 一侧</text>
+<text x="606" y="306" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.6" font-weight="700" fill="#18181B" text-anchor="start">■ 外生加噪核 q(xᵏ | x⁰)</text>
+<text x="616" y="323" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.1" font-weight="400" fill="#52525B" text-anchor="start">闭合公式 O(1) 一步造任意 kₜ；</text>
+<text x="616" y="338" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.1" font-weight="400" fill="#52525B" text-anchor="start">每格自带模型无关去噪目标；</text>
+<text x="616" y="353" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.1" font-weight="400" fill="#52525B" text-anchor="start">支持频域滤波 (DFoT HG-f)</text>
+<text x="606" y="378" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.6" font-weight="700" fill="#18181B" text-anchor="start">■ 同遍内更新方式</text>
+<text x="616" y="395" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.1" font-weight="400" fill="#52525B" text-anchor="start">DFoT 同遍内所有 T 个 token</text>
+<text x="616" y="410" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.1" font-weight="400" fill="#52525B" text-anchor="start">并行更新 (Aˢᵃᵐᵉ=0) → 串行深度</text>
+<text x="616" y="425" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.1" font-weight="400" fill="#52525B" text-anchor="start">是 K，不是 L×K！</text>
+<text x="606" y="450" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.6" font-weight="700" fill="#18181B" text-anchor="start">■ 真实工程边界</text>
+<text x="616" y="467" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.1" font-weight="400" fill="#52525B" text-anchor="start">DF Thm A.3：固定 schedule 非</text>
+<text x="616" y="482" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.1" font-weight="400" fill="#52525B" text-anchor="start">严格 ELBO；T=50 独立噪声退化；</text>
+<text x="616" y="497" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.1" font-weight="400" fill="#52525B" text-anchor="start">CausVid 纯因果 DF 失败，靠双向</text>
+<text x="616" y="512" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.1" font-weight="400" fill="#52525B" text-anchor="start">DMD 蒸馏 + 第 5 遍才算 KV</text>
+<rect x="856" y="260" width="244" height="296" rx="8" fill="#FFFBF7" stroke="#FDBA74" stroke-width="1.2"/>
+<text x="868" y="281" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="11.5" font-weight="700" fill="#EA580C" text-anchor="start">Loop + AttnRes / 反馈一侧</text>
+<text x="868" y="306" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.6" font-weight="700" fill="#18181B" text-anchor="start">■ 内生隐空间动力学（无 q）</text>
+<text x="878" y="323" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.1" font-weight="400" fill="#52525B" text-anchor="start">词表采样 ≤ log₂|V| bit，无法每遍</text>
+<text x="878" y="338" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.1" font-weight="400" fill="#52525B" text-anchor="start">解码回数据空间；无闭合加噪，</text>
+<text x="878" y="353" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.1" font-weight="400" fill="#52525B" text-anchor="start">Huginn 出现周期轨道与线性漂移</text>
+<text x="868" y="378" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.6" font-weight="700" fill="#18181B" text-anchor="start">■ 同遍内串行自底向上</text>
+<text x="878" y="395" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.1" font-weight="400" fill="#52525B" text-anchor="start">层 1→L 串行执行 (Aˢᵃᵐᵉ≠0) 且</text>
+<text x="878" y="410" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.1" font-weight="400" fill="#52525B" text-anchor="start">每层异权重；上遍读窗口 w 决定</text>
+<text x="878" y="425" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.1" font-weight="400" fill="#52525B" text-anchor="start">串行深度：L+K−1 到 L×K</text>
+<text x="868" y="450" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.6" font-weight="700" fill="#18181B" text-anchor="start">■ 对偶真正留下的资产</text>
+<text x="878" y="467" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.1" font-weight="400" fill="#52525B" text-anchor="start">1) 传递整列中深层状态优于顶层</text>
+<text x="878" y="482" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.1" font-weight="400" fill="#52525B" text-anchor="start">2) 训练 / 推理路线失配需要随机化</text>
+<text x="878" y="497" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.1" font-weight="400" fill="#52525B" text-anchor="start">3) 同层水平态 (LLLM) 绕开 Jacobi</text>
+<line x1="847" y1="260" x2="847" y2="556" stroke="#DC2626" stroke-width="2.0" stroke-dasharray="5,4"/>
+<rect x="827" y="398" width="40" height="22" rx="11.0" fill="#FEF2F2" stroke="#DC2626" stroke-width="1.1"/>
+<text x="847.0" y="412.5" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10" font-weight="700" fill="#DC2626" text-anchor="middle">断裂</text>
+</svg>

@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1140 566" width="1140" height="566" role="img" aria-label="Why per-token discrete layer skipping hits four walls vs. continuous rewiring inside a static graph">
+<defs>
+  <marker id="arr-dark" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+    <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#18181B"/>
+  </marker>
+  <marker id="arr-muted" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+    <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#71717A"/>
+  </marker>
+  <marker id="arr-blue" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+    <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#2563EB"/>
+  </marker>
+  <marker id="arr-orange" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+    <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#EA580C"/>
+  </marker>
+  <marker id="arr-teal" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+    <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#0D9488"/>
+  </marker>
+  <marker id="arr-purple" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+    <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#7C3AED"/>
+  </marker>
+  <marker id="arr-red" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+    <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#DC2626"/>
+  </marker>
+</defs>
+<rect x="0.5" y="0.5" width="1139" height="565" rx="12" fill="#FAFAF7" stroke="#E2E2DC" stroke-width="1"/>
+<text x="28" y="36" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="16.5" font-weight="700" fill="#18181B" text-anchor="start">The Dynamic Compute Fork: Why Discrete Skipping Hits Four Walls vs. Static-Graph Rewiring</text>
+<text x="28" y="57" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="11.4" font-weight="400" fill="#52525B" text-anchor="start">Synthesizing empirical failures across CoLa, PoLar, Dr.LLM, MACRO, 2610.04751 &amp; 2610.40325 into a composable static-graph architecture.</text>
+<rect x="24" y="76" width="536" height="468" rx="10" fill="#FFFFFF" stroke="#E2E2DC" stroke-width="1.2"/>
+<rect x="25" y="77" width="534" height="34" rx="9" fill="#FEF2F2" stroke="none" stroke-width="1.2"/>
+<line x1="24" y1="111" x2="560" y2="111" stroke="#FCA5A5" stroke-width="1.0"/>
+<text x="38" y="99" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="11.8" font-weight="700" fill="#DC2626" text-anchor="start">Dead End: Per-Token Discrete Skip / Repeat Schedule Sₖ,ᵢ ∈ {0, 1}</text>
+<rect x="40" y="124" width="504" height="152" rx="8" fill="#FFFDFD" stroke="#FCA5A5" stroke-width="1.1"/>
+<text x="50" y="143" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.6" font-weight="700" fill="#DC2626" text-anchor="start">Structural Wall: Autoregressive KV Holes Across Untied Layers</text>
+<text x="122" y="175" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="9.1" font-weight="400" fill="#52525B" text-anchor="end">L3 (KV₃)</text>
+<text x="122" y="209" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="9.1" font-weight="400" fill="#52525B" text-anchor="end">L2 (KV₂)</text>
+<text x="122" y="243" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="9.1" font-weight="400" fill="#52525B" text-anchor="end">L1 (KV₁)</text>
+<text x="181" y="267" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.8" font-weight="500" fill="#18181B" text-anchor="middle">Token t−1</text>
+<rect x="130" y="158" width="102" height="24" rx="5" fill="#EFF6FF" stroke="#93C5FD" stroke-width="1.1"/>
+<text x="181" y="174" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="9.6" font-weight="400" fill="#2563EB" text-anchor="middle">KV₃(t−1)</text>
+<rect x="130" y="192" width="102" height="24" rx="5" fill="#EFF6FF" stroke="#93C5FD" stroke-width="1.1"/>
+<text x="181" y="208" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="9.6" font-weight="400" fill="#2563EB" text-anchor="middle">KV₂(t−1)</text>
+<rect x="130" y="226" width="102" height="24" rx="5" fill="#EFF6FF" stroke="#93C5FD" stroke-width="1.1"/>
+<text x="181" y="242" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="9.6" font-weight="400" fill="#2563EB" text-anchor="middle">KV₁(t−1)</text>
+<text x="317" y="267" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.8" font-weight="700" fill="#DC2626" text-anchor="middle">Token t (skips L2!)</text>
+<rect x="266" y="158" width="102" height="24" rx="5" fill="#EFF6FF" stroke="#93C5FD" stroke-width="1.1"/>
+<text x="317" y="174" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="9.6" font-weight="400" fill="#2563EB" text-anchor="middle">KV₃(t)</text>
+<rect x="266" y="192" width="102" height="24" rx="5" fill="#FEF2F2" stroke="#DC2626" stroke-width="1.5" stroke-dasharray="4,3"/>
+<text x="317" y="208" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.1" font-weight="700" fill="#DC2626" text-anchor="middle">SKIP → KV₂ HOLE!</text>
+<rect x="266" y="226" width="102" height="24" rx="5" fill="#EFF6FF" stroke="#93C5FD" stroke-width="1.1"/>
+<text x="317" y="242" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="9.6" font-weight="400" fill="#2563EB" text-anchor="middle">KV₁(t)</text>
+<text x="453" y="267" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.8" font-weight="500" fill="#18181B" text-anchor="middle">Token t+1</text>
+<rect x="402" y="158" width="102" height="24" rx="5" fill="#EFF6FF" stroke="#93C5FD" stroke-width="1.1"/>
+<text x="453" y="174" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="9.6" font-weight="400" fill="#2563EB" text-anchor="middle">KV₃(t+1)</text>
+<rect x="402" y="192" width="102" height="24" rx="5" fill="#EFF6FF" stroke="#93C5FD" stroke-width="1.1"/>
+<text x="453" y="208" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="9.6" font-weight="400" fill="#2563EB" text-anchor="middle">KV₂(t+1)</text>
+<rect x="402" y="226" width="102" height="24" rx="5" fill="#EFF6FF" stroke="#93C5FD" stroke-width="1.1"/>
+<text x="453" y="242" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="9.6" font-weight="400" fill="#2563EB" text-anchor="middle">KV₁(t+1)</text>
+<path d="M 402 204 L 368 204" fill="none" stroke="#DC2626" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arr-red)"/>
+<rect x="374" y="182" width="24" height="18" rx="9.0" fill="#DC2626" stroke="#DC2626" stroke-width="1.1"/>
+<text x="386.0" y="194.675" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.5" font-weight="700" fill="#FFFFFF" text-anchor="middle">?</text>
+<line x1="402" y1="238" x2="368" y2="238" stroke="#2563EB" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+<line x1="266" y1="238" x2="232" y2="238" stroke="#2563EB" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+<text x="42" y="296" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.3" font-weight="700" fill="#18181B" text-anchor="start">Wall 1: Directional Drift &amp; Confidence Saturation (2610.04751, 2607.20519)</text>
+<text x="46" y="312" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.6" font-weight="400" fill="#52525B" text-anchor="start">• Bad routes cause PreNorm-penetrating cosine drift (.261 vs .187) &amp; 5× norm blowup;</text>
+<text x="46" y="326.5" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.6" font-weight="400" fill="#52525B" text-anchor="start">• Joint gate training breaks trajectories (MANO 100%→76.1%); RLVR pushes confidence</text>
+<text x="46" y="341.0" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.6" font-weight="400" fill="#52525B" text-anchor="start">  to .99, blinding selectors (106k MCTS LoRA collapses to one constant program).</text>
+<text x="42" y="364.5" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.3" font-weight="700" fill="#18181B" text-anchor="start">Wall 2: Per-Layer Looping Loses at Scale (2610.40325 &amp; DFoT App. A.5)</text>
+<text x="46" y="380.5" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.6" font-weight="400" fill="#52525B" text-anchor="start">• Meta FAIR (155B tok) shows Per-Layer works only &lt;200M, losing clearly at 300M–1B;</text>
+<text x="46" y="395.0" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.6" font-weight="400" fill="#52525B" text-anchor="start">• Without exogenous q, random Sₖ,ᵢ dilutes tokens/path &amp; triggers 10–600× RMS shift.</text>
+<text x="42" y="418.5" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.3" font-weight="700" fill="#18181B" text-anchor="start">Wall 3: Frozen-Routing Abstracts Hide Oracle / Slowdown Caveats</text>
+<text x="46" y="434.5" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.6" font-weight="400" fill="#52525B" text-anchor="start">• CoLa uses 200-trial test-label oracle; Dr.LLM saves 5/626 = 0.80% &amp; collapses in 3</text>
+<text x="46" y="449.0" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.6" font-weight="400" fill="#52525B" text-anchor="start">  reproductions; MACRO is +16.1% slower (mainly undoes late-layer suppression).</text>
+<rect x="578" y="76" width="538" height="468" rx="10" fill="#FFFFFF" stroke="#E2E2DC" stroke-width="1.2"/>
+<rect x="579" y="77" width="536" height="34" rx="9" fill="#F0FDFA" stroke="none" stroke-width="1.2"/>
+<line x1="578" y1="111" x2="1116" y2="111" stroke="#5EEAD4" stroke-width="1.0"/>
+<text x="592" y="99" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="11.8" font-weight="700" fill="#0D9488" text-anchor="start">Way Out: Continuous Per-Token Rewiring Inside a Static Graph</text>
+<rect x="594" y="126" width="506" height="118" rx="8" fill="#F5F3FF" stroke="#7C3AED" stroke-width="1.4"/>
+<text x="606" y="147" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.7" font-weight="700" fill="#7C3AED" text-anchor="start">1. Vertical: Head × Port Continuous Rewiring (LoomFormer → Depth Delta Rule)</text>
+<text x="606" y="166" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.7" font-weight="400" fill="#18181B" text-anchor="start">• Keep 100% static CUDA Graphs; sink dynamicity into per-token dₖ port vectors:</text>
+<rect x="606" y="174" width="482" height="26" rx="5" fill="#FFFFFF" stroke="#C4B5FD" stroke-width="1"/>
+<text x="847" y="191" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="9.9" font-weight="700" fill="#7C3AED" text-anchor="middle">Current Loom: Mₗ₊₁ = Mₗ + kᵐ⊗o  →  Next: Mₗ₊₁ = Mₗ(I − βkᵀk) + βkᵀo</text>
+<text x="606" y="218" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.7" font-weight="400" fill="#18181B" text-anchor="start">• Measured: rank-41 per-token rewiring, 74.4% active deep heads, 3.2× at +2% FLOPs.</text>
+<text x="606" y="234" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.7" font-weight="600" fill="#52525B" text-anchor="start">• Dissolves manual B2/B3 block cuts by carrying M continuously across loop passes.</text>
+<rect x="594" y="258" width="506" height="112" rx="8" fill="#F0FDFA" stroke="#0D9488" stroke-width="1.4"/>
+<text x="606" y="279" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.7" font-weight="700" fill="#0D9488" text-anchor="start">2. Horizontal: Same-Depth Affine Parallel Lattice (LLLM, 2611.21608)</text>
+<rect x="606" y="288" width="482" height="26" rx="5" fill="#FFFFFF" stroke="#5EEAD4" stroke-width="1"/>
+<text x="847" y="305" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="9.9" font-weight="700" fill="#0D9488" text-anchor="middle">rₜˡ = gₜˡ(hₜˡ⁻¹) ⊙ rₜ₋₁ˡ + (1−gₜˡ) ⊙ cₜˡ   ⇒   FiLM(Q, K, V, MLP)</text>
+<text x="606" y="330" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.7" font-weight="400" fill="#18181B" text-anchor="start">• Exact 1-pass associative scan: 1× FLOPs, 0 extra KV, no Jacobi drift, SpecDec-ready.</text>
+<text x="606" y="346" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.7" font-weight="400" fill="#18181B" text-anchor="start">• Orthogonal to vertical residuals (Lattice+HC+x0: 13.61 vs 14.22); GSM8K +14.8 pt.</text>
+<text x="606" y="362" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.7" font-weight="400" fill="#52525B" text-anchor="start">• Shrinks recurrent GDN state 4–8× — clean baseline before paying Jacobi overhead.</text>
+<rect x="594" y="384" width="506" height="144" rx="8" fill="#EFF6FF" stroke="#2563EB" stroke-width="1.4"/>
+<text x="606" y="405" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.7" font-weight="700" fill="#2563EB" text-anchor="start">3. Macro Loop Tiers: Decoupled Pretraining + Compiled Tiers (Fast / Deep)</text>
+<rect x="606" y="416" width="148" height="50" rx="6" fill="#FFFFFF" stroke="#93C5FD" stroke-width="1.2"/>
+<text x="680.0" y="434" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.9" font-weight="700" fill="#2563EB" text-anchor="middle">① VarLoop Pretrain</text>
+<text x="680.0" y="448" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.0" font-weight="400" fill="#52525B" text-anchor="middle">Drift-proof trajectories</text>
+<text x="680.0" y="460" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.0" font-weight="400" fill="#52525B" text-anchor="middle">(1–5p / fixed prior)</text>
+<rect x="774" y="416" width="148" height="50" rx="6" fill="#FFFFFF" stroke="#2563EB" stroke-width="1.2"/>
+<text x="848.0" y="434" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.9" font-weight="700" fill="#2563EB" text-anchor="middle">② Static Tier Tables</text>
+<text x="848.0" y="448" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.0" font-weight="400" fill="#52525B" text-anchor="middle">Fast (1p) / Deep (3p)</text>
+<text x="848.0" y="460" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.0" font-weight="400" fill="#52525B" text-anchor="middle">Zero CUDA Graph friction</text>
+<rect x="942" y="416" width="146" height="50" rx="6" fill="#FFFFFF" stroke="#0D9488" stroke-width="1.2"/>
+<text x="1015.0" y="434" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.9" font-weight="700" fill="#0D9488" text-anchor="middle">③ Soft Depth Alloc.</text>
+<text x="1015.0" y="448" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.0" font-weight="400" fill="#52525B" text-anchor="middle">After k_loop offload:</text>
+<text x="1015.0" y="460" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.0" font-weight="400" fill="#52525B" text-anchor="middle">25% adaptive token depth</text>
+<line x1="754" y1="441" x2="774" y2="441" stroke="#2563EB" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+<line x1="922" y1="441" x2="942" y2="441" stroke="#0D9488" stroke-width="1.8" marker-end="url(#arr-teal)"/>
+<text x="606" y="486" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.7" font-weight="400" fill="#18181B" text-anchor="start">• Preserves intact KV caches and RLVR stability while keeping request-level compute tiers.</text>
+<text x="606" y="502" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.9" font-weight="700" fill="#2563EB" text-anchor="start">• Thesis: Scalable dynamicity will not come from discrete skip tables Sₖ,ᵢ,</text>
+<text x="614" y="518" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.9" font-weight="700" fill="#2563EB" text-anchor="start">but from cheap continuous rewiring inside a static graph (fast weights + soft depth).</text>
+</svg>

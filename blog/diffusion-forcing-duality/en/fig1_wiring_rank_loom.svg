@@ -1,0 +1,224 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1140 646" width="1140" height="646" role="img" aria-label="Two ranks along depth: layer-level collapse caps wiring rank at 1, port splitting reaches 3, LoomFormer head-level fast weights reach 2n">
+<defs>
+  <marker id="arr-dark" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+    <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#18181B"/>
+  </marker>
+  <marker id="arr-muted" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+    <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#71717A"/>
+  </marker>
+  <marker id="arr-blue" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+    <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#2563EB"/>
+  </marker>
+  <marker id="arr-orange" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+    <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#EA580C"/>
+  </marker>
+  <marker id="arr-teal" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+    <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#0D9488"/>
+  </marker>
+  <marker id="arr-purple" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+    <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#7C3AED"/>
+  </marker>
+  <marker id="arr-red" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+    <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#DC2626"/>
+  </marker>
+</defs>
+<rect x="0.5" y="0.5" width="1139" height="645" rx="12" fill="#FAFAF7" stroke="#E2E2DC" stroke-width="1"/>
+<text x="28" y="36" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="16.5" font-weight="700" fill="#18181B" text-anchor="start">Two Ranks Along Depth: Why Layer Softmax Caps Wiring Rank at 1 While Head Fast Weights Hit 2n</text>
+<text x="28" y="57" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="11.4" font-weight="400" fill="#52525B" text-anchor="start">Effective connection from prior head Wᵢ to port Rⱼ (Q/K/V): uⱼ = Σᵢ oᵢ · cᵢⱼ · C̄ᵢⱼ. Per-token circuit rewiring is governed by rank(C), not depth-mixing rank.</text>
+<rect x="24" y="76" width="336" height="546" rx="10" fill="#FFFFFF" stroke="#E2E2DC" stroke-width="1.2"/>
+<rect x="25" y="77" width="334" height="34" rx="9" fill="#FEF2F2" stroke="none" stroke-width="1.2"/>
+<line x1="24" y1="111" x2="360" y2="111" stroke="#FCA5A5" stroke-width="1.0"/>
+<text x="36" y="99" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="11.8" font-weight="700" fill="#DC2626" text-anchor="start">A. Layer-Level Collapse (AttnRes / mHC / SimpleHC)</text>
+<rect x="376" y="76" width="294" height="546" rx="10" fill="#FFFFFF" stroke="#E2E2DC" stroke-width="1.2"/>
+<rect x="377" y="77" width="292" height="34" rx="9" fill="#FFFBEB" stroke="none" stroke-width="1.2"/>
+<line x1="376" y1="111" x2="670" y2="111" stroke="#FCD34D" stroke-width="1.0"/>
+<text x="388" y="99" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="11.8" font-weight="700" fill="#B45309" text-anchor="start">B. Port Splitting (Inkling 2 Mini / MUDD)</text>
+<rect x="686" y="76" width="430" height="546" rx="10" fill="#FFFFFF" stroke="#E2E2DC" stroke-width="1.2"/>
+<rect x="687" y="77" width="428" height="34" rx="9" fill="#F5F3FF" stroke="none" stroke-width="1.2"/>
+<line x1="686" y1="111" x2="1116" y2="111" stroke="#C4B5FD" stroke-width="1.0"/>
+<text x="698" y="99" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="11.8" font-weight="700" fill="#7C3AED" text-anchor="start">C. Head-Level Fast Weights (LoomFormer, 2611.30634)</text>
+<rect x="38" y="122" width="308" height="48" rx="7" fill="#F8FAFC" stroke="#E2E2DC" stroke-width="1"/>
+<text x="48" y="145" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="11.4" font-weight="700" fill="#2563EB" text-anchor="start">hₗ = Σ Mᵢ→ₗ vᵢ</text>
+<text x="164" y="145" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="400" fill="#71717A" text-anchor="middle">→</text>
+<rect x="176" y="129" width="34" height="22" rx="4" fill="#FEF2F2" stroke="#FCA5A5" stroke-width="1.1"/>
+<text x="193" y="145" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="12" font-weight="700" fill="#DC2626" text-anchor="middle">hₗ</text>
+<text x="220" y="145" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="400" fill="#71717A" text-anchor="middle">→</text>
+<text x="230" y="145" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="11.4" font-weight="600" fill="#18181B" text-anchor="start">uⱼ = hₗ Wⱼˢ</text>
+<text x="192" y="163" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.1" font-weight="400" fill="#52525B" text-anchor="middle">All heads &amp; Q/K/V ports share one D-dim chokepoint</text>
+<rect x="78" y="204" width="62" height="28" rx="6" fill="#FFF7ED" stroke="#FDBA74" stroke-width="1.2"/>
+<text x="109" y="222" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="11.5" font-weight="700" fill="#EA580C" text-anchor="middle">R_Q</text>
+<rect x="160" y="204" width="62" height="28" rx="6" fill="#FFF7ED" stroke="#FDBA74" stroke-width="1.2"/>
+<text x="191" y="222" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="11.5" font-weight="700" fill="#EA580C" text-anchor="middle">R_K</text>
+<rect x="242" y="204" width="62" height="28" rx="6" fill="#FFF7ED" stroke="#FDBA74" stroke-width="1.2"/>
+<text x="273" y="222" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="11.5" font-weight="700" fill="#EA580C" text-anchor="middle">R_V</text>
+<rect x="90" y="274" width="204" height="38" rx="7" fill="#FEF2F2" stroke="#DC2626" stroke-width="1.8"/>
+<text x="192" y="291" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="11.0" font-weight="700" fill="#DC2626" text-anchor="middle">Single-Vector Bottleneck hₗ ∈ ℝᴰ</text>
+<text x="192" y="306" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.6" font-weight="400" fill="#DC2626" text-anchor="middle">Prior heads already fused via Wᴼ</text>
+<path d="M 192 274 C 192 252, 109 252, 109 232" fill="none" stroke="#DC2626" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arr-red)"/>
+<path d="M 192 274 C 192 252, 191 252, 191 232" fill="none" stroke="#DC2626" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arr-red)"/>
+<path d="M 192 274 C 192 252, 273 252, 273 232" fill="none" stroke="#DC2626" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arr-red)"/>
+<rect x="78" y="354" width="62" height="28" rx="6" fill="#EFF6FF" stroke="#93C5FD" stroke-width="1.2"/>
+<text x="109" y="372" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="11.5" font-weight="700" fill="#2563EB" text-anchor="middle">W₁</text>
+<path d="M 109 354 C 109 332, 192 332, 192 312" fill="none" stroke="#2563EB" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arr-blue)"/>
+<rect x="160" y="354" width="62" height="28" rx="6" fill="#EFF6FF" stroke="#93C5FD" stroke-width="1.2"/>
+<text x="191" y="372" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="11.5" font-weight="700" fill="#2563EB" text-anchor="middle">W₂</text>
+<path d="M 191 354 C 191 332, 192 332, 192 312" fill="none" stroke="#2563EB" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arr-blue)"/>
+<rect x="242" y="354" width="62" height="28" rx="6" fill="#EFF6FF" stroke="#93C5FD" stroke-width="1.2"/>
+<text x="273" y="372" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="11.5" font-weight="700" fill="#2563EB" text-anchor="middle">W₃</text>
+<path d="M 273 354 C 273 332, 192 332, 192 312" fill="none" stroke="#2563EB" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arr-blue)"/>
+<text x="42" y="414" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.6" font-weight="600" fill="#18181B" text-anchor="start">Effective wiring C = g gᵀ (whole-row/col gating)</text>
+<text x="88.0" y="437" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="10" font-weight="400" fill="#52525B" text-anchor="middle">R1</text>
+<text x="116.0" y="437" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="10" font-weight="400" fill="#52525B" text-anchor="middle">R2</text>
+<text x="144.0" y="437" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="10" font-weight="400" fill="#52525B" text-anchor="middle">R3</text>
+<text x="66" y="464" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="10" font-weight="400" fill="#52525B" text-anchor="end">W1</text>
+<rect x="74" y="442" width="25" height="25" rx="4" fill="#FFFBEB" stroke="#B45309" stroke-width="1.1"/>
+<text x="86.5" y="459" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="700" fill="#B45309" text-anchor="middle">✓</text>
+<rect x="102" y="442" width="25" height="25" rx="4" fill="#F4F4F0" stroke="#E2E2DC" stroke-width="1.1"/>
+<rect x="130" y="442" width="25" height="25" rx="4" fill="#FEF2F2" stroke="#DC2626" stroke-width="1.1"/>
+<text x="142.5" y="459" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="700" fill="#DC2626" text-anchor="middle">×</text>
+<text x="66" y="492" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="10" font-weight="400" fill="#52525B" text-anchor="end">W2</text>
+<rect x="74" y="470" width="25" height="25" rx="4" fill="#F4F4F0" stroke="#E2E2DC" stroke-width="1.1"/>
+<rect x="102" y="470" width="25" height="25" rx="4" fill="#F4F4F0" stroke="#E2E2DC" stroke-width="1.1"/>
+<rect x="130" y="470" width="25" height="25" rx="4" fill="#F4F4F0" stroke="#E2E2DC" stroke-width="1.1"/>
+<text x="66" y="520" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="10" font-weight="400" fill="#52525B" text-anchor="end">W3</text>
+<rect x="74" y="498" width="25" height="25" rx="4" fill="#FEF2F2" stroke="#DC2626" stroke-width="1.1"/>
+<text x="86.5" y="515" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="700" fill="#DC2626" text-anchor="middle">×</text>
+<rect x="102" y="498" width="25" height="25" rx="4" fill="#F4F4F0" stroke="#E2E2DC" stroke-width="1.1"/>
+<rect x="130" y="498" width="25" height="25" rx="4" fill="#FFFBEB" stroke="#B45309" stroke-width="1.1"/>
+<text x="142.5" y="515" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="700" fill="#B45309" text-anchor="middle">✓</text>
+<text x="166" y="464" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.3" font-weight="400" fill="#18181B" text-anchor="start">Wiring W₁→R₁ and W₃→R₃</text>
+<text x="166" y="480" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.3" font-weight="400" fill="#18181B" text-anchor="start">simultaneously forces</text>
+<text x="166" y="496" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.3" font-weight="700" fill="#DC2626" text-anchor="start">cross-talk leakage (×)</text>
+<text x="166" y="514" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.0" font-weight="400" fill="#52525B" text-anchor="start">→ heads park on Sinks</text>
+<rect x="38" y="544" width="308" height="64" rx="7" fill="#F8F8F5" stroke="#E2E2DC" stroke-width="1"/>
+<text x="48" y="564" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.4" font-weight="700" fill="#DC2626" text-anchor="start">Dynamic wiring rank: ≤ 1 (node-gated; Θ(w) bloat)</text>
+<text x="48" y="582" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.1" font-weight="400" fill="#52525B" text-anchor="start">Measured: only 22.9% active deep heads in Pythia-2.8B,</text>
+<text x="48" y="598" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.1" font-weight="400" fill="#52525B" text-anchor="start">and 17.7% in mHC-2.8B (rest parked on attention sinks)</text>
+<rect x="390" y="122" width="266" height="48" rx="7" fill="#F8FAFC" stroke="#E2E2DC" stroke-width="1"/>
+<text x="523" y="144" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="11.3" font-weight="700" fill="#B45309" text-anchor="middle">xˢ = Σ αⱼˢ v̂ⱼ   (s ∈ {Q, K, V})</text>
+<text x="523" y="163" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.0" font-weight="400" fill="#52525B" text-anchor="middle">Separate depth readers for Q, K, and V per layer</text>
+<rect x="398" y="204" width="74" height="28" rx="6" fill="#EFF6FF" stroke="#93C5FD" stroke-width="1.2"/>
+<text x="435" y="222" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.8" font-weight="700" fill="#2563EB" text-anchor="middle">Q read</text>
+<rect x="402" y="266" width="66" height="30" rx="6" fill="#FFFBEB" stroke="#FCD34D" stroke-width="1.1"/>
+<text x="435" y="285" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="10.5" font-weight="600" fill="#B45309" text-anchor="middle">Attn_Q</text>
+<line x1="435" y1="266" x2="435" y2="232" stroke="#2563EB" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+<rect x="484" y="204" width="74" height="28" rx="6" fill="#F0FDFA" stroke="#5EEAD4" stroke-width="1.2"/>
+<text x="521" y="222" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.8" font-weight="700" fill="#0D9488" text-anchor="middle">K read</text>
+<rect x="488" y="266" width="66" height="30" rx="6" fill="#FFFBEB" stroke="#FCD34D" stroke-width="1.1"/>
+<text x="521" y="285" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="10.5" font-weight="600" fill="#B45309" text-anchor="middle">Attn_K</text>
+<line x1="521" y1="266" x2="521" y2="232" stroke="#0D9488" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+<rect x="570" y="204" width="74" height="28" rx="6" fill="#FFF7ED" stroke="#FDBA74" stroke-width="1.2"/>
+<text x="607" y="222" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.8" font-weight="700" fill="#EA580C" text-anchor="middle">V read</text>
+<rect x="574" y="266" width="66" height="30" rx="6" fill="#FFFBEB" stroke="#FCD34D" stroke-width="1.1"/>
+<text x="607" y="285" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="10.5" font-weight="600" fill="#B45309" text-anchor="middle">Attn_V</text>
+<line x1="607" y1="266" x2="607" y2="232" stroke="#EA580C" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+<rect x="402" y="354" width="66" height="28" rx="6" fill="#F4F4F0" stroke="#71717A" stroke-width="1.1"/>
+<text x="435" y="372" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.6" font-weight="600" fill="#18181B" text-anchor="middle">Sum B₁</text>
+<line x1="435" y1="354" x2="435" y2="296" stroke="#71717A" stroke-width="0.9" opacity="0.55"/>
+<line x1="435" y1="354" x2="521" y2="296" stroke="#71717A" stroke-width="0.9" opacity="0.55"/>
+<line x1="435" y1="354" x2="607" y2="296" stroke="#71717A" stroke-width="0.9" opacity="0.55"/>
+<rect x="488" y="354" width="66" height="28" rx="6" fill="#F4F4F0" stroke="#71717A" stroke-width="1.1"/>
+<text x="521" y="372" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.6" font-weight="600" fill="#18181B" text-anchor="middle">Sum B₂</text>
+<line x1="521" y1="354" x2="435" y2="296" stroke="#71717A" stroke-width="0.9" opacity="0.55"/>
+<line x1="521" y1="354" x2="521" y2="296" stroke="#71717A" stroke-width="0.9" opacity="0.55"/>
+<line x1="521" y1="354" x2="607" y2="296" stroke="#71717A" stroke-width="0.9" opacity="0.55"/>
+<rect x="574" y="354" width="66" height="28" rx="6" fill="#F4F4F0" stroke="#71717A" stroke-width="1.1"/>
+<text x="607" y="372" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.6" font-weight="600" fill="#18181B" text-anchor="middle">Sum B₃</text>
+<line x1="607" y1="354" x2="435" y2="296" stroke="#71717A" stroke-width="0.9" opacity="0.55"/>
+<line x1="607" y1="354" x2="521" y2="296" stroke="#71717A" stroke-width="0.9" opacity="0.55"/>
+<line x1="607" y1="354" x2="607" y2="296" stroke="#71717A" stroke-width="0.9" opacity="0.55"/>
+<rect x="390" y="412" width="266" height="116" rx="7" fill="#FFFBEB" stroke="#FCD34D" stroke-width="1"/>
+<text x="398" y="433" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.8" font-weight="700" fill="#B45309" text-anchor="start">Halfway step in Inkling 2 Mini code:</text>
+<text x="398" y="453" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.1" font-weight="400" fill="#18181B" text-anchor="start">• 4 global layers: 3 Q/K/V depth readers</text>
+<text x="398" y="471" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.1" font-weight="400" fill="#18181B" text-anchor="start">• 12 core layers: 4 Q/K/V/MoE cross-loop gates</text>
+<text x="398" y="489" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.1" font-weight="400" fill="#18181B" text-anchor="start">• Cost: breaks fused QKV GEMMs on Passes 2–3</text>
+<text x="398" y="509" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.9" font-weight="400" fill="#52525B" text-anchor="start">• Limit: sources are still block sums; heads tied</text>
+<rect x="390" y="544" width="266" height="64" rx="7" fill="#F8F8F5" stroke="#E2E2DC" stroke-width="1"/>
+<text x="398" y="564" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.4" font-weight="700" fill="#B45309" text-anchor="start">Dynamic wiring rank: ≤ 3 (layer × QKV port)</text>
+<text x="398" y="582" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.1" font-weight="400" fill="#52525B" text-anchor="start">Goodfire Fig. 7: Q/V rely 60–62% on top outliers,</text>
+<text x="398" y="598" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.1" font-weight="400" fill="#52525B" text-anchor="start">vs. only 30–32% for K/MoE (ports want diff paths)</text>
+<rect x="700" y="122" width="402" height="48" rx="7" fill="#F8FAFC" stroke="#E2E2DC" stroke-width="1"/>
+<rect x="706" y="128" width="128" height="22" rx="4" fill="#EFF6FF" stroke="#93C5FD" stroke-width="1"/>
+<text x="770" y="143" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="10.5" font-weight="700" fill="#2563EB" text-anchor="middle">ΔM = kᵢᵐ(x) ⊗ oᵢ</text>
+<rect x="842" y="128" width="134" height="22" rx="4" fill="#FFF7ED" stroke="#FDBA74" stroke-width="1"/>
+<text x="909" y="143" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="10.5" font-weight="700" fill="#EA580C" text-anchor="middle">uⱼˢ = qⱼᵐˢ(x) M̃</text>
+<rect x="984" y="128" width="112" height="22" rx="4" fill="#F5F3FF" stroke="#C4B5FD" stroke-width="1"/>
+<text x="1040" y="143" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="10.3" font-weight="700" fill="#7C3AED" text-anchor="middle">M ∈ ℝ^(2n×d)</text>
+<text x="901" y="163" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.0" font-weight="400" fill="#52525B" text-anchor="middle">Shape swap: ports shrink from D×d matrices to dₖ-vectors, generated per token</text>
+<rect x="704" y="186" width="86" height="212" rx="8" fill="#F4F4F0" stroke="#18181B" stroke-width="1.4"/>
+<text x="747" y="205" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.8" font-weight="700" fill="#18181B" text-anchor="middle">Vector x</text>
+<text x="747" y="220" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.6" font-weight="400" fill="#52525B" text-anchor="middle">(Control)</text>
+<rect x="711" y="234" width="72" height="36" rx="5" fill="#FFF7ED" stroke="#FDBA74" stroke-width="1"/>
+<text x="747" y="250" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="10.4" font-weight="700" fill="#EA580C" text-anchor="middle">qᵐˢ(x)</text>
+<text x="747" y="264" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.2" font-weight="400" fill="#EA580C" text-anchor="middle">dyn. read</text>
+<rect x="711" y="322" width="72" height="36" rx="5" fill="#EFF6FF" stroke="#93C5FD" stroke-width="1"/>
+<text x="747" y="338" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="10.4" font-weight="700" fill="#2563EB" text-anchor="middle">kᵐ(x)</text>
+<text x="747" y="352" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.2" font-weight="400" fill="#2563EB" text-anchor="middle">dyn. write</text>
+<text x="747" y="386" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.6" font-weight="400" fill="#71717A" text-anchor="middle">State: 1D</text>
+<rect x="810" y="186" width="62" height="28" rx="6" fill="#FFF7ED" stroke="#FDBA74" stroke-width="1.2"/>
+<text x="841" y="204" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="11" font-weight="700" fill="#EA580C" text-anchor="middle">R_Q</text>
+<rect x="884" y="186" width="62" height="28" rx="6" fill="#FFF7ED" stroke="#FDBA74" stroke-width="1.2"/>
+<text x="915" y="204" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="11" font-weight="700" fill="#EA580C" text-anchor="middle">R_K</text>
+<rect x="958" y="186" width="62" height="28" rx="6" fill="#FFF7ED" stroke="#FDBA74" stroke-width="1.2"/>
+<text x="989" y="204" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="11" font-weight="700" fill="#EA580C" text-anchor="middle">R_V</text>
+<rect x="1032" y="186" width="62" height="28" rx="6" fill="#FFF7ED" stroke="#FDBA74" stroke-width="1.2"/>
+<text x="1063" y="204" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="11" font-weight="700" fill="#EA580C" text-anchor="middle">R_O</text>
+<rect x="810" y="256" width="286" height="74" rx="8" fill="#F5F3FF" stroke="#7C3AED" stroke-width="1.8"/>
+<text x="953.0" y="274" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.0" font-weight="700" fill="#7C3AED" text-anchor="middle">Matrix Fast Weights Mₗ ∈ ℝ^(dₖ×d)  (2D = ½ mHC)</text>
+<rect x="823" y="284" width="38" height="35" rx="4" fill="#DDD6FE" stroke="#C4B5FD" stroke-width="1"/>
+<text x="842" y="305" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="10" font-weight="600" fill="#7C3AED" text-anchor="middle">s1</text>
+<rect x="867" y="284" width="38" height="35" rx="4" fill="#EDE9FE" stroke="#C4B5FD" stroke-width="1"/>
+<text x="886" y="305" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="10" font-weight="600" fill="#7C3AED" text-anchor="middle">s2</text>
+<rect x="911" y="284" width="38" height="35" rx="4" fill="#DDD6FE" stroke="#C4B5FD" stroke-width="1"/>
+<text x="930" y="305" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="10" font-weight="600" fill="#7C3AED" text-anchor="middle">s3</text>
+<rect x="955" y="284" width="38" height="35" rx="4" fill="#EDE9FE" stroke="#C4B5FD" stroke-width="1"/>
+<text x="974" y="305" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="10" font-weight="600" fill="#7C3AED" text-anchor="middle">s4</text>
+<rect x="999" y="284" width="38" height="35" rx="4" fill="#DDD6FE" stroke="#C4B5FD" stroke-width="1"/>
+<text x="1018" y="305" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="10" font-weight="600" fill="#7C3AED" text-anchor="middle">s5</text>
+<rect x="1043" y="284" width="38" height="35" rx="4" fill="#EDE9FE" stroke="#C4B5FD" stroke-width="1"/>
+<text x="1062" y="305" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="10" font-weight="600" fill="#7C3AED" text-anchor="middle">s6</text>
+<path d="M 783 252 C 804 252, 808 240, 834 240" fill="none" stroke="#EA580C" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arr-orange)" stroke-dasharray="3,2"/>
+<path d="M 783 340 C 804 340, 808 348, 834 348" fill="none" stroke="#2563EB" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arr-blue)" stroke-dasharray="3,2"/>
+<path d="M 842 256 C 842 232, 841 232, 841 214" fill="none" stroke="#EA580C" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arr-orange)"/>
+<path d="M 930 256 C 930 232, 915 232, 915 214" fill="none" stroke="#EA580C" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arr-orange)"/>
+<path d="M 1018 256 C 1018 232, 989 232, 989 214" fill="none" stroke="#EA580C" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arr-orange)"/>
+<path d="M 886 256 C 886 232, 1063 232, 1063 214" fill="none" stroke="#EA580C" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arr-orange)"/>
+<rect x="810" y="370" width="64" height="28" rx="6" fill="#EFF6FF" stroke="#93C5FD" stroke-width="1.2"/>
+<text x="842" y="388" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="10.2" font-weight="700" fill="#2563EB" text-anchor="middle">o₁ (H1)</text>
+<rect x="884" y="370" width="64" height="28" rx="6" fill="#EFF6FF" stroke="#93C5FD" stroke-width="1.2"/>
+<text x="916" y="388" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="10.2" font-weight="700" fill="#2563EB" text-anchor="middle">o₂ (H2)</text>
+<rect x="958" y="370" width="64" height="28" rx="6" fill="#EFF6FF" stroke="#93C5FD" stroke-width="1.2"/>
+<text x="990" y="388" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="10.2" font-weight="700" fill="#2563EB" text-anchor="middle">o₃ (H3)</text>
+<rect x="1032" y="370" width="64" height="28" rx="6" fill="#EFF6FF" stroke="#93C5FD" stroke-width="1.2"/>
+<text x="1064" y="388" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="10.2" font-weight="700" fill="#2563EB" text-anchor="middle">FFN_M</text>
+<path d="M 842 370 C 842 350, 842 350, 842 330" fill="none" stroke="#2563EB" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arr-blue)"/>
+<path d="M 916 370 C 916 350, 930 350, 930 330" fill="none" stroke="#2563EB" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arr-blue)"/>
+<path d="M 990 370 C 990 350, 1018 350, 1018 330" fill="none" stroke="#2563EB" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arr-blue)"/>
+<path d="M 1064 370 C 1064 350, 1062 350, 1062 330" fill="none" stroke="#2563EB" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arr-blue)"/>
+<text x="706" y="422" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.8" font-weight="600" fill="#18181B" text-anchor="start">Effective wiring C = K Qᵀ (per-token dynamic rewiring)</text>
+<text x="749.5" y="443" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="10" font-weight="400" fill="#52525B" text-anchor="middle">R1</text>
+<text x="776.5" y="443" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="10" font-weight="400" fill="#52525B" text-anchor="middle">R2</text>
+<text x="803.5" y="443" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="10" font-weight="400" fill="#52525B" text-anchor="middle">R3</text>
+<text x="728" y="468" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="10" font-weight="400" fill="#52525B" text-anchor="end">W1</text>
+<rect x="736" y="448" width="24" height="24" rx="4" fill="#F5F3FF" stroke="#7C3AED" stroke-width="1.2"/>
+<text x="748.0" y="464" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="700" fill="#7C3AED" text-anchor="middle">✓</text>
+<rect x="763" y="448" width="24" height="24" rx="4" fill="#F4F4F0" stroke="#E2E2DC" stroke-width="1.2"/>
+<rect x="790" y="448" width="24" height="24" rx="4" fill="#F4F4F0" stroke="#E2E2DC" stroke-width="1.2"/>
+<text x="728" y="495" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="10" font-weight="400" fill="#52525B" text-anchor="end">W2</text>
+<rect x="736" y="475" width="24" height="24" rx="4" fill="#F4F4F0" stroke="#E2E2DC" stroke-width="1.2"/>
+<rect x="763" y="475" width="24" height="24" rx="4" fill="#F4F4F0" stroke="#E2E2DC" stroke-width="1.2"/>
+<rect x="790" y="475" width="24" height="24" rx="4" fill="#F4F4F0" stroke="#E2E2DC" stroke-width="1.2"/>
+<text x="728" y="522" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="10" font-weight="400" fill="#52525B" text-anchor="end">W3</text>
+<rect x="736" y="502" width="24" height="24" rx="4" fill="#F4F4F0" stroke="#E2E2DC" stroke-width="1.2"/>
+<rect x="763" y="502" width="24" height="24" rx="4" fill="#F4F4F0" stroke="#E2E2DC" stroke-width="1.2"/>
+<rect x="790" y="502" width="24" height="24" rx="4" fill="#F5F3FF" stroke="#7C3AED" stroke-width="1.2"/>
+<text x="802.0" y="518" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="700" fill="#7C3AED" text-anchor="middle">✓</text>
+<text x="828" y="466" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.3" font-weight="400" fill="#18181B" text-anchor="start">W₁→R₁ &amp; W₃→R₃ occupy orthogonal slots:</text>
+<text x="828" y="484" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.3" font-weight="700" fill="#7C3AED" text-anchor="start">Zero cross-talk! Only +1.95–3.7% FLOPs</text>
+<text x="828" y="502" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.1" font-weight="400" fill="#52525B" text-anchor="start">Avoids naive head softmax O(n²L²D) blowup</text>
+<text x="828" y="520" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.7" font-weight="600" fill="#0D9488" text-anchor="start">Open slot: Φₗ is still additive I (no Delta Rule yet)</text>
+<rect x="700" y="544" width="402" height="64" rx="7" fill="#F5F3FF" stroke="#C4B5FD" stroke-width="1.1"/>
+<text x="710" y="564" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.5" font-weight="700" fill="#7C3AED" text-anchor="start">Dynamic wiring rank: 2n (LoomPythia-2.8B L32: 41.0 measured)</text>
+<text x="710" y="582" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.2" font-weight="400" fill="#18181B" text-anchor="start">74.4% active deep non-sink heads (3.3× Pythia, 4.2× mHC)</text>
+<text x="710" y="598" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.2" font-weight="400" fill="#18181B" text-anchor="start">1.73–2.76× compute win over Full AttnRes; 2.8B beats Pythia-12B</text>
+</svg>

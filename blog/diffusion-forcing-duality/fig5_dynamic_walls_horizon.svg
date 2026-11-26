@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1140 566" width="1140" height="566" role="img" aria-label="为什么按 token 离散跳层路由撞上四堵硬墙，以及静态计算图内的连续重布线出路">
+<defs>
+  <marker id="arr-dark" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+    <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#18181B"/>
+  </marker>
+  <marker id="arr-muted" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+    <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#71717A"/>
+  </marker>
+  <marker id="arr-blue" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+    <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#2563EB"/>
+  </marker>
+  <marker id="arr-orange" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+    <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#EA580C"/>
+  </marker>
+  <marker id="arr-teal" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+    <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#0D9488"/>
+  </marker>
+  <marker id="arr-purple" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+    <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#7C3AED"/>
+  </marker>
+  <marker id="arr-red" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+    <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#DC2626"/>
+  </marker>
+</defs>
+<rect x="0.5" y="0.5" width="1139" height="565" rx="12" fill="#FAFAF7" stroke="#E2E2DC" stroke-width="1"/>
+<text x="28" y="36" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="17" font-weight="700" fill="#18181B" text-anchor="start">动态计算图的真实分岔：为什么“离散跳层”撞墙，而“静态图内的连续重布线”已经跑通</text>
+<text x="28" y="57" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="11.8" font-weight="400" fill="#52525B" text-anchor="start">对照 CoLa / PoLar / Dr.LLM / MACRO / 2610.04751 / 2610.40325 的实测失败，看清工程与算法的硬墙以及真正可组合的下一代骨架</text>
+<rect x="24" y="76" width="536" height="468" rx="10" fill="#FFFFFF" stroke="#E2E2DC" stroke-width="1.2"/>
+<rect x="25" y="77" width="534" height="34" rx="9" fill="#FEF2F2" stroke="none" stroke-width="1.2"/>
+<line x1="24" y1="111" x2="560" y2="111" stroke="#FCA5A5" stroke-width="1.0"/>
+<text x="40" y="99" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="12.4" font-weight="700" fill="#DC2626" text-anchor="start">死胡同：按 Token 离散跳层 / 重复执行表 Sₖ,ᵢ ∈ {0, 1}</text>
+<rect x="40" y="124" width="504" height="152" rx="8" fill="#FFFDFD" stroke="#FCA5A5" stroke-width="1.1"/>
+<text x="52" y="143" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="11" font-weight="700" fill="#DC2626" text-anchor="start">结构硬墙示意：异权重层上的自回归 KV 空洞</text>
+<text x="116" y="175" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="9.5" font-weight="400" fill="#52525B" text-anchor="end">L3 (写 KV₃)</text>
+<text x="116" y="209" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="9.5" font-weight="400" fill="#52525B" text-anchor="end">L2 (写 KV₂)</text>
+<text x="116" y="243" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="9.5" font-weight="400" fill="#52525B" text-anchor="end">L1 (写 KV₁)</text>
+<text x="177" y="267" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10" font-weight="500" fill="#18181B" text-anchor="middle">Token t−1</text>
+<rect x="126" y="158" width="102" height="24" rx="5" fill="#EFF6FF" stroke="#93C5FD" stroke-width="1.1"/>
+<text x="177" y="174" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="9.8" font-weight="400" fill="#2563EB" text-anchor="middle">KV₃(t−1)</text>
+<rect x="126" y="192" width="102" height="24" rx="5" fill="#EFF6FF" stroke="#93C5FD" stroke-width="1.1"/>
+<text x="177" y="208" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="9.8" font-weight="400" fill="#2563EB" text-anchor="middle">KV₂(t−1)</text>
+<rect x="126" y="226" width="102" height="24" rx="5" fill="#EFF6FF" stroke="#93C5FD" stroke-width="1.1"/>
+<text x="177" y="242" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="9.8" font-weight="400" fill="#2563EB" text-anchor="middle">KV₁(t−1)</text>
+<text x="313" y="267" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10" font-weight="700" fill="#DC2626" text-anchor="middle">Token t（跳过 L2！）</text>
+<rect x="262" y="158" width="102" height="24" rx="5" fill="#EFF6FF" stroke="#93C5FD" stroke-width="1.1"/>
+<text x="313" y="174" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="9.8" font-weight="400" fill="#2563EB" text-anchor="middle">KV₃(t)</text>
+<rect x="262" y="192" width="102" height="24" rx="5" fill="#FEF2F2" stroke="#DC2626" stroke-width="1.5" stroke-dasharray="4,3"/>
+<text x="313" y="208" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="9.4" font-weight="700" fill="#DC2626" text-anchor="middle">SKIP → KV₂ 缺失!</text>
+<rect x="262" y="226" width="102" height="24" rx="5" fill="#EFF6FF" stroke="#93C5FD" stroke-width="1.1"/>
+<text x="313" y="242" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="9.8" font-weight="400" fill="#2563EB" text-anchor="middle">KV₁(t)</text>
+<text x="449" y="267" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10" font-weight="500" fill="#18181B" text-anchor="middle">Token t+1</text>
+<rect x="398" y="158" width="102" height="24" rx="5" fill="#EFF6FF" stroke="#93C5FD" stroke-width="1.1"/>
+<text x="449" y="174" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="9.8" font-weight="400" fill="#2563EB" text-anchor="middle">KV₃(t+1)</text>
+<rect x="398" y="192" width="102" height="24" rx="5" fill="#EFF6FF" stroke="#93C5FD" stroke-width="1.1"/>
+<text x="449" y="208" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="9.8" font-weight="400" fill="#2563EB" text-anchor="middle">KV₂(t+1)</text>
+<rect x="398" y="226" width="102" height="24" rx="5" fill="#EFF6FF" stroke="#93C5FD" stroke-width="1.1"/>
+<text x="449" y="242" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="9.8" font-weight="400" fill="#2563EB" text-anchor="middle">KV₁(t+1)</text>
+<path d="M 398 204 L 364 204" fill="none" stroke="#DC2626" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arr-red)"/>
+<rect x="370" y="182" width="24" height="18" rx="9.0" fill="#DC2626" stroke="#DC2626" stroke-width="1.1"/>
+<text x="382.0" y="194.675" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.5" font-weight="700" fill="#FFFFFF" text-anchor="middle">?</text>
+<line x1="398" y1="238" x2="364" y2="238" stroke="#2563EB" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+<line x1="262" y1="238" x2="228" y2="238" stroke="#2563EB" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+<text x="44" y="296" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.8" font-weight="700" fill="#18181B" text-anchor="start">墙 1：方向漂移 + 置信度饱和（2610.04751 &amp; 2607.20519）</text>
+<text x="48" y="312" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.0" font-weight="400" fill="#52525B" text-anchor="start">• 错路线引起穿透 PreNorm 的方向偏移 (.261 vs .187) 与 5× 范数膨胀；</text>
+<text x="48" y="326.5" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.0" font-weight="400" fill="#52525B" text-anchor="start">• 联合训退出门破坏深层轨迹（MANO 100%→76.1%）；RLVR 把置信度压到 .99</text>
+<text x="48" y="341.0" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.0" font-weight="400" fill="#52525B" text-anchor="start">  杀死路由选择（106k MCTS 训出的 LoRA 路由直接塌成一条常量路线）。</text>
+<text x="44" y="364.5" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.8" font-weight="700" fill="#18181B" text-anchor="start">墙 2：逐层表在规模上掉队（2610.40325 &amp; DFoT App. A.5）</text>
+<text x="48" y="380.5" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.0" font-weight="400" fill="#52525B" text-anchor="start">• FAIR 155B token 证实 Per-Layer 循环仅在 &lt;200M 看似有效，300M–1B 全面落败；</text>
+<text x="48" y="395.0" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.0" font-weight="400" fill="#52525B" text-anchor="start">• 无外生加噪核 q，随机执行表需真实展开、稀释梯度并触发 10–600× RMS 失配。</text>
+<text x="44" y="418.5" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.8" font-weight="700" fill="#18181B" text-anchor="start">墙 3：冻结路由实证水分远大于摘要</text>
+<text x="48" y="434.5" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.0" font-weight="400" fill="#52525B" text-anchor="start">• CoLa 是 200 次看标准答案的 Oracle；Dr.LLM 省 5 层实为 5/626 = 0.80% 且 3 篇</text>
+<text x="48" y="449.0" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.0" font-weight="400" fill="#52525B" text-anchor="start">  独立复现均崩盘；MACRO 实测慢 +16.1% 且主要靠回退残差解除顶层抑制。</text>
+<rect x="578" y="76" width="538" height="468" rx="10" fill="#FFFFFF" stroke="#E2E2DC" stroke-width="1.2"/>
+<rect x="579" y="77" width="536" height="34" rx="9" fill="#F0FDFA" stroke="none" stroke-width="1.2"/>
+<line x1="578" y1="111" x2="1116" y2="111" stroke="#5EEAD4" stroke-width="1.0"/>
+<text x="594" y="99" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="12.4" font-weight="700" fill="#0D9488" text-anchor="start">破局：静态计算图内的“连续逐 Token 动态重布线”+ 分档宏循环</text>
+<rect x="596" y="126" width="502" height="118" rx="8" fill="#F5F3FF" stroke="#7C3AED" stroke-width="1.4"/>
+<text x="608" y="147" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="11.3" font-weight="700" fill="#7C3AED" text-anchor="start">1. 垂直细粒度：头 × 端口连续重布线（LoomFormer → 深度 Delta Rule）</text>
+<text x="608" y="166" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.1" font-weight="400" fill="#18181B" text-anchor="start">• 保持 100% 静态执行图与 CUDA Graph，把“动态计算”下沉到每 token 的端口向量：</text>
+<rect x="608" y="174" width="476" height="26" rx="5" fill="#FFFFFF" stroke="#C4B5FD" stroke-width="1"/>
+<text x="846" y="191" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="10.2" font-weight="700" fill="#7C3AED" text-anchor="middle">当前 Loom: Mₗ₊₁ = Mₗ + kᵐ⊗o   →   下一步: Mₗ₊₁ = Mₗ(I − βkᵀk) + βkᵀo</text>
+<text x="608" y="218" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.1" font-weight="400" fill="#18181B" text-anchor="start">• 实测已拿到 秩 41 逐 token 重布线、74.4% 深层非 Sink 头、+2% FLOPs 换 3.2× 算力！</text>
+<text x="608" y="234" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.1" font-weight="600" fill="#52525B" text-anchor="start">• 同步回答“为什么还要手切 B2/B3”：跨遍传递矩阵快权重 M，块边界自然消解。</text>
+<rect x="596" y="258" width="502" height="112" rx="8" fill="#F0FDFA" stroke="#0D9488" stroke-width="1.4"/>
+<text x="608" y="279" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="11.3" font-weight="700" fill="#0D9488" text-anchor="start">2. 水平同层持久态：仿射并行晶格（LLLM, 2611.21608）</text>
+<rect x="608" y="288" width="476" height="26" rx="5" fill="#FFFFFF" stroke="#5EEAD4" stroke-width="1"/>
+<text x="846" y="305" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="10.2" font-weight="700" fill="#0D9488" text-anchor="middle">rₜˡ = gₜˡ(hₜˡ⁻¹) ⊙ rₜ₋₁ˡ + (1−gₜˡ) ⊙ cₜˡ   ⇒   FiLM(Q, K, V, MLP)</text>
+<text x="608" y="330" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.1" font-weight="400" fill="#18181B" text-anchor="start">• 精确 1 遍并行扫描（1× FLOPs、0 额外 KV、无 Jacobi 失配、原生兼容投机解码）</text>
+<text x="608" y="346" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.1" font-weight="400" fill="#18181B" text-anchor="start">• 与垂直残差改造严格正交可叠加（Lattice+HC+x0: 13.61 vs 14.22），GSM8K +14.8 pt</text>
+<text x="608" y="362" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.1" font-weight="400" fill="#52525B" text-anchor="start">• 与循环记忆联手把原生状态压缩 4–8×，且可作为跨层反馈的无痛基线。</text>
+<rect x="596" y="384" width="502" height="144" rx="8" fill="#EFF6FF" stroke="#2563EB" stroke-width="1.4"/>
+<text x="608" y="405" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="11.3" font-weight="700" fill="#2563EB" text-anchor="start">3. 宏观循环档位：解耦轨迹训练 + 按算力档静态表（Fast / Deep）</text>
+<rect x="608" y="416" width="146" height="50" rx="6" fill="#FFFFFF" stroke="#93C5FD" stroke-width="1.2"/>
+<text x="681.0" y="434" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.2" font-weight="700" fill="#2563EB" text-anchor="middle">① 随机遍数预训练</text>
+<text x="681.0" y="448" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="9.2" font-weight="400" fill="#52525B" text-anchor="middle">先训抗漂移轨迹</text>
+<text x="681.0" y="460" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="9.2" font-weight="400" fill="#52525B" text-anchor="middle">(1–5 遍 / 固定先验)</text>
+<rect x="774" y="416" width="146" height="50" rx="6" fill="#FFFFFF" stroke="#2563EB" stroke-width="1.2"/>
+<text x="847.0" y="434" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.2" font-weight="700" fill="#2563EB" text-anchor="middle">② 静态多档部署</text>
+<text x="847.0" y="448" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="9.2" font-weight="400" fill="#52525B" text-anchor="middle">Fast(1遍) / Deep(3遍)</text>
+<text x="847.0" y="460" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="9.2" font-weight="400" fill="#52525B" text-anchor="middle">CUDA Graph 零额外开销</text>
+<rect x="940" y="416" width="144" height="50" rx="6" fill="#FFFFFF" stroke="#0D9488" stroke-width="1.2"/>
+<text x="1012.0" y="434" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.2" font-weight="700" fill="#0D9488" text-anchor="middle">③ 连续软深度配额</text>
+<text x="1012.0" y="448" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="9.2" font-weight="400" fill="#52525B" text-anchor="middle">LoopRes k_loop 卸载后</text>
+<text x="1012.0" y="460" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="9.2" font-weight="400" fill="#52525B" text-anchor="middle">25% 内容自适应深度</text>
+<line x1="754" y1="441" x2="774" y2="441" stroke="#2563EB" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+<line x1="920" y1="441" x2="940" y2="441" stroke="#0D9488" stroke-width="1.8" marker-end="url(#arr-teal)"/>
+<text x="608" y="486" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.1" font-weight="400" fill="#18181B" text-anchor="start">• 避开离散跳层的 KV 空洞与 RLVR 图撕裂，同时保留按请求选遍数（VarLoop）的弹性。</text>
+<text x="608" y="502" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.1" font-weight="700" fill="#2563EB" text-anchor="start">• 核心判断：下一代架构的“动态性”大概率不会来自离散路由表 Sₖ,ᵢ，</text>
+<text x="618" y="518" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.1" font-weight="700" fill="#2563EB" text-anchor="start">而来自静态执行图内部的连续低成本重布线（端口快权重 + 软深度注意力）。</text>
+</svg>

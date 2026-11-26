@@ -1,0 +1,248 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1140 712" width="1140" height="712" role="img" aria-label="代码校准的张量连线差异与三家架构实测涌现的层本体结构">
+<defs>
+  <marker id="arr-dark" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+    <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#18181B"/>
+  </marker>
+  <marker id="arr-muted" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+    <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#71717A"/>
+  </marker>
+  <marker id="arr-blue" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+    <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#2563EB"/>
+  </marker>
+  <marker id="arr-orange" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+    <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#EA580C"/>
+  </marker>
+  <marker id="arr-teal" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+    <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#0D9488"/>
+  </marker>
+  <marker id="arr-purple" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+    <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#7C3AED"/>
+  </marker>
+  <marker id="arr-red" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+    <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#DC2626"/>
+  </marker>
+</defs>
+<rect x="0.5" y="0.5" width="1139" height="711" rx="12" fill="#FAFAF7" stroke="#E2E2DC" stroke-width="1"/>
+<text x="28" y="36" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="17" font-weight="700" fill="#18181B" text-anchor="start">打开源码与探针：三家架构的张量连线分叉，以及它们学出了完全相反的拓扑</text>
+<text x="28" y="57" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="11.6" font-weight="400" fill="#52525B" text-anchor="start">上半部分按官方 PyTorch 源码逐行校准子层输入算子；下半部分对照 Goodfire / LoopRes / ALF / LoRM 的实测流向，展示三家截然不同的涌现拓扑</text>
+<rect x="24" y="74" width="356" height="268" rx="10" fill="#FFFFFF" stroke="#E2E2DC" stroke-width="1.2"/>
+<rect x="25" y="75" width="354" height="32" rx="9" fill="#EFF6FF" stroke="none" stroke-width="1.2"/>
+<line x1="24" y1="107" x2="380" y2="107" stroke="#93C5FD" stroke-width="1.0"/>
+<text x="38" y="95" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="700" fill="#2563EB" text-anchor="start">Inkling 2 Mini（transformers #51050）</text>
+<rect x="396" y="74" width="358" height="268" rx="10" fill="#FFFFFF" stroke="#E2E2DC" stroke-width="1.2"/>
+<rect x="397" y="75" width="356" height="32" rx="9" fill="#F0FDFA" stroke="none" stroke-width="1.2"/>
+<line x1="396" y1="107" x2="754" y2="107" stroke="#5EEAD4" stroke-width="1.0"/>
+<text x="410" y="95" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="700" fill="#0D9488" text-anchor="start">LoopRes（loopres/model.py + minisgl）</text>
+<rect x="770" y="74" width="346" height="268" rx="10" fill="#FFFFFF" stroke="#E2E2DC" stroke-width="1.2"/>
+<rect x="771" y="75" width="344" height="32" rx="9" fill="#FFF7ED" stroke="none" stroke-width="1.2"/>
+<line x1="770" y1="107" x2="1116" y2="107" stroke="#FDBA74" stroke-width="1.0"/>
+<text x="784" y="95" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="700" fill="#EA580C" text-anchor="start">LoRM &amp; ALF（shift=1 跨 token 反馈）</text>
+<rect x="38" y="122" width="106" height="28" rx="5" fill="#EFF6FF" stroke="#93C5FD" stroke-width="1.1"/>
+<text x="91" y="140" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="10.1" font-weight="600" fill="#2563EB" text-anchor="middle">v̂₀, v̂₁ (前段)</text>
+<rect x="38" y="160" width="106" height="28" rx="5" fill="#EFF6FF" stroke="#93C5FD" stroke-width="1.1"/>
+<text x="91" y="178" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="10.1" font-weight="600" fill="#2563EB" text-anchor="middle">v̂₂⁽ᵏ⁾, partial̂</text>
+<rect x="38" y="198" width="106" height="28" rx="5" fill="#FFF7ED" stroke="#FDBA74" stroke-width="1.1"/>
+<text x="91" y="216" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="10.1" font-weight="600" fill="#EA580C" text-anchor="middle">v̂₂⁽ᵏ⁻¹⁾ 上遍 B2</text>
+<rect x="38" y="236" width="106" height="28" rx="5" fill="#FFF7ED" stroke="#FDBA74" stroke-width="1.1"/>
+<text x="91" y="254" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="10.1" font-weight="600" fill="#EA580C" text-anchor="middle">v̂₃⁽ᵏ⁻¹⁾ 上遍 B3</text>
+<rect x="162" y="128" width="94" height="54" rx="6" fill="#EFF6FF" stroke="#2563EB" stroke-width="1.4"/>
+<text x="209" y="148" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.2" font-weight="700" fill="#2563EB" text-anchor="middle">① 深度 Softmax</text>
+<text x="209" y="163" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="9.3" font-weight="400" fill="#18181B" text-anchor="middle">K,V 均 RMSNorm</text>
+<text x="209" y="176" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="9.3" font-weight="600" fill="#2563EB" text-anchor="middle">缩放 1/√d</text>
+<rect x="162" y="204" width="94" height="54" rx="6" fill="#FFF7ED" stroke="#EA580C" stroke-width="1.4"/>
+<text x="209" y="224" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.2" font-weight="700" fill="#EA580C" text-anchor="middle">② 跨遍 Softmax</text>
+<text x="209" y="239" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="9.3" font-weight="400" fill="#18181B" text-anchor="middle">仅 2 源 (W=1)</text>
+<text x="209" y="252" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="9.3" font-weight="600" fill="#DC2626" text-anchor="middle">无遍号参数</text>
+<line x1="144" y1="136" x2="162" y2="148" stroke="#2563EB" stroke-width="1.4" marker-end="url(#arr-blue)"/>
+<line x1="144" y1="174" x2="162" y2="164" stroke="#2563EB" stroke-width="1.4" marker-end="url(#arr-blue)"/>
+<line x1="144" y1="212" x2="162" y2="224" stroke="#EA580C" stroke-width="1.4" marker-end="url(#arr-orange)"/>
+<line x1="144" y1="250" x2="162" y2="240" stroke="#EA580C" stroke-width="1.4" marker-end="url(#arr-orange)"/>
+<rect x="272" y="152" width="94" height="84" rx="7" fill="#F5F3FF" stroke="#7C3AED" stroke-width="1.5"/>
+<text x="319" y="172" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.4" font-weight="700" fill="#7C3AED" text-anchor="middle">Rank-64 门控</text>
+<text x="319" y="189" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="9.5" font-weight="400" fill="#18181B" text-anchor="middle">(1−tanh Fz)⊙x</text>
+<text x="319" y="204" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="9.5" font-weight="400" fill="#18181B" text-anchor="middle">+ tanh(Gz)⊙m</text>
+<text x="319" y="224" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="9.8" font-weight="700" fill="#7C3AED" text-anchor="middle">Q/K/V/MoE 4路</text>
+<line x1="256" y1="156" x2="272" y2="178" stroke="#2563EB" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+<line x1="256" y1="230" x2="272" y2="210" stroke="#EA580C" stroke-width="1.5" marker-end="url(#arr-orange)"/>
+<rect x="38" y="278" width="328" height="52" rx="6" fill="#F8F8F5" stroke="#E2E2DC" stroke-width="1"/>
+<text x="48" y="297" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.1" font-weight="400" fill="#18181B" text-anchor="start">• 全局层 3 路深度读；全部循环层 4 路跨遍门 (拆融合 QKV)</text>
+<text x="48" y="315" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.1" font-weight="400" fill="#52525B" text-anchor="start">• 每遍从前段 (v₁, [v₀]) 重启；推理存 48 份独立 KV + Conv</text>
+<rect x="408" y="128" width="110" height="30" rx="5" fill="#EFF6FF" stroke="#93C5FD" stroke-width="1.1"/>
+<text x="463" y="147" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="9.8" font-weight="600" fill="#2563EB" text-anchor="middle">p (前段残差)</text>
+<line x1="518" y1="143" x2="538" y2="154" stroke="#2563EB" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+<rect x="408" y="172" width="110" height="30" rx="5" fill="#EFF6FF" stroke="#93C5FD" stroke-width="1.1"/>
+<text x="463" y="191" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="9.8" font-weight="600" fill="#2563EB" text-anchor="middle">B₁⁽ᵏ⁾, partial</text>
+<line x1="518" y1="187" x2="538" y2="172" stroke="#2563EB" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+<rect x="408" y="216" width="110" height="30" rx="5" fill="#FFF7ED" stroke="#FDBA74" stroke-width="1.1"/>
+<text x="463" y="235" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="9.8" font-weight="600" fill="#EA580C" text-anchor="middle">B₁⁽ᵏ⁻¹⁾, B₂⁽ᵏ⁻¹⁾</text>
+<line x1="518" y1="231" x2="538" y2="190" stroke="#EA580C" stroke-width="1.5" marker-end="url(#arr-orange)"/>
+<rect x="538" y="122" width="202" height="134" rx="7" fill="#F0FDFA" stroke="#0D9488" stroke-width="1.5"/>
+<text x="639" y="143" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.8" font-weight="700" fill="#0D9488" text-anchor="middle">单一联合 Triton Softmax</text>
+<text x="639" y="160" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="9.6" font-weight="400" fill="#52525B" text-anchor="middle">无门控 · 仅核心段启用 AttnRes</text>
+<rect x="546" y="169" width="186" height="26" rx="4" fill="#FFFFFF" stroke="#5EEAD4" stroke-width="1"/>
+<text x="639" y="186" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="9.6" font-weight="700" fill="#0D9488" text-anchor="middle">ℓₛ = kᵀq_loop + qᵀRMS(vₛ)</text>
+<text x="639" y="212" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="9.6" font-weight="400" fill="#18181B" text-anchor="middle">• 聚合原始未归一化 vₛ（非 v̂ₛ）</text>
+<text x="639" y="228" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="9.6" font-weight="400" fill="#18181B" text-anchor="middle">• 无 1/√d 缩放 · 另配 update_keys</text>
+<text x="639" y="245" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="9.4" font-weight="600" fill="#0D9488" text-anchor="middle">• minisgl 加载时偏置折为 0-FLOP 常数</text>
+<rect x="408" y="278" width="332" height="52" rx="6" fill="#F8F8F5" stroke="#E2E2DC" stroke-width="1"/>
+<text x="418" y="297" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.1" font-weight="400" fill="#18181B" text-anchor="start">• 训练融合内核把额外耗时从 +54.9% 压到 +4.8% (显存 +0.7%)</text>
+<text x="418" y="315" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.1" font-weight="400" fill="#52525B" text-anchor="start">• SFT 改装 Qwen3-4B (45.8) 超过 8B SFT (42.9)，每遍独立 KV</text>
+<rect x="784" y="118" width="318" height="72" rx="7" fill="#FFFBF7" stroke="#FDBA74" stroke-width="1.2"/>
+<text x="794" y="137" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.5" font-weight="700" fill="#EA580C" text-anchor="start">LoRM (AttnResTransformer)：shift=0/1 同类</text>
+<text x="794" y="154" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="9.8" font-weight="400" fill="#18181B" text-anchor="start">• 无三段切分！全部 6 块过共享 W·RMS 后进联合 Softmax</text>
+<text x="794" y="169" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="9.8" font-weight="400" fill="#52525B" text-anchor="start">• 聚合原始 v，必须加 1/√d（去掉则 2.4319 → 2.4446）</text>
+<text x="794" y="184" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="9.7" font-weight="600" fill="#EA580C" text-anchor="start">• 仅传顶层反退化 (2.4443 vs 2.4354)，传 6 块才赢 (2.4319)</text>
+<rect x="784" y="198" width="318" height="72" rx="7" fill="#F8FAFC" stroke="#93C5FD" stroke-width="1.2"/>
+<text x="794" y="217" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.5" font-weight="700" fill="#2563EB" text-anchor="start">ALF (2611.31154)：逐子层 i ≥ l 独立 Softmax</text>
+<text x="794" y="234" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="9.5" font-weight="400" fill="#18181B" text-anchor="start">• hₜ,ₗ = (1−ρₗ)xₜ,ₗ + ρₗ c Σᵢ≥ₗ βᵢ→ₗ Mᵢ vₜ₋₁,ᵢ  (rank-64 Mᵢ)</text>
+<text x="794" y="250" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="9.8" font-weight="600" fill="#2563EB" text-anchor="start">• 在 AttnRes 上：单留顶层跌到 49%，单留子层保住 96%！</text>
+<text x="794" y="265" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="9.6" font-weight="400" fill="#52525B" text-anchor="start">• 真实解码瓶颈非 +1.1% FLOPs，而是读 2L 状态的 O(L²) 访存</text>
+<rect x="784" y="278" width="318" height="52" rx="6" fill="#F8F8F5" stroke="#E2E2DC" stroke-width="1"/>
+<text x="794" y="297" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.0" font-weight="400" fill="#18181B" text-anchor="start">源码共性：全部放弃“顶层单向量回接”，改读中深层整列；</text>
+<text x="794" y="315" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.0" font-weight="700" fill="#DC2626" text-anchor="start">但究竟“谁读谁”并没有统一规律——看下面实测探针！</text>
+<rect x="24" y="360" width="412" height="332" rx="10" fill="#FFFFFF" stroke="#E2E2DC" stroke-width="1.2"/>
+<rect x="25" y="361" width="410" height="30" rx="9" fill="#FFF7ED" stroke="none" stroke-width="1.2"/>
+<line x1="24" y1="391" x2="436" y2="391" stroke="#FDBA74" stroke-width="1.0"/>
+<text x="38" y="380" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="11.5" font-weight="700" fill="#EA580C" text-anchor="start">实测拓扑 1：Inkling 2 Mini — 学出“顶回底” (48 串行层)</text>
+<rect x="452" y="360" width="336" height="332" rx="10" fill="#FFFFFF" stroke="#E2E2DC" stroke-width="1.2"/>
+<rect x="453" y="361" width="334" height="30" rx="9" fill="#F0FDFA" stroke="none" stroke-width="1.2"/>
+<line x1="452" y1="391" x2="788" y2="391" stroke="#5EEAD4" stroke-width="1.0"/>
+<text x="466" y="380" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="11.5" font-weight="700" fill="#0D9488" text-anchor="start">实测拓扑 2：LoopRes — 学出“同块细化”</text>
+<rect x="804" y="360" width="312" height="332" rx="10" fill="#FFFFFF" stroke="#E2E2DC" stroke-width="1.2"/>
+<rect x="805" y="361" width="310" height="30" rx="9" fill="#EFF6FF" stroke="none" stroke-width="1.2"/>
+<line x1="804" y1="391" x2="1116" y2="391" stroke="#93C5FD" stroke-width="1.0"/>
+<text x="818" y="380" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="11.5" font-weight="700" fill="#2563EB" text-anchor="start">实测拓扑 3：ALF (近对角) vs LoRM (长跳)</text>
+<text x="90" y="410" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="11" font-weight="700" fill="#52525B" text-anchor="middle">Loop 1</text>
+<rect x="46" y="418" width="88" height="62" rx="7" fill="#FFF7ED" stroke="#EA580C" stroke-width="1.5"/>
+<text x="90" y="437" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.4" font-weight="700" fill="#EA580C" text-anchor="middle">B3 (L13–18)</text>
+<rect x="54" y="444" width="72" height="15" rx="3" fill="#EA580C" stroke="none" stroke-width="1.2"/>
+<text x="90" y="455" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="9.1" font-weight="700" fill="#FFFFFF" text-anchor="middle">L18 独占 40%</text>
+<text x="90" y="473" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="9.2" font-weight="400" fill="#52525B" text-anchor="middle">L17: 13% ...</text>
+<rect x="46" y="504" width="88" height="62" rx="7" fill="#F0FDFA" stroke="#0D9488" stroke-width="1.5"/>
+<text x="90" y="523" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.4" font-weight="700" fill="#0D9488" text-anchor="middle">B2 (L7–12)</text>
+<text x="90" y="543" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="9.4" font-weight="400" fill="#52525B" text-anchor="middle">L12: 7%</text>
+<text x="90" y="558" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="9.4" font-weight="400" fill="#52525B" text-anchor="middle">合计仅 17%</text>
+<text x="262" y="410" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="11" font-weight="700" fill="#52525B" text-anchor="middle">Loop 2</text>
+<rect x="218" y="418" width="88" height="62" rx="7" fill="#FFF7ED" stroke="#EA580C" stroke-width="1.5"/>
+<text x="262" y="437" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.4" font-weight="700" fill="#EA580C" text-anchor="middle">B3 (L13–18)</text>
+<text x="262" y="458" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10" font-weight="600" fill="#18181B" text-anchor="middle">L13 Q 目标</text>
+<text x="262" y="473" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="9.2" font-weight="400" fill="#71717A" text-anchor="middle">上遍 B2 = 0%</text>
+<rect x="218" y="504" width="88" height="62" rx="7" fill="#F0FDFA" stroke="#0D9488" stroke-width="1.5"/>
+<text x="262" y="523" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.4" font-weight="700" fill="#0D9488" text-anchor="middle">B2 (L7–12)</text>
+<text x="262" y="543" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10" font-weight="600" fill="#18181B" text-anchor="middle">L7 Q 目标</text>
+<text x="262" y="558" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="8.9" font-weight="600" fill="#2563EB" text-anchor="middle">本遍 B2→L13: 58%</text>
+<path d="M 134 454 C 176 454, 176 534, 218 534" fill="none" stroke="#EA580C" stroke-width="6.0" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arr-orange)"/>
+<rect x="154" y="488" width="46" height="20" rx="10.0" fill="#FFF7ED" stroke="#EA580C" stroke-width="1.1"/>
+<text x="177.0" y="501.675" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.5" font-weight="700" fill="#EA580C" text-anchor="middle">69%</text>
+<path d="M 134 436 L 218 436" fill="none" stroke="#EA580C" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arr-orange)"/>
+<text x="176" y="429" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10" font-weight="700" fill="#EA580C" text-anchor="middle">39%</text>
+<path d="M 134 546 L 218 546" fill="none" stroke="#0D9488" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arr-teal)"/>
+<text x="176" y="561" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="9.8" font-weight="600" fill="#0D9488" text-anchor="middle">17%</text>
+<line x1="262" y1="504" x2="262" y2="480" stroke="#2563EB" stroke-width="4.6" marker-end="url(#arr-blue)"/>
+<rect x="322" y="408" width="104" height="174" rx="7" fill="#F8F8F5" stroke="#E2E2DC" stroke-width="1"/>
+<text x="374" y="426" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.2" font-weight="700" fill="#18181B" text-anchor="middle">L18 写 d₂₀₂₇</text>
+<text x="374" y="439" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="8.8" font-weight="400" fill="#52525B" text-anchor="middle">(占 46% 平方范数)</text>
+<line x1="332" y1="516" x2="416" y2="516" stroke="#71717A" stroke-width="1"/>
+<rect x="338" y="464" width="18" height="52" rx="2" fill="#EA580C" stroke="none" stroke-width="1.2"/>
+<text x="347" y="460" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="9" font-weight="700" fill="#EA580C" text-anchor="middle">+82</text>
+<text x="347" y="573" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="9.2" font-weight="600" fill="#52525B" text-anchor="middle">L1</text>
+<rect x="365" y="487" width="18" height="29" rx="2" fill="#EA580C" stroke="none" stroke-width="1.2"/>
+<text x="374" y="483" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="9" font-weight="700" fill="#EA580C" text-anchor="middle">+45</text>
+<text x="374" y="573" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="9.2" font-weight="600" fill="#52525B" text-anchor="middle">L2</text>
+<rect x="392" y="516" width="18" height="28" rx="2" fill="#DC2626" stroke="none" stroke-width="1.2"/>
+<text x="401" y="556" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="9" font-weight="700" fill="#DC2626" text-anchor="middle">−46</text>
+<text x="401" y="573" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="9.2" font-weight="600" fill="#52525B" text-anchor="middle">L3</text>
+<text x="42" y="606" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.2" font-weight="600" fill="#18181B" text-anchor="start">关键发现：L7 读上遍 B3 (69%, L18 独占 40%)，自发长出“核心顶回底”。</text>
+<text x="42" y="624" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.0" font-weight="400" fill="#52525B" text-anchor="start">且 d₂₀₂₇ 是“选 B3 压 B2”的块信标（贡献 u_Q/u_V 差值 17–19%），</text>
+<text x="42" y="641" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.0" font-weight="400" fill="#52525B" text-anchor="start">第 3 遍共享权重的 L18 自发写 −46 擦除信标——证明隐式遍数感知！</text>
+<text x="42" y="661" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="9.3" font-weight="400" fill="#71717A" text-anchor="start">数据来源：Goodfire Fig. 7 &amp; Fig. 8（13,233 tokens, 400 FineWeb 文档）</text>
+<text x="528" y="410" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="11" font-weight="700" fill="#52525B" text-anchor="middle">Loop 1</text>
+<rect x="476" y="418" width="104" height="44" rx="6" fill="#EFF6FF" stroke="#2563EB" stroke-width="1.3"/>
+<text x="528" y="444" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.2" font-weight="700" fill="#2563EB" text-anchor="middle">B2 (后 7 层)</text>
+<rect x="476" y="480" width="104" height="44" rx="6" fill="#F0FDFA" stroke="#0D9488" stroke-width="1.4"/>
+<text x="528" y="506" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.2" font-weight="700" fill="#0D9488" text-anchor="middle">B1 (前 7 层)</text>
+<text x="698" y="410" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="11" font-weight="700" fill="#52525B" text-anchor="middle">Loop 2</text>
+<rect x="646" y="418" width="104" height="44" rx="6" fill="#EFF6FF" stroke="#2563EB" stroke-width="1.3"/>
+<text x="698" y="444" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.2" font-weight="700" fill="#2563EB" text-anchor="middle">B2 (后 7 层)</text>
+<rect x="646" y="480" width="104" height="44" rx="6" fill="#F0FDFA" stroke="#0D9488" stroke-width="1.4"/>
+<text x="698" y="506" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.2" font-weight="700" fill="#0D9488" text-anchor="middle">B1 (前 7 层)</text>
+<line x1="580" y1="502" x2="646" y2="502" stroke="#0D9488" stroke-width="4.6" marker-end="url(#arr-teal)"/>
+<text x="602" y="494" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="9.6" font-weight="700" fill="#0D9488" text-anchor="middle">主路径</text>
+<text x="613" y="518" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="9.2" font-weight="400" fill="#52525B" text-anchor="middle">&gt;2–3× B2</text>
+<path d="M 580 440 C 618 440, 618 488, 646 488" fill="none" stroke="#71717A" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arr-muted)" stroke-dasharray="3,2"/>
+<line x1="698" y1="480" x2="698" y2="462" stroke="#2563EB" stroke-width="4.0" marker-end="url(#arr-blue)"/>
+<text x="470" y="548" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.5" font-weight="700" fill="#18181B" text-anchor="start">内容键方差分解：“少即是多”解放 Token 自适应深度</text>
+<text x="470" y="569" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="9.8" font-weight="400" fill="#52525B" text-anchor="start">朴素 AttnRes</text>
+<rect x="546" y="558" width="200" height="16" rx="3" fill="#E4E4DE" stroke="none" stroke-width="1.2"/>
+<rect x="734" y="558" width="12" height="16" rx="2" fill="#DC2626" stroke="none" stroke-width="1.2"/>
+<text x="640" y="570" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="9.2" font-weight="400" fill="#52525B" text-anchor="middle">94% 静态固定偏好</text>
+<text x="752" y="570" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="9.6" font-weight="700" fill="#DC2626" text-anchor="start">6%</text>
+<text x="470" y="592" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="9.8" font-weight="700" fill="#0D9488" text-anchor="start">LoopRes</text>
+<rect x="546" y="581" width="150" height="16" rx="3" fill="#E4E4DE" stroke="none" stroke-width="1.2"/>
+<rect x="696" y="581" width="50" height="16" rx="2" fill="#0D9488" stroke="none" stroke-width="1.2"/>
+<text x="620" y="593" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="9.2" font-weight="400" fill="#52525B" text-anchor="middle">75% 静态</text>
+<text x="752" y="593" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="9.6" font-weight="700" fill="#0D9488" text-anchor="start">25%</text>
+<text x="470" y="618" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10" font-weight="400" fill="#52525B" text-anchor="start">• 朴素 AttnRes 在 7 遍时全循环路径塌缩至 0.05%</text>
+<text x="470" y="636" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10" font-weight="400" fill="#18181B" text-anchor="start">• 卸载结构偏好给 k_loop 后，内容键涌现自适应深度：</text>
+<text x="470" y="654" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10" font-weight="600" fill="#0D9488" text-anchor="start">  “Wait / Hmm” 走浅（−0.20）·“6 / + / b” 走深（+0.20）</text>
+<text x="881" y="411" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.3" font-weight="700" fill="#2563EB" text-anchor="middle">ALF：近对角 l..l+3</text>
+<text x="1033" y="411" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.3" font-weight="700" fill="#EA580C" text-anchor="middle">LoRM：浅层跳读 f4/f5</text>
+<rect x="826" y="422" width="20" height="20" rx="2" fill="#2563EB" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="848" y="422" width="20" height="20" rx="2" fill="#60A5FA" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="870" y="422" width="20" height="20" rx="2" fill="#BFDBFE" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="892" y="422" width="20" height="20" rx="2" fill="#EFF6FF" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="914" y="422" width="20" height="20" rx="2" fill="#EFF6FF" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="826" y="444" width="20" height="20" rx="2" fill="#F4F4F0" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="848" y="444" width="20" height="20" rx="2" fill="#2563EB" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="870" y="444" width="20" height="20" rx="2" fill="#60A5FA" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="892" y="444" width="20" height="20" rx="2" fill="#BFDBFE" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="914" y="444" width="20" height="20" rx="2" fill="#EFF6FF" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="826" y="466" width="20" height="20" rx="2" fill="#F4F4F0" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="848" y="466" width="20" height="20" rx="2" fill="#F4F4F0" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="870" y="466" width="20" height="20" rx="2" fill="#2563EB" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="892" y="466" width="20" height="20" rx="2" fill="#60A5FA" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="914" y="466" width="20" height="20" rx="2" fill="#BFDBFE" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="826" y="488" width="20" height="20" rx="2" fill="#F4F4F0" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="848" y="488" width="20" height="20" rx="2" fill="#F4F4F0" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="870" y="488" width="20" height="20" rx="2" fill="#F4F4F0" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="892" y="488" width="20" height="20" rx="2" fill="#2563EB" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="914" y="488" width="20" height="20" rx="2" fill="#60A5FA" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="826" y="510" width="20" height="20" rx="2" fill="#F4F4F0" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="848" y="510" width="20" height="20" rx="2" fill="#F4F4F0" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="870" y="510" width="20" height="20" rx="2" fill="#F4F4F0" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="892" y="510" width="20" height="20" rx="2" fill="#F4F4F0" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="914" y="510" width="20" height="20" rx="2" fill="#2563EB" stroke="#FFFFFF" stroke-width="0.8"/>
+<text x="881" y="545" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="9.2" font-weight="400" fill="#52525B" text-anchor="middle">上 token 源层 i →</text>
+<rect x="978" y="422" width="20" height="20" rx="2" fill="#FFF7ED" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="1000" y="422" width="20" height="20" rx="2" fill="#FFF7ED" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="1022" y="422" width="20" height="20" rx="2" fill="#FED7AA" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="1044" y="422" width="20" height="20" rx="2" fill="#EA580C" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="1066" y="422" width="20" height="20" rx="2" fill="#EA580C" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="978" y="444" width="20" height="20" rx="2" fill="#FFF7ED" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="1000" y="444" width="20" height="20" rx="2" fill="#FFF7ED" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="1022" y="444" width="20" height="20" rx="2" fill="#FED7AA" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="1044" y="444" width="20" height="20" rx="2" fill="#EA580C" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="1066" y="444" width="20" height="20" rx="2" fill="#EA580C" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="978" y="466" width="20" height="20" rx="2" fill="#FFF7ED" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="1000" y="466" width="20" height="20" rx="2" fill="#FFF7ED" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="1022" y="466" width="20" height="20" rx="2" fill="#FED7AA" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="1044" y="466" width="20" height="20" rx="2" fill="#FB923C" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="1066" y="466" width="20" height="20" rx="2" fill="#FB923C" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="978" y="488" width="20" height="20" rx="2" fill="#FFF7ED" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="1000" y="488" width="20" height="20" rx="2" fill="#FFF7ED" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="1022" y="488" width="20" height="20" rx="2" fill="#FFF7ED" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="1044" y="488" width="20" height="20" rx="2" fill="#FED7AA" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="1066" y="488" width="20" height="20" rx="2" fill="#FED7AA" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="978" y="510" width="20" height="20" rx="2" fill="#FFF7ED" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="1000" y="510" width="20" height="20" rx="2" fill="#FFF7ED" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="1022" y="510" width="20" height="20" rx="2" fill="#FFF7ED" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="1044" y="510" width="20" height="20" rx="2" fill="#FFF7ED" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="1066" y="510" width="20" height="20" rx="2" fill="#FFF7ED" stroke="#FFFFFF" stroke-width="0.8"/>
+<text x="1033" y="545" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="9.2" font-weight="400" fill="#52525B" text-anchor="middle">上 token 块 f1..f5 →</text>
+<text x="822" y="572" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.1" font-weight="400" fill="#18181B" text-anchor="start">• ALF 64–73% 权重落在自己及往上 3 子层：</text>
+<text x="830" y="588" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10" font-weight="400" fill="#52525B" text-anchor="start">本质是跨 token 错层特征复用（非去噪），</text>
+<text x="830" y="604" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10" font-weight="600" fill="#2563EB" text-anchor="start">固定等权读近 4 源即可保住 89–94% 增益！</text>
+<text x="822" y="625" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10.1" font-weight="400" fill="#18181B" text-anchor="start">• LoRM 浅层 attn 2 有 62.1% 权重跳升 6–8 层</text>
+<text x="830" y="641" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10" font-weight="400" fill="#52525B" text-anchor="start">读 f4/f5（L7–10），同时几乎完全忽略顶块 f6。</text>
+<text x="822" y="663" font-family="'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', Arial, sans-serif" font-size="10" font-weight="700" fill="#DC2626" text-anchor="start">共性：最顶 1/4 层专攻词表解码，回传反降质。</text>
+</svg>

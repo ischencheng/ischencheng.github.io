@@ -1,0 +1,248 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1140 712" width="1140" height="712" role="img" aria-label="Code-calibrated tensor wiring differences and measured emergent layer topologies across Inkling 2 Mini, LoopRes, ALF, and LoRM">
+<defs>
+  <marker id="arr-dark" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+    <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#18181B"/>
+  </marker>
+  <marker id="arr-muted" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+    <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#71717A"/>
+  </marker>
+  <marker id="arr-blue" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+    <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#2563EB"/>
+  </marker>
+  <marker id="arr-orange" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+    <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#EA580C"/>
+  </marker>
+  <marker id="arr-teal" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+    <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#0D9488"/>
+  </marker>
+  <marker id="arr-purple" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+    <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#7C3AED"/>
+  </marker>
+  <marker id="arr-red" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+    <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#DC2626"/>
+  </marker>
+</defs>
+<rect x="0.5" y="0.5" width="1139" height="711" rx="12" fill="#FAFAF7" stroke="#E2E2DC" stroke-width="1"/>
+<text x="28" y="36" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="16.5" font-weight="700" fill="#18181B" text-anchor="start">Inside the Source Code &amp; Probes: Wiring Divergences and Opposite Emergent Topologies</text>
+<text x="28" y="57" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="11.4" font-weight="400" fill="#52525B" text-anchor="start">Top: Sublayer input operators calibrated line-by-line against official PyTorch repos. Bottom: Measured attribution maps reveal diametrically opposed learned circuits.</text>
+<rect x="24" y="74" width="356" height="268" rx="10" fill="#FFFFFF" stroke="#E2E2DC" stroke-width="1.2"/>
+<rect x="25" y="75" width="354" height="32" rx="9" fill="#EFF6FF" stroke="none" stroke-width="1.2"/>
+<line x1="24" y1="107" x2="380" y2="107" stroke="#93C5FD" stroke-width="1.0"/>
+<text x="36" y="95" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="11.6" font-weight="700" fill="#2563EB" text-anchor="start">Inkling 2 Mini (transformers #51050)</text>
+<rect x="396" y="74" width="358" height="268" rx="10" fill="#FFFFFF" stroke="#E2E2DC" stroke-width="1.2"/>
+<rect x="397" y="75" width="356" height="32" rx="9" fill="#F0FDFA" stroke="none" stroke-width="1.2"/>
+<line x1="396" y1="107" x2="754" y2="107" stroke="#5EEAD4" stroke-width="1.0"/>
+<text x="408" y="95" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="11.6" font-weight="700" fill="#0D9488" text-anchor="start">LoopRes (loopres/model.py + minisgl)</text>
+<rect x="770" y="74" width="346" height="268" rx="10" fill="#FFFFFF" stroke="#E2E2DC" stroke-width="1.2"/>
+<rect x="771" y="75" width="344" height="32" rx="9" fill="#FFF7ED" stroke="none" stroke-width="1.2"/>
+<line x1="770" y1="107" x2="1116" y2="107" stroke="#FDBA74" stroke-width="1.0"/>
+<text x="782" y="95" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="11.6" font-weight="700" fill="#EA580C" text-anchor="start">LoRM &amp; ALF (shift=1 cross-token feedback)</text>
+<rect x="36" y="122" width="108" height="28" rx="5" fill="#EFF6FF" stroke="#93C5FD" stroke-width="1.1"/>
+<text x="90" y="140" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="9.8" font-weight="600" fill="#2563EB" text-anchor="middle">v̂₀, v̂₁ (pre)</text>
+<rect x="36" y="160" width="108" height="28" rx="5" fill="#EFF6FF" stroke="#93C5FD" stroke-width="1.1"/>
+<text x="90" y="178" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="9.8" font-weight="600" fill="#2563EB" text-anchor="middle">v̂₂⁽ᵏ⁾, partial̂</text>
+<rect x="36" y="198" width="108" height="28" rx="5" fill="#FFF7ED" stroke="#FDBA74" stroke-width="1.1"/>
+<text x="90" y="216" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="9.8" font-weight="600" fill="#EA580C" text-anchor="middle">v̂₂⁽ᵏ⁻¹⁾ prev B2</text>
+<rect x="36" y="236" width="108" height="28" rx="5" fill="#FFF7ED" stroke="#FDBA74" stroke-width="1.1"/>
+<text x="90" y="254" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="9.8" font-weight="600" fill="#EA580C" text-anchor="middle">v̂₃⁽ᵏ⁻¹⁾ prev B3</text>
+<rect x="160" y="128" width="96" height="54" rx="6" fill="#EFF6FF" stroke="#2563EB" stroke-width="1.4"/>
+<text x="208" y="147" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.9" font-weight="700" fill="#2563EB" text-anchor="middle">① Depth Softmax</text>
+<text x="208" y="162" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.2" font-weight="400" fill="#18181B" text-anchor="middle">Normed K &amp; V</text>
+<text x="208" y="175" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.2" font-weight="600" fill="#2563EB" text-anchor="middle">1/√d scaled</text>
+<rect x="160" y="204" width="96" height="54" rx="6" fill="#FFF7ED" stroke="#EA580C" stroke-width="1.4"/>
+<text x="208" y="223" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.9" font-weight="700" fill="#EA580C" text-anchor="middle">② Cross Softmax</text>
+<text x="208" y="238" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.2" font-weight="400" fill="#18181B" text-anchor="middle">2 sources (W=1)</text>
+<text x="208" y="251" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.2" font-weight="600" fill="#DC2626" text-anchor="middle">No loop index</text>
+<line x1="144" y1="136" x2="160" y2="148" stroke="#2563EB" stroke-width="1.4" marker-end="url(#arr-blue)"/>
+<line x1="144" y1="174" x2="160" y2="164" stroke="#2563EB" stroke-width="1.4" marker-end="url(#arr-blue)"/>
+<line x1="144" y1="212" x2="160" y2="224" stroke="#EA580C" stroke-width="1.4" marker-end="url(#arr-orange)"/>
+<line x1="144" y1="250" x2="160" y2="240" stroke="#EA580C" stroke-width="1.4" marker-end="url(#arr-orange)"/>
+<rect x="270" y="152" width="98" height="84" rx="7" fill="#F5F3FF" stroke="#7C3AED" stroke-width="1.5"/>
+<text x="319" y="171" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.2" font-weight="700" fill="#7C3AED" text-anchor="middle">Rank-64 Gate</text>
+<text x="319" y="188" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="9.3" font-weight="400" fill="#18181B" text-anchor="middle">(1−tanh Fz)⊙x</text>
+<text x="319" y="203" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="9.3" font-weight="400" fill="#18181B" text-anchor="middle">+ tanh(Gz)⊙m</text>
+<text x="319" y="224" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.3" font-weight="700" fill="#7C3AED" text-anchor="middle">4 ports: Q/K/V/M</text>
+<line x1="256" y1="156" x2="270" y2="178" stroke="#2563EB" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+<line x1="256" y1="230" x2="270" y2="210" stroke="#EA580C" stroke-width="1.5" marker-end="url(#arr-orange)"/>
+<rect x="36" y="278" width="332" height="52" rx="6" fill="#F8F8F5" stroke="#E2E2DC" stroke-width="1"/>
+<text x="44" y="297" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.7" font-weight="400" fill="#18181B" text-anchor="start">• Global: 3 Q/K/V depth reads; core: 4 gates (splits QKV)</text>
+<text x="44" y="315" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.7" font-weight="400" fill="#52525B" text-anchor="start">• Resets to prelude (v₁,[v₀]) per pass; 48 KV+Conv states</text>
+<rect x="408" y="128" width="108" height="30" rx="5" fill="#EFF6FF" stroke="#93C5FD" stroke-width="1.1"/>
+<text x="462" y="147" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="9.7" font-weight="600" fill="#2563EB" text-anchor="middle">p (prelude)</text>
+<line x1="516" y1="143" x2="536" y2="154" stroke="#2563EB" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+<rect x="408" y="172" width="108" height="30" rx="5" fill="#EFF6FF" stroke="#93C5FD" stroke-width="1.1"/>
+<text x="462" y="191" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="9.7" font-weight="600" fill="#2563EB" text-anchor="middle">B₁⁽ᵏ⁾, partial</text>
+<line x1="516" y1="187" x2="536" y2="172" stroke="#2563EB" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+<rect x="408" y="216" width="108" height="30" rx="5" fill="#FFF7ED" stroke="#FDBA74" stroke-width="1.1"/>
+<text x="462" y="235" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="9.7" font-weight="600" fill="#EA580C" text-anchor="middle">B₁⁽ᵏ⁻¹⁾, B₂⁽ᵏ⁻¹⁾</text>
+<line x1="516" y1="231" x2="536" y2="190" stroke="#EA580C" stroke-width="1.5" marker-end="url(#arr-orange)"/>
+<rect x="536" y="122" width="204" height="134" rx="7" fill="#F0FDFA" stroke="#0D9488" stroke-width="1.5"/>
+<text x="638" y="143" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.5" font-weight="700" fill="#0D9488" text-anchor="middle">Single Joint Triton Softmax</text>
+<text x="638" y="160" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.5" font-weight="400" fill="#52525B" text-anchor="middle">No gate · AttnRes in core only</text>
+<rect x="544" y="169" width="188" height="26" rx="4" fill="#FFFFFF" stroke="#5EEAD4" stroke-width="1"/>
+<text x="638" y="186" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="9.6" font-weight="700" fill="#0D9488" text-anchor="middle">ℓₛ = kᵀq_loop + qᵀRMS(vₛ)</text>
+<text x="638" y="212" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.4" font-weight="400" fill="#18181B" text-anchor="middle">• Sums raw unnormalized vₛ (not v̂ₛ)</text>
+<text x="638" y="228" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.4" font-weight="400" fill="#18181B" text-anchor="middle">• No 1/√d scaling · + update_keys</text>
+<text x="638" y="245" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.3" font-weight="600" fill="#0D9488" text-anchor="middle">• minisgl folds kᵀq to 0-FLOP const</text>
+<rect x="408" y="278" width="334" height="52" rx="6" fill="#F8F8F5" stroke="#E2E2DC" stroke-width="1"/>
+<text x="416" y="297" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.6" font-weight="400" fill="#18181B" text-anchor="start">• Fused Triton cuts train overhead +54.9% → +4.8% (+0.7% mem)</text>
+<text x="416" y="315" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.6" font-weight="400" fill="#52525B" text-anchor="start">• Retrofitted Qwen3-4B (45.8) beats 8B SFT (42.9); sep. KV/pass</text>
+<rect x="782" y="118" width="322" height="72" rx="7" fill="#FFFBF7" stroke="#FDBA74" stroke-width="1.2"/>
+<text x="792" y="136" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.1" font-weight="700" fill="#EA580C" text-anchor="start">LoRM (AttnResTransformer): shift=0/1 one class</text>
+<text x="792" y="153" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.6" font-weight="400" fill="#18181B" text-anchor="start">• No 3-stage split! All 6 blocks via shared W·RMS</text>
+<text x="792" y="168" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.6" font-weight="400" fill="#52525B" text-anchor="start">• Raw values; 1/√d is critical (w/o: 2.4319 → 2.4446)</text>
+<text x="792" y="183" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.5" font-weight="600" fill="#EA580C" text-anchor="start">• Top-only regresses (2.4443 vs 2.4354); 6-blk wins</text>
+<rect x="782" y="198" width="322" height="72" rx="7" fill="#F8FAFC" stroke="#93C5FD" stroke-width="1.2"/>
+<text x="792" y="216" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.1" font-weight="700" fill="#2563EB" text-anchor="start">ALF (2611.31154): per-sublayer i ≥ l softmax</text>
+<text x="792" y="233" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="9.2" font-weight="400" fill="#18181B" text-anchor="start">• hₜ,ₗ = (1−ρₗ)xₜ,ₗ + ρₗ c Σᵢ≥ₗ βᵢ→ₗ Mᵢ vₜ₋₁,ᵢ (r=64)</text>
+<text x="792" y="249" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.6" font-weight="600" fill="#2563EB" text-anchor="start">• On AttnRes: top-only drops to 49%; sublayer = 96%!</text>
+<text x="792" y="264" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.4" font-weight="400" fill="#52525B" text-anchor="start">• Decode cost is O(L²) HBM reads (not +1.1% FLOPs)</text>
+<rect x="782" y="278" width="322" height="52" rx="6" fill="#F8F8F5" stroke="#E2E2DC" stroke-width="1"/>
+<text x="790" y="297" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.7" font-weight="400" fill="#18181B" text-anchor="start">Shared lesson: all drop top-only vectors for mid-deep columns.</text>
+<text x="790" y="315" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.7" font-weight="700" fill="#DC2626" text-anchor="start">Yet who reads whom diverges completely — see probes below!</text>
+<rect x="24" y="360" width="412" height="332" rx="10" fill="#FFFFFF" stroke="#E2E2DC" stroke-width="1.2"/>
+<rect x="25" y="361" width="410" height="30" rx="9" fill="#FFF7ED" stroke="none" stroke-width="1.2"/>
+<line x1="24" y1="391" x2="436" y2="391" stroke="#FDBA74" stroke-width="1.0"/>
+<text x="36" y="380" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="11.0" font-weight="700" fill="#EA580C" text-anchor="start">Measured 1: Inkling 2 Mini — Top-to-Bottom (48 Serial)</text>
+<rect x="452" y="360" width="336" height="332" rx="10" fill="#FFFFFF" stroke="#E2E2DC" stroke-width="1.2"/>
+<rect x="453" y="361" width="334" height="30" rx="9" fill="#F0FDFA" stroke="none" stroke-width="1.2"/>
+<line x1="452" y1="391" x2="788" y2="391" stroke="#5EEAD4" stroke-width="1.0"/>
+<text x="464" y="380" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="11.0" font-weight="700" fill="#0D9488" text-anchor="start">Measured 2: LoopRes — Same-Block Refinement</text>
+<rect x="804" y="360" width="312" height="332" rx="10" fill="#FFFFFF" stroke="#E2E2DC" stroke-width="1.2"/>
+<rect x="805" y="361" width="310" height="30" rx="9" fill="#EFF6FF" stroke="none" stroke-width="1.2"/>
+<line x1="804" y1="391" x2="1116" y2="391" stroke="#93C5FD" stroke-width="1.0"/>
+<text x="816" y="380" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="11.0" font-weight="700" fill="#2563EB" text-anchor="start">Measured 3: ALF (Diag) vs LoRM (Long Jump)</text>
+<text x="88" y="410" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.8" font-weight="700" fill="#52525B" text-anchor="middle">Loop 1</text>
+<rect x="44" y="418" width="88" height="62" rx="7" fill="#FFF7ED" stroke="#EA580C" stroke-width="1.5"/>
+<text x="88" y="437" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.2" font-weight="700" fill="#EA580C" text-anchor="middle">B3 (L13–18)</text>
+<rect x="52" y="444" width="72" height="15" rx="3" fill="#EA580C" stroke="none" stroke-width="1.2"/>
+<text x="88" y="455" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="8.8" font-weight="700" fill="#FFFFFF" text-anchor="middle">L18 alone 40%</text>
+<text x="88" y="473" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.1" font-weight="400" fill="#52525B" text-anchor="middle">L17: 13% ...</text>
+<rect x="44" y="504" width="88" height="62" rx="7" fill="#F0FDFA" stroke="#0D9488" stroke-width="1.5"/>
+<text x="88" y="523" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.2" font-weight="700" fill="#0D9488" text-anchor="middle">B2 (L7–12)</text>
+<text x="88" y="543" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.2" font-weight="400" fill="#52525B" text-anchor="middle">L12: 7%</text>
+<text x="88" y="558" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.2" font-weight="400" fill="#52525B" text-anchor="middle">total 17%</text>
+<text x="260" y="410" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.8" font-weight="700" fill="#52525B" text-anchor="middle">Loop 2</text>
+<rect x="216" y="418" width="88" height="62" rx="7" fill="#FFF7ED" stroke="#EA580C" stroke-width="1.5"/>
+<text x="260" y="437" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.2" font-weight="700" fill="#EA580C" text-anchor="middle">B3 (L13–18)</text>
+<text x="260" y="458" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.8" font-weight="600" fill="#18181B" text-anchor="middle">L13 Q target</text>
+<text x="260" y="473" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.0" font-weight="400" fill="#71717A" text-anchor="middle">prev B2 = 0%</text>
+<rect x="216" y="504" width="88" height="62" rx="7" fill="#F0FDFA" stroke="#0D9488" stroke-width="1.5"/>
+<text x="260" y="523" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.2" font-weight="700" fill="#0D9488" text-anchor="middle">B2 (L7–12)</text>
+<text x="260" y="543" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.8" font-weight="600" fill="#18181B" text-anchor="middle">L7 Q target</text>
+<text x="260" y="558" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="8.6" font-weight="600" fill="#2563EB" text-anchor="middle">curr B2→L13: 58%</text>
+<path d="M 132 454 C 174 454, 174 534, 216 534" fill="none" stroke="#EA580C" stroke-width="6.0" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arr-orange)"/>
+<rect x="152" y="488" width="46" height="20" rx="10.0" fill="#FFF7ED" stroke="#EA580C" stroke-width="1.1"/>
+<text x="175.0" y="501.605" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.3" font-weight="700" fill="#EA580C" text-anchor="middle">69%</text>
+<path d="M 132 436 L 216 436" fill="none" stroke="#EA580C" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arr-orange)"/>
+<text x="174" y="429" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10" font-weight="700" fill="#EA580C" text-anchor="middle">39%</text>
+<path d="M 132 546 L 216 546" fill="none" stroke="#0D9488" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arr-teal)"/>
+<text x="174" y="561" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.8" font-weight="600" fill="#0D9488" text-anchor="middle">17%</text>
+<line x1="260" y1="504" x2="260" y2="480" stroke="#2563EB" stroke-width="4.6" marker-end="url(#arr-blue)"/>
+<rect x="320" y="408" width="106" height="174" rx="7" fill="#F8F8F5" stroke="#E2E2DC" stroke-width="1"/>
+<text x="373" y="426" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.2" font-weight="700" fill="#18181B" text-anchor="middle">L18 → d₂₀₂₇</text>
+<text x="373" y="439" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="8.9" font-weight="400" fill="#52525B" text-anchor="middle">(46% of ‖v‖²)</text>
+<line x1="330" y1="516" x2="416" y2="516" stroke="#71717A" stroke-width="1"/>
+<rect x="337" y="464" width="18" height="52" rx="2" fill="#EA580C" stroke="none" stroke-width="1.2"/>
+<text x="346" y="460" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9" font-weight="700" fill="#EA580C" text-anchor="middle">+82</text>
+<text x="346" y="573" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.2" font-weight="600" fill="#52525B" text-anchor="middle">L1</text>
+<rect x="364" y="487" width="18" height="29" rx="2" fill="#EA580C" stroke="none" stroke-width="1.2"/>
+<text x="373" y="483" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9" font-weight="700" fill="#EA580C" text-anchor="middle">+45</text>
+<text x="373" y="573" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.2" font-weight="600" fill="#52525B" text-anchor="middle">L2</text>
+<rect x="391" y="516" width="18" height="28" rx="2" fill="#DC2626" stroke="none" stroke-width="1.2"/>
+<text x="400" y="556" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9" font-weight="700" fill="#DC2626" text-anchor="middle">−46</text>
+<text x="400" y="573" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.2" font-weight="600" fill="#52525B" text-anchor="middle">L3</text>
+<text x="40" y="605" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.9" font-weight="600" fill="#18181B" text-anchor="start">Key finding: L7 pulls 69% from prev B3 (L18: 40%) = top-to-bottom.</text>
+<text x="40" y="623" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.8" font-weight="400" fill="#52525B" text-anchor="start">d₂₀₂₇ is a B3-vs-B2 block beacon (17–19% of u_Q/u_V logit gap);</text>
+<text x="40" y="640" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.8" font-weight="400" fill="#52525B" text-anchor="start">tied L18 writing −46 on Loop 3 proves implicit phase awareness!</text>
+<text x="40" y="661" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.1" font-weight="400" fill="#71717A" text-anchor="start">Source: Goodfire Fig. 7 &amp; Fig. 8 (13,233 tokens, 400 FineWeb docs)</text>
+<text x="526" y="410" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.8" font-weight="700" fill="#52525B" text-anchor="middle">Loop 1</text>
+<rect x="472" y="418" width="108" height="44" rx="6" fill="#EFF6FF" stroke="#2563EB" stroke-width="1.3"/>
+<text x="526" y="444" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.2" font-weight="700" fill="#2563EB" text-anchor="middle">B2 (top 7L)</text>
+<rect x="472" y="480" width="108" height="44" rx="6" fill="#F0FDFA" stroke="#0D9488" stroke-width="1.4"/>
+<text x="526" y="506" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.2" font-weight="700" fill="#0D9488" text-anchor="middle">B1 (bot 7L)</text>
+<text x="700" y="410" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.8" font-weight="700" fill="#52525B" text-anchor="middle">Loop 2</text>
+<rect x="646" y="418" width="108" height="44" rx="6" fill="#EFF6FF" stroke="#2563EB" stroke-width="1.3"/>
+<text x="700" y="444" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.2" font-weight="700" fill="#2563EB" text-anchor="middle">B2 (top 7L)</text>
+<rect x="646" y="480" width="108" height="44" rx="6" fill="#F0FDFA" stroke="#0D9488" stroke-width="1.4"/>
+<text x="700" y="506" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.2" font-weight="700" fill="#0D9488" text-anchor="middle">B1 (bot 7L)</text>
+<line x1="580" y1="502" x2="646" y2="502" stroke="#0D9488" stroke-width="4.6" marker-end="url(#arr-teal)"/>
+<text x="604" y="494" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.5" font-weight="700" fill="#0D9488" text-anchor="middle">main</text>
+<text x="613" y="518" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.1" font-weight="400" fill="#52525B" text-anchor="middle">2.2–3.5×</text>
+<path d="M 580 440 C 618 440, 618 488, 646 488" fill="none" stroke="#71717A" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arr-muted)" stroke-dasharray="3,2"/>
+<line x1="700" y1="480" x2="700" y2="462" stroke="#2563EB" stroke-width="4.0" marker-end="url(#arr-blue)"/>
+<text x="468" y="548" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.1" font-weight="700" fill="#18181B" text-anchor="start">Content-key variance: &#x27;Less is more&#x27; frees token depth</text>
+<text x="468" y="569" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.4" font-weight="400" fill="#52525B" text-anchor="start">Naive AttnRes</text>
+<rect x="550" y="558" width="196" height="16" rx="3" fill="#E4E4DE" stroke="none" stroke-width="1.2"/>
+<rect x="734" y="558" width="12" height="16" rx="2" fill="#DC2626" stroke="none" stroke-width="1.2"/>
+<text x="642" y="570" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.0" font-weight="400" fill="#52525B" text-anchor="middle">94% static structural bias</text>
+<text x="752" y="570" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.4" font-weight="700" fill="#DC2626" text-anchor="start">6%</text>
+<text x="468" y="592" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.5" font-weight="700" fill="#0D9488" text-anchor="start">LoopRes</text>
+<rect x="550" y="581" width="147" height="16" rx="3" fill="#E4E4DE" stroke="none" stroke-width="1.2"/>
+<rect x="697" y="581" width="49" height="16" rx="2" fill="#0D9488" stroke="none" stroke-width="1.2"/>
+<text x="623" y="593" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.0" font-weight="400" fill="#52525B" text-anchor="middle">75% static</text>
+<text x="752" y="593" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.4" font-weight="700" fill="#0D9488" text-anchor="start">25%</text>
+<text x="468" y="618" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.7" font-weight="400" fill="#52525B" text-anchor="start">• Naive AttnRes collapses full-loop path to 0.05% by pass 7</text>
+<text x="468" y="636" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.7" font-weight="400" fill="#18181B" text-anchor="start">• Offloading bias to k_loop unlocks adaptive token depth:</text>
+<text x="468" y="654" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.7" font-weight="600" fill="#0D9488" text-anchor="start">  &#x27;Wait/Hmm&#x27; shallow (−0.20) · &#x27;6/+/b&#x27; deep (+0.20)</text>
+<text x="881" y="411" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.1" font-weight="700" fill="#2563EB" text-anchor="middle">ALF: diag l..l+3</text>
+<text x="1033" y="411" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.1" font-weight="700" fill="#EA580C" text-anchor="middle">LoRM: jump to f4/f5</text>
+<rect x="826" y="422" width="20" height="20" rx="2" fill="#2563EB" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="848" y="422" width="20" height="20" rx="2" fill="#60A5FA" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="870" y="422" width="20" height="20" rx="2" fill="#BFDBFE" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="892" y="422" width="20" height="20" rx="2" fill="#EFF6FF" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="914" y="422" width="20" height="20" rx="2" fill="#EFF6FF" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="826" y="444" width="20" height="20" rx="2" fill="#F4F4F0" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="848" y="444" width="20" height="20" rx="2" fill="#2563EB" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="870" y="444" width="20" height="20" rx="2" fill="#60A5FA" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="892" y="444" width="20" height="20" rx="2" fill="#BFDBFE" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="914" y="444" width="20" height="20" rx="2" fill="#EFF6FF" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="826" y="466" width="20" height="20" rx="2" fill="#F4F4F0" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="848" y="466" width="20" height="20" rx="2" fill="#F4F4F0" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="870" y="466" width="20" height="20" rx="2" fill="#2563EB" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="892" y="466" width="20" height="20" rx="2" fill="#60A5FA" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="914" y="466" width="20" height="20" rx="2" fill="#BFDBFE" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="826" y="488" width="20" height="20" rx="2" fill="#F4F4F0" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="848" y="488" width="20" height="20" rx="2" fill="#F4F4F0" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="870" y="488" width="20" height="20" rx="2" fill="#F4F4F0" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="892" y="488" width="20" height="20" rx="2" fill="#2563EB" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="914" y="488" width="20" height="20" rx="2" fill="#60A5FA" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="826" y="510" width="20" height="20" rx="2" fill="#F4F4F0" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="848" y="510" width="20" height="20" rx="2" fill="#F4F4F0" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="870" y="510" width="20" height="20" rx="2" fill="#F4F4F0" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="892" y="510" width="20" height="20" rx="2" fill="#F4F4F0" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="914" y="510" width="20" height="20" rx="2" fill="#2563EB" stroke="#FFFFFF" stroke-width="0.8"/>
+<text x="881" y="545" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.1" font-weight="400" fill="#52525B" text-anchor="middle">prev-tok layer i →</text>
+<rect x="978" y="422" width="20" height="20" rx="2" fill="#FFF7ED" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="1000" y="422" width="20" height="20" rx="2" fill="#FFF7ED" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="1022" y="422" width="20" height="20" rx="2" fill="#FED7AA" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="1044" y="422" width="20" height="20" rx="2" fill="#EA580C" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="1066" y="422" width="20" height="20" rx="2" fill="#EA580C" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="978" y="444" width="20" height="20" rx="2" fill="#FFF7ED" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="1000" y="444" width="20" height="20" rx="2" fill="#FFF7ED" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="1022" y="444" width="20" height="20" rx="2" fill="#FED7AA" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="1044" y="444" width="20" height="20" rx="2" fill="#EA580C" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="1066" y="444" width="20" height="20" rx="2" fill="#EA580C" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="978" y="466" width="20" height="20" rx="2" fill="#FFF7ED" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="1000" y="466" width="20" height="20" rx="2" fill="#FFF7ED" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="1022" y="466" width="20" height="20" rx="2" fill="#FED7AA" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="1044" y="466" width="20" height="20" rx="2" fill="#FB923C" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="1066" y="466" width="20" height="20" rx="2" fill="#FB923C" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="978" y="488" width="20" height="20" rx="2" fill="#FFF7ED" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="1000" y="488" width="20" height="20" rx="2" fill="#FFF7ED" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="1022" y="488" width="20" height="20" rx="2" fill="#FFF7ED" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="1044" y="488" width="20" height="20" rx="2" fill="#FED7AA" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="1066" y="488" width="20" height="20" rx="2" fill="#FED7AA" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="978" y="510" width="20" height="20" rx="2" fill="#FFF7ED" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="1000" y="510" width="20" height="20" rx="2" fill="#FFF7ED" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="1022" y="510" width="20" height="20" rx="2" fill="#FFF7ED" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="1044" y="510" width="20" height="20" rx="2" fill="#FFF7ED" stroke="#FFFFFF" stroke-width="0.8"/>
+<rect x="1066" y="510" width="20" height="20" rx="2" fill="#FFF7ED" stroke="#FFFFFF" stroke-width="0.8"/>
+<text x="1033" y="545" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.1" font-weight="400" fill="#52525B" text-anchor="middle">prev-tok blk f1..f5 →</text>
+<text x="820" y="572" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.8" font-weight="400" fill="#18181B" text-anchor="start">• ALF puts 64–73% mass on self..self+3:</text>
+<text x="826" y="588" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.7" font-weight="400" fill="#52525B" text-anchor="start">cross-token staggered feature reuse;</text>
+<text x="826" y="604" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.7" font-weight="600" fill="#2563EB" text-anchor="start">uniform mean of 4 keeps 89–94% of gain!</text>
+<text x="820" y="625" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.8" font-weight="400" fill="#18181B" text-anchor="start">• LoRM attn 2 jumps 6–8L (62.1% on f4/f5)</text>
+<text x="826" y="641" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.7" font-weight="400" fill="#52525B" text-anchor="start">while starving top block f6 (0.002–0.048).</text>
+<text x="820" y="663" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.6" font-weight="700" fill="#DC2626" text-anchor="start">Shared: top ¼ layers decode vocab; feeding hurts.</text>
+</svg>

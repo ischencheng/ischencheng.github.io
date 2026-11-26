@@ -1,0 +1,152 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1140 514" width="1140" height="514" role="img" aria-label="Two empirical laws of looping: the BPTT Split Law (shift=1 requires truncation vs shift=0 prefers full BPTT) and TML VarLoop capability separation">
+<defs>
+  <marker id="arr-dark" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+    <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#18181B"/>
+  </marker>
+  <marker id="arr-muted" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+    <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#71717A"/>
+  </marker>
+  <marker id="arr-blue" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+    <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#2563EB"/>
+  </marker>
+  <marker id="arr-orange" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+    <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#EA580C"/>
+  </marker>
+  <marker id="arr-teal" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+    <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#0D9488"/>
+  </marker>
+  <marker id="arr-purple" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+    <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#7C3AED"/>
+  </marker>
+  <marker id="arr-red" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+    <path d="M 0 1.2 L 9 5 L 0 8.8 z" fill="#DC2626"/>
+  </marker>
+</defs>
+<rect x="0.5" y="0.5" width="1139" height="513" rx="12" fill="#FAFAF7" stroke="#E2E2DC" stroke-width="1"/>
+<text x="28" y="36" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="16.5" font-weight="700" fill="#18181B" text-anchor="start">Two Empirical Laws of Looping: The BPTT Split Law &amp; What Extra Passes Actually Buy</text>
+<text x="28" y="57" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="11.4" font-weight="400" fill="#52525B" text-anchor="start">All curves plotted directly from published measurements (Temporal Residual Table 4 &amp; Fig. 4, Xiong 2610.26030, TML-d24-varloop model card).</text>
+<rect x="24" y="76" width="538" height="416" rx="10" fill="#FFFFFF" stroke="#E2E2DC" stroke-width="1.2"/>
+<text x="40" y="102" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="11.8" font-weight="700" fill="#18181B" text-anchor="start">A. The BPTT Split Law: shift=1 Feedback Needs Truncation to Contract</text>
+<text x="40" y="120" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.1" font-weight="400" fill="#52525B" text-anchor="start">Temporal Residual (Qwen3.5-4B, 2B SFT): val loss vs. eval passes K &amp; exact math decode</text>
+<line x1="86" y1="329.59999999999997" x2="532" y2="329.59999999999997" stroke="#EFEFEA" stroke-width="1"/>
+<text x="78" y="333.59999999999997" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="9.8" font-weight="400" fill="#71717A" text-anchor="end">0.555</text>
+<line x1="86" y1="297.59999999999985" x2="532" y2="297.59999999999985" stroke="#EFEFEA" stroke-width="1"/>
+<text x="78" y="301.59999999999985" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="9.8" font-weight="400" fill="#71717A" text-anchor="end">0.560</text>
+<line x1="86" y1="265.6000000000005" x2="532" y2="265.6000000000005" stroke="#EFEFEA" stroke-width="1"/>
+<text x="78" y="269.6000000000005" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="9.8" font-weight="400" fill="#71717A" text-anchor="end">0.565</text>
+<line x1="86" y1="233.6000000000003" x2="532" y2="233.6000000000003" stroke="#EFEFEA" stroke-width="1"/>
+<text x="78" y="237.6000000000003" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="9.8" font-weight="400" fill="#71717A" text-anchor="end">0.570</text>
+<line x1="86" y1="201.60000000000022" x2="532" y2="201.60000000000022" stroke="#EFEFEA" stroke-width="1"/>
+<text x="78" y="205.60000000000022" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="9.8" font-weight="400" fill="#71717A" text-anchor="end">0.575</text>
+<line x1="86" y1="169.6000000000001" x2="532" y2="169.6000000000001" stroke="#EFEFEA" stroke-width="1"/>
+<text x="78" y="173.6000000000001" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="9.8" font-weight="400" fill="#71717A" text-anchor="end">0.580</text>
+<line x1="86.0" y1="144" x2="86.0" y2="336" stroke="#F4F4EF" stroke-width="1"/>
+<text x="86.0" y="352" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="10" font-weight="400" fill="#52525B" text-anchor="middle">K=2</text>
+<line x1="160.33333333333331" y1="144" x2="160.33333333333331" y2="336" stroke="#F4F4EF" stroke-width="1"/>
+<text x="160.33333333333331" y="352" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="10" font-weight="400" fill="#52525B" text-anchor="middle">K=3</text>
+<line x1="234.66666666666666" y1="144" x2="234.66666666666666" y2="336" stroke="#F4F4EF" stroke-width="1"/>
+<text x="234.66666666666666" y="352" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="10" font-weight="400" fill="#52525B" text-anchor="middle">K=4</text>
+<line x1="309.0" y1="144" x2="309.0" y2="336" stroke="#F4F4EF" stroke-width="1"/>
+<text x="309.0" y="352" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="10" font-weight="400" fill="#52525B" text-anchor="middle">K=5</text>
+<line x1="383.3333333333333" y1="144" x2="383.3333333333333" y2="336" stroke="#F4F4EF" stroke-width="1"/>
+<text x="383.3333333333333" y="352" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="10" font-weight="400" fill="#52525B" text-anchor="middle">K=6</text>
+<line x1="457.6666666666667" y1="144" x2="457.6666666666667" y2="336" stroke="#F4F4EF" stroke-width="1"/>
+<text x="457.6666666666667" y="352" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="10" font-weight="400" fill="#52525B" text-anchor="middle">K=7</text>
+<line x1="532.0" y1="144" x2="532.0" y2="336" stroke="#F4F4EF" stroke-width="1"/>
+<text x="532.0" y="352" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="10" font-weight="400" fill="#52525B" text-anchor="middle">K=8</text>
+<line x1="86" y1="336" x2="532" y2="336" stroke="#71717A" stroke-width="1.2"/>
+<line x1="86" y1="144" x2="86" y2="336" stroke="#71717A" stroke-width="1.2"/>
+<text x="309" y="369" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.1" font-weight="400" fill="#52525B" text-anchor="middle">Evaluation parallel Jacobi passes K (real streaming decode ≈ K → T)</text>
+<path d="M 86.0 317.4 L 160.3 281.6 L 234.7 246.4 L 383.3 208.0 L 532.0 190.7" fill="none" stroke="#DC2626" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="5,3"/>
+<circle cx="86.0" cy="317.4" r="4.0" fill="#DC2626" stroke="#FFFFFF" stroke-width="1.2"/>
+<circle cx="160.3" cy="281.6" r="4.0" fill="#DC2626" stroke="#FFFFFF" stroke-width="1.2"/>
+<circle cx="234.7" cy="246.4" r="4.0" fill="#DC2626" stroke="#FFFFFF" stroke-width="1.2"/>
+<circle cx="383.3" cy="208.0" r="4.0" fill="#DC2626" stroke="#FFFFFF" stroke-width="1.2"/>
+<circle cx="532.0" cy="190.7" r="4.0" fill="#DC2626" stroke="#FFFFFF" stroke-width="1.2"/>
+<path d="M 257.0 147.2 L 309.0 236.8 L 383.3 312.3 L 457.7 297.6 L 532.0 286.7" fill="none" stroke="#EA580C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="383.3" cy="312.3" r="4.0" fill="#EA580C" stroke="#FFFFFF" stroke-width="1.2"/>
+<circle cx="532.0" cy="286.7" r="4.0" fill="#EA580C" stroke="#FFFFFF" stroke-width="1.2"/>
+<path d="M 86.0 281.6 L 160.3 305.9 L 234.7 305.9 L 383.3 305.9 L 532.0 305.3" fill="none" stroke="#0D9488" stroke-width="3.0" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="86.0" cy="281.6" r="4.5" fill="#0D9488" stroke="#FFFFFF" stroke-width="1.2"/>
+<circle cx="160.3" cy="305.9" r="4.5" fill="#0D9488" stroke="#FFFFFF" stroke-width="1.2"/>
+<circle cx="234.7" cy="305.9" r="4.5" fill="#0D9488" stroke="#FFFFFF" stroke-width="1.2"/>
+<circle cx="383.3" cy="305.9" r="4.5" fill="#0D9488" stroke="#FFFFFF" stroke-width="1.2"/>
+<circle cx="532.0" cy="305.3" r="4.5" fill="#0D9488" stroke="#FFFFFF" stroke-width="1.2"/>
+<text x="253.25" y="172.79999999999976" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.5" font-weight="700" fill="#EA580C" text-anchor="end">6-pass full BPTT (K&lt;5 &gt;0.60)</text>
+<text x="387.04999999999995" y="327.04000000000025" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.3" font-weight="700" fill="#EA580C" text-anchor="start">Valley only at K=6 (.5577) → 71.6%</text>
+<text x="530.0" y="174.71999999999954" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.6" font-weight="700" fill="#DC2626" text-anchor="end">2-pass full BPTT: .5767 → 67.7% (+0 gain)</text>
+<text x="91.94666666666667" y="330.88000000000056" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.2" font-weight="600" fill="#DC2626" text-anchor="start">Lowest at K=2 (.5569) yet overfits!</text>
+<rect x="291.34999999999997" y="237.60000000000002" width="238" height="24" rx="5" fill="#F0FDFA" stroke="#5EEAD4" stroke-width="1.1"/>
+<text x="410.34999999999997" y="253.60000000000002" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.4" font-weight="700" fill="#0D9488" text-anchor="middle">6-pass trunc. (last 2): flat .5588 → 75.8%</text>
+<line x1="472.53333333333336" y1="261.6" x2="472.53333333333336" y2="301.44000000000017" stroke="#0D9488" stroke-width="1.2" marker-end="url(#arr-teal)" stroke-dasharray="2,2"/>
+<rect x="40" y="388" width="506" height="88" rx="8" fill="#F8F8F5" stroke="#E2E2DC" stroke-width="1"/>
+<text x="52" y="408" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.6" font-weight="700" fill="#18181B" text-anchor="start">Why do shift=0 and shift=1 invert their optimal BPTT rule?</text>
+<text x="52" y="425" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.6" font-weight="400" fill="#18181B" text-anchor="start">• shift=0 in-place loop (Xiong 2610.26030, ~600 runs): train &amp; test share finite K;</text>
+<text x="60" y="440" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.6" font-weight="400" fill="#52525B" text-anchor="start">full BPTT (2,2) beats truncated (4,1)/(8,2) (−27% params, +8% FLOPs vs non-loop).</text>
+<text x="52" y="457" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.6" font-weight="400" fill="#18181B" text-anchor="start">• shift=1 cross-token: train K=2–6, test T=10⁴! Fixed-K full BPTT diverges (LLLM J3</text>
+<text x="60" y="471" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.6" font-weight="600" fill="#0D9488" text-anchor="start">14.03→14.73; FBT 1.28× fails at 400B). Must truncate BPTT or use LLLM 1-pass scan.</text>
+<rect x="578" y="76" width="538" height="416" rx="10" fill="#FFFFFF" stroke="#E2E2DC" stroke-width="1.2"/>
+<text x="594" y="102" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="11.8" font-weight="700" fill="#18181B" text-anchor="start">B. Loops Buy Multi-Hop Manipulation, Not Factual Memory</text>
+<text x="594" y="120" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.1" font-weight="400" fill="#52525B" text-anchor="start">TML-d24-varloop-research (1→5 passes; Stage 2 varloop, SFT/RL fixed at 3 passes)</text>
+<line x1="640" y1="336.0" x2="1088" y2="336.0" stroke="#EFEFEA" stroke-width="1"/>
+<text x="632" y="340.0" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="9.8" font-weight="400" fill="#71717A" text-anchor="end">0%</text>
+<line x1="640" y1="298.4" x2="1088" y2="298.4" stroke="#EFEFEA" stroke-width="1"/>
+<text x="632" y="302.4" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="9.8" font-weight="400" fill="#71717A" text-anchor="end">20%</text>
+<line x1="640" y1="260.8" x2="1088" y2="260.8" stroke="#EFEFEA" stroke-width="1"/>
+<text x="632" y="264.8" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="9.8" font-weight="400" fill="#71717A" text-anchor="end">40%</text>
+<line x1="640" y1="223.2" x2="1088" y2="223.2" stroke="#EFEFEA" stroke-width="1"/>
+<text x="632" y="227.2" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="9.8" font-weight="400" fill="#71717A" text-anchor="end">60%</text>
+<line x1="640" y1="185.6" x2="1088" y2="185.6" stroke="#EFEFEA" stroke-width="1"/>
+<text x="632" y="189.6" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="9.8" font-weight="400" fill="#71717A" text-anchor="end">80%</text>
+<line x1="640" y1="148.0" x2="1088" y2="148.0" stroke="#EFEFEA" stroke-width="1"/>
+<text x="632" y="152.0" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="9.8" font-weight="400" fill="#71717A" text-anchor="end">100%</text>
+<line x1="640.0" y1="148" x2="640.0" y2="336" stroke="#F4F4EF" stroke-width="1"/>
+<text x="640.0" y="352" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="10.2" font-weight="400" fill="#52525B" text-anchor="middle">1p</text>
+<line x1="752.0" y1="148" x2="752.0" y2="336" stroke="#F4F4EF" stroke-width="1"/>
+<text x="752.0" y="352" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="10.2" font-weight="400" fill="#52525B" text-anchor="middle">2p</text>
+<line x1="864.0" y1="148" x2="864.0" y2="336" stroke="#F4F4EF" stroke-width="1"/>
+<text x="864.0" y="352" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="10.2" font-weight="400" fill="#52525B" text-anchor="middle">3p</text>
+<line x1="976.0" y1="148" x2="976.0" y2="336" stroke="#F4F4EF" stroke-width="1"/>
+<text x="976.0" y="352" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="10.2" font-weight="400" fill="#52525B" text-anchor="middle">4p</text>
+<line x1="1088.0" y1="148" x2="1088.0" y2="336" stroke="#F4F4EF" stroke-width="1"/>
+<text x="1088.0" y="352" font-family="'SF Mono', 'Menlo', 'Monaco', monospace" font-size="10.2" font-weight="400" fill="#52525B" text-anchor="middle">5p</text>
+<rect x="846.0" y="148" width="36" height="188" rx="0" fill="#F5F3FF" stroke="none" stroke-width="1.2"/>
+<text x="864.0" y="142" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="8.9" font-weight="700" fill="#7C3AED" text-anchor="middle">SFT/RL = 3p only</text>
+<line x1="640" y1="336" x2="1088" y2="336" stroke="#71717A" stroke-width="1.2"/>
+<line x1="640" y1="148" x2="640" y2="336" stroke="#71717A" stroke-width="1.2"/>
+<text x="864.0" y="369" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.0" font-weight="400" fill="#52525B" text-anchor="middle">Test-time core passes (no-CoT N-Hop Lookup keeps rising through 10 passes)</text>
+<path d="M 640.0 286.7 L 752.0 213.4 L 864.0 168.3 L 976.0 160.4 L 1088.0 162.9" fill="none" stroke="#2563EB" stroke-width="3.0" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="640.0" cy="286.7" r="4" fill="#2563EB" stroke="#FFFFFF" stroke-width="1.2"/>
+<circle cx="752.0" cy="213.4" r="4" fill="#2563EB" stroke="#FFFFFF" stroke-width="1.2"/>
+<circle cx="864.0" cy="168.3" r="4" fill="#2563EB" stroke="#FFFFFF" stroke-width="1.2"/>
+<circle cx="976.0" cy="160.4" r="4" fill="#2563EB" stroke="#FFFFFF" stroke-width="1.2"/>
+<circle cx="1088.0" cy="162.9" r="4" fill="#2563EB" stroke="#FFFFFF" stroke-width="1.2"/>
+<text x="1085.76" y="150.82" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.9" font-weight="700" fill="#2563EB" text-anchor="end">MRCR 256K–512K (+67.2)</text>
+<path d="M 640.0 205.2 L 752.0 187.1 L 864.0 177.7 L 976.0 182.0 L 1088.0 179.8" fill="none" stroke="#EA580C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="640.0" cy="205.2" r="4" fill="#EA580C" stroke="#FFFFFF" stroke-width="1.2"/>
+<circle cx="752.0" cy="187.1" r="4" fill="#EA580C" stroke="#FFFFFF" stroke-width="1.2"/>
+<circle cx="864.0" cy="177.7" r="4" fill="#EA580C" stroke="#FFFFFF" stroke-width="1.2"/>
+<circle cx="976.0" cy="182.0" r="4" fill="#EA580C" stroke="#FFFFFF" stroke-width="1.2"/>
+<circle cx="1088.0" cy="179.8" r="4" fill="#EA580C" stroke="#FFFFFF" stroke-width="1.2"/>
+<text x="1085.76" y="195.94" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.9" font-weight="700" fill="#EA580C" text-anchor="end">GPQA Diamond (+14.6)</text>
+<path d="M 640.0 334.7 L 752.0 282.8 L 864.0 246.9 L 976.0 247.8 L 1088.0 245.4" fill="none" stroke="#7C3AED" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="640.0" cy="334.7" r="4" fill="#7C3AED" stroke="#FFFFFF" stroke-width="1.2"/>
+<circle cx="752.0" cy="282.8" r="4" fill="#7C3AED" stroke="#FFFFFF" stroke-width="1.2"/>
+<circle cx="864.0" cy="246.9" r="4" fill="#7C3AED" stroke="#FFFFFF" stroke-width="1.2"/>
+<circle cx="976.0" cy="247.8" r="4" fill="#7C3AED" stroke="#FFFFFF" stroke-width="1.2"/>
+<circle cx="1088.0" cy="245.4" r="4" fill="#7C3AED" stroke="#FFFFFF" stroke-width="1.2"/>
+<text x="1085.76" y="233.54" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.9" font-weight="700" fill="#7C3AED" text-anchor="end">DeepSWE v1.1 (+47.5)</text>
+<path d="M 640.0 324.2 L 752.0 323.8 L 864.0 322.3 L 976.0 323.2 L 1088.0 323.4" fill="none" stroke="#71717A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="4,3"/>
+<circle cx="640.0" cy="324.2" r="4" fill="#71717A" stroke="#FFFFFF" stroke-width="1.2"/>
+<circle cx="752.0" cy="323.8" r="4" fill="#71717A" stroke="#FFFFFF" stroke-width="1.2"/>
+<circle cx="864.0" cy="322.3" r="4" fill="#71717A" stroke="#FFFFFF" stroke-width="1.2"/>
+<circle cx="976.0" cy="323.2" r="4" fill="#71717A" stroke="#FFFFFF" stroke-width="1.2"/>
+<circle cx="1088.0" cy="323.4" r="4" fill="#71717A" stroke="#FFFFFF" stroke-width="1.2"/>
+<text x="1085.76" y="310.62" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.9" font-weight="700" fill="#71717A" text-anchor="end">SimpleQA facts (6.3–7.3% flat)</text>
+<rect x="594" y="388" width="506" height="88" rx="8" fill="#EFF6FF" stroke="#93C5FD" stroke-width="1"/>
+<text x="606" y="408" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="10.6" font-weight="700" fill="#2563EB" text-anchor="start">How continuous loops compress CoT and beat extra epochs</text>
+<text x="606" y="425" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.6" font-weight="400" fill="#18181B" text-anchor="start">• Fewer dead ends, not steganography: solved GPQA traces shrink 3703 → 1731 → 1661,</text>
+<text x="614" y="440" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.6" font-weight="400" fill="#52525B" text-anchor="start">with hesitation words (&#x27;wait/actually/hmm&#x27;) dropping 9.7 → 3.9 → 3.6 (sentence len flat).</text>
+<text x="606" y="457" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.6" font-weight="400" fill="#18181B" text-anchor="start">• Data-constrained multiplier: LoRM beats multi-epoch once UTPP &gt; 33–75 (−48% FLOPs);</text>
+<text x="614" y="471" font-family="'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif" font-size="9.6" font-weight="400" fill="#52525B" text-anchor="start">Ouro &amp; SimpleQA confirm ~2 bits/param static ceiling — loops multiply manipulation.</text>
+</svg>
